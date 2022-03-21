@@ -2,7 +2,7 @@
   <div id="simpleMerge" class>
     <h3>Automatic Merging</h3>
     <p>
-      W---ITH the fully automatic approach to merging you only need to provide the
+      With the fully automatic approach to merging you only need to provide the
       two SBML files you want to merge. You can use this website, the command
       line or call out PHP service. In all cases the files are send to our BiVeS
       service and stored temporarly. We generate a random ID for each call which
@@ -21,37 +21,25 @@
       <div>
         <div id="fileUpload" class="row custom-color-3">
           <div id="uploadFirst" class="col-sm-6 custom-color-1">
-            <div class="custom-file">
+            <div class="input-group mb-3">
               <input
                 type="file"
-                class="custom-file-input"
+                class="form-control"
                 id="inputGroupFile02"
                 ref="file1"
                 v-on:change="handleFileUpload1()"
               />
-              <label
-                class="custom-file-label"
-                for="inputGroupFile02"
-                aria-describedby="inputGroupFileAddon02"
-                >{{ file1.name || "Choose file" }}</label
-              >
             </div>
           </div>
           <div id="uploadSecond" class="col-sm-6 custom-color-2">
-            <div class="custom-file">
+            <div class="input-group mb-3">
               <input
                 type="file"
-                class="custom-file-input"
+                class="form-control"
                 id="inputGroupFile02"
                 ref="file2"
                 v-on:change="handleFileUpload2()"
               />
-              <label
-                class="custom-file-label"
-                for="inputGroupFile02"
-                aria-describedby="inputGroupFileAddon02"
-                >{{ file2.name || "Choose file" }}</label
-              >
             </div>
           </div>
         </div>
@@ -151,11 +139,11 @@ export default {
     return {
       job: this.$route.query.jobID,
       debug: false,
-      goBackexsists: this.$route.query.goBack,
-      goBack: decodeURIComponent(this.$route.query.goBack),
+      //goBackexsists: this.$route.query.goBack,
+      //goBack: decodeURIComponent(this.$route.query.goBack),
       merged: false,
       file1: "",
-      file2: ""
+      file2: "",
     };
   },
   computed: {},

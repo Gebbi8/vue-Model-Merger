@@ -1,16 +1,13 @@
 <template>
-<simple-merge msg="Well wee---ell well"/>
-<user-merge msg="Well wee---ell well"/>
-<selection/>
-  <div id="app" class="d-flex flex-column h-100">
-    <div class="row custom-color-1" id="head">
+  <div id="topLayer" class="d-flex flex-column h-100">
+    <div class="custom-color-1" id="head">
       <div class="container">
         <div class="row">
           <h1 class="col-8">Model Merger</h1>
           <div class="col-4 d-flex align-items-center justify-content-end">
             <button
               type="button"
-              class="btn btn-primary btn-sm"
+              class="btn btn-light btn-sm"
               v-on:click="btnSwitchView"
               v-if="true"
             >
@@ -20,11 +17,11 @@
         </div>
       </div>
     </div>
-    <div class="row custom-color-2" id="intro">
+    <div class="custom-color-2" id="intro">
       <div class="container">
         <div class="row justify-content-center">
           <p class="col-8">
-            sad-Model development is often a non-linear and decentralised process.
+            Model development is often a non-linear and decentralised process.
             It requries time consuming effort to gather the necessary
             information from literature, experimental data and databases. The
             information are either collected in tables or directly put into a
@@ -36,13 +33,13 @@
         </div>
       </div>
     </div>
-    <div class="row custom-color-2" id="center">
+    <div class="custom-color-2" id="center">
       <div class="container">
-        <app-usermerge v-if="!simple"></app-usermerge>
-        <app-simpleMerge v-else></app-simpleMerge>
+        <user-merge v-if="!simple" />
+        <simple-merge v-else />
       </div>
     </div>
-    <div class="row footer mt-auto custom-color-3" id="foot">
+    <div class="footer mt-auto custom-color-3" id="foot">
       <div class="container">
         <!--Image-->
         <div class="row">
@@ -74,16 +71,20 @@
 <script>
 //import Selection from './components/Selection.vue'
 //import HelloWorld from './components/HelloWorld.vue'
-import SimpleMerge from './components/SimpleMerge.vue'
-import UserMerge from './components/UserMerge.vue'
-
+import SimpleMerge from "./components/SimpleMerge.vue";
+import UserMerge from "./components/UserMerge.vue";
+//import { useRoute } from "vue-router";
 
 export default {
   name: "app",
+  components: {
+    SimpleMerge,
+    UserMerge,
+  },
   data() {
     return {
       simple: true,
-      job: "fakeJob"
+      job: "fakeJob",
       //job: this.$route.query.jobID,
     };
   },
@@ -91,10 +92,6 @@ export default {
     btnSwitchView: function () {
       this.simple = !this.simple;
     },
-  components: {
-    SimpleMerge,
-    UserMerge
-  }
   },
 };
 
@@ -110,13 +107,7 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.row > * {
 }
 </style>
 

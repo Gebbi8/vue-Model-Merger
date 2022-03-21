@@ -6,32 +6,25 @@
         <div
           v-for="(change, idx) in changes"
           :key="idx"
-          v-bind:class="{'active': idx == 0, 'carousel-item': true}"
+          v-bind:class="{ active: idx == 0, 'carousel-item': true }"
         >
-        <p>{{ change.type }}</p>
+          <p>{{ change.type }}</p>
           <div v-if="change.single">
-
             <div v-if="change.math">
-              
-              <div> handle math</div>
-              <div ref="mathJax" v-html="change.xmlSnippet">
-                <!-- {{change.xmlSnippet}} -->
-              </div>
+              <div>handle math</div>
+              <div ref="mathJax" v-html="change.xmlSnippet"></div>
             </div>
             <div v-else>
-              
               <pre><code ref="xml"> {{ change.xmlSnippet }} </code></pre>
             </div>
           </div>
           <div v-else>
-             
             <div v-if="change.math">
               <!-- handle math -->
               <div ref="mathJax" v-html="change.xmlSnippetA"></div>
               <div ref="mathJax" v-html="change.xmlSnippetB"></div>
             </div>
             <div v-else>
-             
               <pre><code ref="xml">{{ change.xmlSnippetA }}</code></pre>
               <pre><code ref="xml">{{ change.xmlSnippetB }}</code></pre>
             </div>
@@ -74,15 +67,14 @@ export default {
       oldDoc: null,
       newDoc: null,
       xsl: null,
-      job: this.$route.query.jobID
+      //job: this.$route.query.jobID, //TODO
     };
   },
-  
 
   watch: {
     slide: {
-      handler: function() {}
-    }
+      handler: function () {},
+    },
   },
 
   methods: {
@@ -97,7 +89,7 @@ export default {
       this.$root.$emit("slideChange", this.slide);
     },
 
-    computeChanges: function(xmlDocDiff, sbmlDocOld, sbmlDocNew) {
+    computeChanges: function (xmlDocDiff, sbmlDocOld, sbmlDocNew) {
       //var xDiff, xSbml;
 
       var deletes = xmlDocDiff.evaluate(
@@ -132,98 +124,103 @@ export default {
       this.addChangesChoice(moves, "move", sbmlDocOld, sbmlDocNew);
       this.addChanges(deletes, "delete", sbmlDocOld);
       this.addChanges(inserts, "insert", sbmlDocNew);
-
     },
 
-    computeSlideElement: function(changePath, type, sbmlDoc){         //lastNoNamespace, 
-          // get Element deping on weather it is a delete or insert
-          var noNamespace;
-            noNamespace = this.getLocalXPath(changePath);
+    computeSlideElement: function (changePath, type, sbmlDoc) {
+      //lastNoNamespace,
+      // get Element deping on weather it is a delete or insert
+      var noNamespace;
+      noNamespace = this.getLocalXPath(changePath);
 
-          //check if the change contains math
-            //What if it contains Math in a Sub-Node??
+      //check if the change contains math
+      //What if it contains Math in a Sub-Node??
 
+      var mathIndex = noNamespace.indexOf("/*[local-name()='math']");
+      var mathFlag = false;
 
-          var mathIndex = noNamespace.indexOf("/*[local-name()='math']");
-          var mathFlag = false;
+      if (mathIndex >= 0) {
+        mathFlag = true;
+        //get Path to math
+        var helpString = noNamespace.substr(mathIndex + 23);
+        noNamespace =
+          noNamespace.substr(0, mathIndex + 23) +
+          helpString.substr(0, helpString.indexOf("/"));
+      }
 
-          if (mathIndex >= 0) {
-            mathFlag = true;
-            //get Path to math
-            var helpString = noNamespace.substr(mathIndex + 23);
-            noNamespace =
-              noNamespace.substr(0, mathIndex + 23) +
-              helpString.substr(0, helpString.indexOf("/"));
-          }
-          
-          var xPathR;
-          var xmlSnippet;
+      var xPathR;
+      var xmlSnippet;
 
-          // Did the XPath change?
-          // .evaluate will not reset if the same xpath is used
-              //it probably will in a function like this!?
+      // Did the XPath change?
+      // .evaluate will not reset if the same xpath is used
+      //it probably will in a function like this!?
 
-//          if (lastNoNamespace != noNamespace) { //always true for the first one
-//            lastNoNamespace = noNamespace;
+      //          if (lastNoNamespace != noNamespace) { //always true for the first one
+      //            lastNoNamespace = noNamespace;
 
-            xPathR = sbmlDoc.evaluate(
-              noNamespace,
-              sbmlDoc,
-              null,
-              XPathResult.ANY_TYPE,
-              null
-            );
+      xPathR = sbmlDoc.evaluate(
+        noNamespace,
+        sbmlDoc,
+        null,
+        XPathResult.ANY_TYPE,
+        null
+      );
 
-            //get element from Xpath Result. Has to be interated although it is only one result
-            xmlSnippet = xPathR.iterateNext();
-//          }
+      //get element from Xpath Result. Has to be interated although it is only one result
+      xmlSnippet = xPathR.iterateNext();
+      //          }
 
-          //convert math
-          if (mathFlag) {
-            
-            //convert content MathML to presentation MathML with XSLT
-            var xsltProc = new XSLTProcessor();
-            //the XSL is loaded with axios
-            xsltProc.importStylesheet(this.xsl.data);
+      //convert math
+      if (mathFlag) {
+        //convert content MathML to presentation MathML with XSLT
+        var xsltProc = new XSLTProcessor();
+        //the XSL is loaded with axios
+        xsltProc.importStylesheet(this.xsl.data);
 
-            //transform the the Snippet 
-            var transformed = xsltProc.transformToFragment(xmlSnippet, document);
-            xmlSnippet = transformed.firstChild.outerHTML;
+        //transform the the Snippet
+        var transformed = xsltProc.transformToFragment(xmlSnippet, document);
+        xmlSnippet = transformed.firstChild.outerHTML;
 
-            // MathML fix: Operators like 'invisible multiplicator' are not well rendered due to the &
-            xmlSnippet = xmlSnippet.replace(/&amp;/g, "&");
+        // MathML fix: Operators like 'invisible multiplicator' are not well rendered due to the &
+        xmlSnippet = xmlSnippet.replace(/&amp;/g, "&");
+      } else if (xmlSnippet.nodeName == "#text") {
+        xmlSnippet = xmlSnippet.data;
+      } else {
+        xmlSnippet = xmlSnippet.outerHTML;
+      }
 
-          } else if (xmlSnippet.nodeName == "#text") {
-            xmlSnippet = xmlSnippet.data;
-          } else {
-            xmlSnippet = xmlSnippet.outerHTML;
-          }
-
-          return {single: true, type: type, decision: -1, math: mathFlag, xmlSnippet: xmlSnippet}; //, lastNoNamespace: lastNoNamespace};
-
-
+      return {
+        single: true,
+        type: type,
+        decision: -1,
+        math: mathFlag,
+        xmlSnippet: xmlSnippet,
+      }; //, lastNoNamespace: lastNoNamespace};
     },
 
-    addChanges: function(xPathResult, type, sbmlDoc) {
-      //var lastNoNamespace = "";      
+    addChanges: function (xPathResult, type, sbmlDoc) {
+      //var lastNoNamespace = "";
       var change = xPathResult.iterateNext();
 
       while (change != null) {
         if (!change.attributes.triggeredBy) {
           var changePath;
-          if(type == 'delete'){
+          if (type == "delete") {
             changePath = change.attributes.oldPath.value;
           } else {
             changePath = change.attributes.newPath.value;
           }
-          var slideElement = this.computeSlideElement(changePath, type, sbmlDoc);   //lastNoNamespace, 
+          var slideElement = this.computeSlideElement(
+            changePath,
+            type,
+            sbmlDoc
+          ); //lastNoNamespace,
           this.changes.push({
-             single: true,
-             type: type,
-             decision: -1,
-             math: slideElement.math,
-             xmlSnippet: slideElement.xmlSnippet
-           });
+            single: true,
+            type: type,
+            decision: -1,
+            math: slideElement.math,
+            xmlSnippet: slideElement.xmlSnippet,
+          });
           this.slideNum++;
           //lastNoNamespace = slideElement.lastNoNamespace;
         }
@@ -235,35 +232,42 @@ export default {
       this.$root.$emit("arrChanged", this.changes);
     },
 
-    addChangesChoice: function(xPathResult, type, sbmlDocOld, sbmlDocNew) {
-        var change = xPathResult.iterateNext();
-       // var lastNoNamespace = "";
-       while (change != null) {
-         if (!change.attributes.triggeredBy) {
-          var slideElementA = this.computeSlideElement(change.attributes.oldPath.value, type, sbmlDocOld); //lastNoNamespace, 
+    addChangesChoice: function (xPathResult, type, sbmlDocOld, sbmlDocNew) {
+      var change = xPathResult.iterateNext();
+      // var lastNoNamespace = "";
+      while (change != null) {
+        if (!change.attributes.triggeredBy) {
+          var slideElementA = this.computeSlideElement(
+            change.attributes.oldPath.value,
+            type,
+            sbmlDocOld
+          ); //lastNoNamespace,
 
-          var slideElementB = this.computeSlideElement(change.attributes.newPath.value, type, sbmlDocNew); //lastNoNamespace, 
+          var slideElementB = this.computeSlideElement(
+            change.attributes.newPath.value,
+            type,
+            sbmlDocNew
+          ); //lastNoNamespace,
 
-
-           this.changes.push({
-             single: false,
-             type: type,
-             decision: -1,
-             math: slideElementA.math,
-             xmlSnippetA: slideElementA.xmlSnippet,
-             xmlSnippetB: slideElementB.xmlSnippet
-           });
-           this.slideNum++;
+          this.changes.push({
+            single: false,
+            type: type,
+            decision: -1,
+            math: slideElementA.math,
+            xmlSnippetA: slideElementA.xmlSnippet,
+            xmlSnippetB: slideElementB.xmlSnippet,
+          });
+          this.slideNum++;
           // lastNoNamespace = slideElementA.lastNoNamespace;
-         }
+        }
 
-         change = xPathResult.iterateNext();
-       }
+        change = xPathResult.iterateNext();
+      }
       //pass array back to the parent component
-       this.$root.$emit("arrChanged", this.changes);
+      this.$root.$emit("arrChanged", this.changes);
     },
 
-    getLocalXPath: function(path) {
+    getLocalXPath: function (path) {
       var pathArray;
       var returnPath = "";
 
@@ -283,59 +287,86 @@ export default {
     },
 
     loadData() {
-      var exampleFilePairs = [["https://scratch.binfalse.de/diss/version1.xml", "https://scratch.binfalse.de/diss/version2.xml"],
-                              ["http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDQ3NQ==/MjAxMy0xMS0wNA==", "http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDQ3NQ==/MjAxNC0wNC0xMQ=="],                             
-                              ["https://budhat.bio.informatik.uni-rostock.de/download?downloadModel=24", "https://budhat.bio.informatik.uni-rostock.de/download?downloadModel=25"],
-                              ["https://most.bio.informatik.uni-rostock.de/resources/ZGF0YS5iaW8uaW5mb3JtYXRpay51bmktcm9zdG9jay5kZS9CZW5jaG1hcmstTW9kZWxzL0JlbmNobWFyay1Nb2RlbHMv/L0Z1aml0YV9TY2lTaWduYWwyMDEw/bW9kZWwxX2RhdGExX2wydjQ=", "https://most.bio.informatik.uni-rostock.de/resources/ZGF0YS5iaW8uaW5mb3JtYXRpay51bmktcm9zdG9jay5kZS9CZW5jaG1hcmstTW9kZWxzL0JlbmNobWFyay1Nb2RlbHMv/L0Z1aml0YV9TY2lTaWduYWwyMDEw/bW9kZWwxX2RhdGEyX2wydjQ="],
-                              ["http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDA4NQ==/MjAwNy0wNi0wNQ==", "http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDA4NQ==/MjAwNy0wOS0yNQ=="],
-                              ["http://most.sems.uni-rostock.de/resources/bW9kZWxzLmNlbGxtbC5vcmcvd29ya3NwYWNlLzI0Yy8=/L2RpZnJhbmNlc2NvX25vYmxlXzE5ODUuY2VsbG1s/MzgzOGQxZDI2ZjRlMDY4ZTdlOGZmMDlhOWIxNDk4OWNlZGM1YzdlNw==", "http://most.sems.uni-rostock.de/resources/bW9kZWxzLmNlbGxtbC5vcmcvd29ya3NwYWNlLzI0Yy8=/L2RpZnJhbmNlc2NvX25vYmxlXzE5ODUuY2VsbG1s/NGViZWZjMzM0ZmRiYWE1NTAyMzE2MDczZWRiNDNhN2VmYTI4ZWYwNg=="],
-                              ["http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDA1MQ==/MjAwNy0wNi0wNQ==", "http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDA1MQ==/MjAwNy0wOS0yNQ=="],
-                              ["https://most.bio.informatik.uni-rostock.de/resources/ZGF0YS5iaW8uaW5mb3JtYXRpay51bmktcm9zdG9jay5kZS9CZW5jaG1hcmstTW9kZWxzL0JlbmNobWFyay1Nb2RlbHMv/L0JyYW5ubWFya19KQkMyMDEw/bW9kZWwxX2RhdGExX2wydjQ=", "https://most.bio.informatik.uni-rostock.de/resources/ZGF0YS5iaW8uaW5mb3JtYXRpay51bmktcm9zdG9jay5kZS9CZW5jaG1hcmstTW9kZWxzL0JlbmNobWFyay1Nb2RlbHMv/L0JyYW5ubWFya19KQkMyMDEw/bW9kZWwxX2RhdGEyX2wydjQ="],
-                              ["https://most.bio.informatik.uni-rostock.de/resources/ZGF0YS5iaW8uaW5mb3JtYXRpay51bmktcm9zdG9jay5kZS9CZW5jaG1hcmstTW9kZWxzL0JlbmNobWFyay1Nb2RlbHMv/L0JydW5vX0pFeHBCaW8yMDE2/bW9kZWwxX2RhdGE1X2wydjQ=", "https://most.bio.informatik.uni-rostock.de/resources/ZGF0YS5iaW8uaW5mb3JtYXRpay51bmktcm9zdG9jay5kZS9CZW5jaG1hcmstTW9kZWxzL0JlbmNobWFyay1Nb2RlbHMv/L0JydW5vX0pFeHBCaW8yMDE2/bW9kZWwxX2RhdGE2X2wydjQ="]
-                             ];
+      /*       var exampleFilePairs = [
+        [
+          "https://scratch.binfalse.de/diss/version1.xml",
+          "https://scratch.binfalse.de/diss/version2.xml",
+        ],
+        [
+          "http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDQ3NQ==/MjAxMy0xMS0wNA==",
+          "http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDQ3NQ==/MjAxNC0wNC0xMQ==",
+        ],
+        [
+          "https://budhat.bio.informatik.uni-rostock.de/download?downloadModel=24",
+          "https://budhat.bio.informatik.uni-rostock.de/download?downloadModel=25",
+        ],
+        [
+          "https://most.bio.informatik.uni-rostock.de/resources/ZGF0YS5iaW8uaW5mb3JtYXRpay51bmktcm9zdG9jay5kZS9CZW5jaG1hcmstTW9kZWxzL0JlbmNobWFyay1Nb2RlbHMv/L0Z1aml0YV9TY2lTaWduYWwyMDEw/bW9kZWwxX2RhdGExX2wydjQ=",
+          "https://most.bio.informatik.uni-rostock.de/resources/ZGF0YS5iaW8uaW5mb3JtYXRpay51bmktcm9zdG9jay5kZS9CZW5jaG1hcmstTW9kZWxzL0JlbmNobWFyay1Nb2RlbHMv/L0Z1aml0YV9TY2lTaWduYWwyMDEw/bW9kZWwxX2RhdGEyX2wydjQ=",
+        ],
+        [
+          "http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDA4NQ==/MjAwNy0wNi0wNQ==",
+          "http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDA4NQ==/MjAwNy0wOS0yNQ==",
+        ],
+        [
+          "http://most.sems.uni-rostock.de/resources/bW9kZWxzLmNlbGxtbC5vcmcvd29ya3NwYWNlLzI0Yy8=/L2RpZnJhbmNlc2NvX25vYmxlXzE5ODUuY2VsbG1s/MzgzOGQxZDI2ZjRlMDY4ZTdlOGZmMDlhOWIxNDk4OWNlZGM1YzdlNw==",
+          "http://most.sems.uni-rostock.de/resources/bW9kZWxzLmNlbGxtbC5vcmcvd29ya3NwYWNlLzI0Yy8=/L2RpZnJhbmNlc2NvX25vYmxlXzE5ODUuY2VsbG1s/NGViZWZjMzM0ZmRiYWE1NTAyMzE2MDczZWRiNDNhN2VmYTI4ZWYwNg==",
+        ],
+        [
+          "http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDA1MQ==/MjAwNy0wNi0wNQ==",
+          "http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDA1MQ==/MjAwNy0wOS0yNQ==",
+        ],
+        [
+          "https://most.bio.informatik.uni-rostock.de/resources/ZGF0YS5iaW8uaW5mb3JtYXRpay51bmktcm9zdG9jay5kZS9CZW5jaG1hcmstTW9kZWxzL0JlbmNobWFyay1Nb2RlbHMv/L0JyYW5ubWFya19KQkMyMDEw/bW9kZWwxX2RhdGExX2wydjQ=",
+          "https://most.bio.informatik.uni-rostock.de/resources/ZGF0YS5iaW8uaW5mb3JtYXRpay51bmktcm9zdG9jay5kZS9CZW5jaG1hcmstTW9kZWxzL0JlbmNobWFyay1Nb2RlbHMv/L0JyYW5ubWFya19KQkMyMDEw/bW9kZWwxX2RhdGEyX2wydjQ=",
+        ],
+        [
+          "https://most.bio.informatik.uni-rostock.de/resources/ZGF0YS5iaW8uaW5mb3JtYXRpay51bmktcm9zdG9jay5kZS9CZW5jaG1hcmstTW9kZWxzL0JlbmNobWFyay1Nb2RlbHMv/L0JydW5vX0pFeHBCaW8yMDE2/bW9kZWwxX2RhdGE1X2wydjQ=",
+          "https://most.bio.informatik.uni-rostock.de/resources/ZGF0YS5iaW8uaW5mb3JtYXRpay51bmktcm9zdG9jay5kZS9CZW5jaG1hcmstTW9kZWxzL0JlbmNobWFyay1Nb2RlbHMv/L0JydW5vX0pFeHBCaW8yMDE2/bW9kZWwxX2RhdGE2X2wydjQ=",
+        ],
+      ]; */
 
-      var currentExample = 0;
-      var file1 = exampleFilePairs[currentExample][0];
-      var file2 = exampleFilePairs[currentExample][1];
+      // var currentExample = 0;
+      // var file1 = exampleFilePairs[currentExample][0];
+      // var file2 = exampleFilePairs[currentExample][1];
 
-      if(this.job){
-        file1 =  "/srv/mergestorage/" + this.job + "/f1";
-        file2 =  "/srv/mergestorage/" + this.job + "/f2";
+      if (this.job) {
+        //   file1 = "/srv/mergestorage/" + this.job + "/f1";
+        //   file2 = "/srv/mergestorage/" + this.job + "/f2";
       }
 
       // Make a request for a user with a given ID
-      var bivesJob = {
+      /*       var bivesJob = {
         files: [file1, file2],
         commands: ["xmlDiff"],
-        jobID: [this.job]
-      };
-      
-      const axios = require("axios");
+        jobID: [this.job],
+      }; */
+
+      /*    const axios = require("axios");
       axios
         .post("/bives/bives.php", "postParams=" + JSON.stringify(bivesJob))
-        .then(response => {
-
-          
+        .then((response) => {
           var phpUrl;
-          if(this.job){
+          if (this.job) {
             phpUrl = "/bives/simpleMerge.php?jobID=" + this.job + "&getFile=f1";
-          } else  phpUrl = "/bives/docs.php?url=" + file1;
+          } else phpUrl = "/bives/docs.php?url=" + file1;
           //get first doc
           axios({
             method: "get",
             url: phpUrl,
-            responseType: "text/xml"
-          }).then(doc1 => {
+            responseType: "text/xml",
+          }).then((doc1) => {
             //get second doc
-            if(this.job){
-              phpUrl = "/bives/simpleMerge.php?jobID=" + this.job + "&getFile=f2";
-          } else  phpUrl = "/bives/docs.php?url=" + file2;
+            if (this.job) {
+              phpUrl =
+                "/bives/simpleMerge.php?jobID=" + this.job + "&getFile=f2";
+            } else phpUrl = "/bives/docs.php?url=" + file2;
             axios({
               method: "get",
               url: phpUrl,
-              responseType: "text/xml"
+              responseType: "text/xml",
             })
-              .then(doc2 => {
+              .then((doc2) => {
                 // handle success
                 //console.log(response, doc1, doc2);
                 var parser = new DOMParser();
@@ -349,48 +380,41 @@ export default {
                 this.oldDoc = xmlDoc1;
                 this.newDoc = xmlDoc2;
 
-
-                this.computeChanges(xmlDocDiff,  this.oldDoc, this.newDoc);
+                this.computeChanges(xmlDocDiff, this.oldDoc, this.newDoc);
                 console.log("check");
                 this.$root.$emit("gotOldDoc", this.oldDoc);
                 this.$root.$emit("gotNewDoc", this.newDoc);
-               // console.log("Doc with the Diff:", xmlDocDiff);
-                
+                // console.log("Doc with the Diff:", xmlDocDiff);
               })
-                .then(() => {
+              .then(() => {
+                // console.log(xsl);
+                //alert("test");
 
-                      
-                     // console.log(xsl);
-                                         //alert("test");
-
-
-
-                  this.$nextTick(() => {
-                    this.$hljs.configure({ languages: ["xml"] });
-                    //this.$hljs.configure({useBR: true});
-                    this.$refs.xml.forEach((block) => {
-                 //     console.log("highlighting block# ", id);
-                 //     console.log("block ", block);
-                      this.$hljs.highlightBlock(block);
-                    });
+                this.$nextTick(() => {
+                  this.$hljs.configure({ languages: ["xml"] });
+                  //this.$hljs.configure({useBR: true});
+                  this.$refs.xml.forEach((block) => {
+                    //     console.log("highlighting block# ", id);
+                    //     console.log("block ", block);
+                    this.$hljs.highlightBlock(block);
+                  });
 
                   //  this.$refs.mathJax.forEach((block) => {
-                     // MathJax.Hub.Queue(["Typeset", MathJax.Hub, block]);
+                  // MathJax.Hub.Queue(["Typeset", MathJax.Hub, block]);
                   //});
-                 });
                 });
+              });
           });
         })
-        .catch(function(error) {
+        .catch(function (error) {
           // handle error
           console.log(error);
           alert("error");
-          
         })
-        .then(function() {
+        .then(function () {
           // always executed
-        });
-    }
+        }); */
+    },
   },
 
   //  computed() {
@@ -409,23 +433,26 @@ export default {
 
   // },
 
-  beforeCreate(){
-                  //XSL Transformer
-                  const axios = require("axios"); 
-                  axios({
-                    method: "get",
-                    url: "/src/xslt/ctop2.xsl",
-                    responseType: "document"
-                  })
-                    .then( xsl => {
-                      this.xsl = xsl;
-                    });
+  beforeCreate() {
+    //XSL Transformer
+    //TODO: make it depending on dev flag from UserMerge!
 
+    let dev = false;
+    if (dev) {
+      const axios = require("axios");
+      axios({
+        method: "get",
+        url: "/src/xslt/ctop2.xsl",
+        responseType: "document",
+      }).then((xsl) => {
+        this.xsl = xsl;
+      });
+    }
   },
 
   mounted() {
     this.loadData();
-  }
+  },
 };
 </script>
 

@@ -8,18 +8,28 @@
         data-toggle="buttons"
       >
         <label
-          key='keep-label'
+          key="keep-label"
           v-on:click="btnKeep"
-          :class='{"btn": true, "btn-outline-primary": true, "choiceBtns": true, "active": keepActive}'
+          :class="{
+            btn: true,
+            'btn-outline-primary': true,
+            choiceBtns: true,
+            active: keepActive,
+          }"
         >
-          <input type="radio" name="options">Keep
+          <input type="radio" name="options" />Keep
         </label>
         <label
-          key='dsicard-label'
+          key="dsicard-label"
           v-on:click="btnDiscard"
-          :class='{"btn": true, "btn-outline-primary": true, "choiceBtns": true, "active": discardActive}'
+          :class="{
+            btn: true,
+            'btn-outline-primary': true,
+            choiceBtns: true,
+            active: discardActive,
+          }"
         >
-          <input type="radio" name="options">Discard
+          <input type="radio" name="options" />Discard
         </label>
       </div>
       <div
@@ -29,30 +39,43 @@
         data-toggle="buttons"
       >
         <label
-          key='fromA-label'
+          key="fromA-label"
           v-on:click="btnFromA"
-          :class='{"btn": true, "btn-outline-primary": true, "choiceBtns": true, "active": fromAActive}'
+          :class="{
+            btn: true,
+            'btn-outline-primary': true,
+            choiceBtns: true,
+            active: fromAActive,
+          }"
         >
-          <input type="radio" name="options">From Model A
+          <input type="radio" name="options" />From Model A
         </label>
         <label
-          key='fromB-label'
-          
+          key="fromB-label"
           v-on:click="btnFromB"
-          :class='{"btn": true, "btn-outline-primary": true, "choiceBtns": true, "active": fromBActive}'
+          :class="{
+            btn: true,
+            'btn-outline-primary': true,
+            choiceBtns: true,
+            active: fromBActive,
+          }"
         >
-          <input type="radio" name="options">From Model B
+          <input type="radio" name="options" />From Model B
         </label>
       </div>
     </div>
 
     <div class="btn-toolbar justify-content-center">
-      <div class="btn-group-vertical btn-group-toggle" id="bgAll" data-toggle="buttons">
+      <div
+        class="btn-group-vertical btn-group-toggle"
+        id="bgAll"
+        data-toggle="buttons"
+      >
         <label v-on:click="btnAllA" class="btn btn-outline-primary choiceBtns">
-          <input type="radio" name="options">Model A
+          <input type="radio" name="options" />Model A
         </label>
         <label v-on:click="btnAllB" class="btn btn-outline-primary choiceBtns">
-          <input type="radio" name="options">Model B
+          <input type="radio" name="options" />Model B
         </label>
       </div>
     </div>
@@ -65,7 +88,7 @@
         aria-valuenow="0"
         aria-valuemin="0"
         aria-valuemax="100"
-        style="width:0%"
+        style="width: 0%"
       ></div>
     </div>
     <button
@@ -73,8 +96,10 @@
       v-on:click="downloadSBML"
       type="button"
       class="btn btn-success btn-lg btn-block"
-      v-bind:class="{'disabled': disabledDownload}"
-    >Download SBML</button>
+      v-bind:class="{ disabled: disabledDownload }"
+    >
+      Download SBML
+    </button>
   </div>
 </template>
 
@@ -84,7 +109,6 @@ export default {
   data() {
     return {
       isSingleDif: true,
-
 
       keepActive: false,
       discardActive: false,
@@ -99,24 +123,24 @@ export default {
       slide: this.slideChng,
       sliding: null,
 
-      disabledDownload: true
+      disabledDownload: true,
     };
   },
 
   methods: {
-    btnKeep: function() {
+    btnKeep: function () {
       this.changes[this.slide].decision = 0;
     },
-    btnDiscard: function() {
+    btnDiscard: function () {
       this.changes[this.slide].decision = 1;
     },
-    btnFromA: function() {
+    btnFromA: function () {
       this.changes[this.slide].decision = 0;
     },
-    btnFromB: function() {
+    btnFromB: function () {
       this.changes[this.slide].decision = 1;
     },
-    downloadSBML: function() {
+    downloadSBML: function () {
       //works always with the second document as main
       //use .ownerDocument to get doc. best from newDoc
 
@@ -144,7 +168,7 @@ export default {
         ) {
           // delete moved node from document and insert the old node
           //remove node from newparent
-         this.changes[i].xmlSnippetA.parentNode.removeChild(
+          this.changes[i].xmlSnippetA.parentNode.removeChild(
             this.changes[i].xmlSnippetA
           );
           //add to oldParent
@@ -167,43 +191,60 @@ export default {
 
       //check and download
 
-      let blob = new Blob([new XMLSerializer().serializeToString(this.newDoc)], { type: "text/xml;charset=utf-8" }); //xmlDocSbmlNew
+      let blob = new Blob(
+        [new XMLSerializer().serializeToString(this.newDoc)],
+        { type: "text/xml;charset=utf-8" }
+      ); //xmlDocSbmlNew
       //saveAs(blob, "SBML-Merge.xml"); //TODO: put in a useful name
       //let blob = new Blob([jsonData], { type: 'text/plain;charset=utf-8;' })
-      if (navigator.msSaveBlob) { // IE 10+
-        navigator.msSaveBlob(blob, "sbml-merge.xml")
+      if (navigator.msSaveBlob) {
+        // IE 10+
+        navigator.msSaveBlob(blob, "sbml-merge.xml");
       } else {
-        let link = document.createElement('a')
-        if (link.download !== undefined) { // feature detection
+        let link = document.createElement("a");
+        if (link.download !== undefined) {
+          // feature detection
           // Browsers that support HTML5 download attribute
-          let url = URL.createObjectURL(blob)
-          link.setAttribute('href', url)
-          link.setAttribute('download', "sbml-merge.xml")
-          link.style.visibility = 'hidden'
-          document.body.appendChild(link)
-          link.click()
-          document.body.removeChild(link)
+          let url = URL.createObjectURL(blob);
+          link.setAttribute("href", url);
+          link.setAttribute("download", "sbml-merge.xml");
+          link.style.visibility = "hidden";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
         }
       }
-
     },
 
-
-    saveFile: function() {
-      const data = JSON.stringify(this.arr)
-      const blob = new Blob([data], {type: 'text/plain'})
-      const e = document.createEvent('MouseEvents'),
-      a = document.createElement('a');
+    saveFile: function () {
+      const data = JSON.stringify(this.arr);
+      const blob = new Blob([data], { type: "text/plain" });
+      const e = document.createEvent("MouseEvents"),
+        a = document.createElement("a");
       a.download = "test.json";
       a.href = window.URL.createObjectURL(blob);
-      a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
-      e.initEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+      a.dataset.downloadurl = ["text/json", a.download, a.href].join(":");
+      e.initEvent(
+        "click",
+        true,
+        false,
+        window,
+        0,
+        0,
+        0,
+        0,
+        0,
+        false,
+        false,
+        false,
+        false,
+        0,
+        null
+      );
       a.dispatchEvent(e);
     },
 
-
-
-    btnAllA: function() {
+    btnAllA: function () {
       for (var i = 0; i < this.changes.length; i++) {
         if (
           this.changes[i][0] == "delete" ||
@@ -215,7 +256,7 @@ export default {
       }
       //updateBtns(this.changes[this.slide].type, this.changes[this.slide].decision);
     },
-    btnAllB: function() {
+    btnAllB: function () {
       for (var i = 0; i < this.changes.length; i++) {
         if (this.changes[i].type == "insert") {
           this.changes[i].decision = 0;
@@ -228,43 +269,43 @@ export default {
       }
       //updateBtns(this.changes[this.slide].type, this.changes[this.slide].decision);
     },
-    
-    addDeleted: function(a,b, doc){
+
+    addDeleted: function (a, b, doc) {
       let test = this.changes;
       this.changes[1] = test;
-      console.log(a,b, doc, "implement addDelete");
+      console.log(a, b, doc, "implement addDelete");
     },
 
-    updateBtns: function(type, decision) {
+    updateBtns: function (type, decision) {
       //hide and show relevant buttons
 
-        this.keepActive = false;
-        this.discardActive = false;
-        this.fromAActive = false;
-        this.fromBActive = false;
+      this.keepActive = false;
+      this.discardActive = false;
+      this.fromAActive = false;
+      this.fromBActive = false;
 
       if (type == "insert" || type == "delete") {
-        this.isSingleDif = true;  
-       
+        this.isSingleDif = true;
+
         if (decision == 0) {
           this.keepActive = true;
-        } else if (decision == 1){
+        } else if (decision == 1) {
           this.discardActive = true;
         }
       } else {
         this.isSingleDif = false;
         if (decision == 0) {
           this.fromAActive = true;
-        } else if (decision == 1){
+        } else if (decision == 1) {
           this.fromBActive = true;
         }
-      } 
+      }
     },
   },
 
   watch: {
     changes: {
-      handler: function() {
+      handler: function () {
         var sumDecided = 0;
         var disable = false;
         for (var i = 0; i < this.changes.length; i++) {
@@ -278,31 +319,29 @@ export default {
         //enable button
         this.disabledDownload = disable;
       },
-      deep: true
+      deep: true,
     },
     slideChng: {
-      handler: function() {
+      handler: function () {
         this.slide = this.slideChng;
         this.updateBtns(
           this.changes[this.slide].type,
           this.changes[this.slide].decision
         );
-      }
+      },
     },
     newDoc: {
-      handler: function(){
-      },
-      deep: true
-    }
+      handler: function () {},
+      deep: true,
+    },
   },
-  mounted: function() {
-    this.$root.$on("arrChanged", data => {
+  mounted: function () {
+    /*this.$root.$on("arrChanged", data => {
       this.changes = data;
     });
     this.$root.$on("slideChng", data => {
       this.slide = data;
-    });
+    }); */
   },
-
 };
 </script>
