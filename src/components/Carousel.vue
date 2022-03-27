@@ -57,6 +57,8 @@
 
 
 <script>
+//import * as divil from "../../DiVil/javascriptAndCss/init.js";
+
 export default {
   data() {
     return {
@@ -451,6 +453,8 @@ export default {
   },
 
   mounted() {
+    //divil.callDiVil();
+    //callDiVil();
     this.loadData();
   },
 };

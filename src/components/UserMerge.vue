@@ -27,11 +27,13 @@
   <div id="devOutput" v-if="dev">
     <h3>Dev mode is active!</h3>
     <div id="sbgnJson"></div>
+    <div id="container"></div>
   </div>
 </template>
 
 
 <script>
+import { callDiVil } from "../../DiVil/javascriptAndCss/init";
 import Carousel from "./Carousel.vue";
 import Selection from "./Selection.vue";
 
@@ -67,6 +69,7 @@ export default {
     },
   },
   mounted() {
+    //callDivil();
     /*  this.$root.$on("arrChanged", (data) => {
       this.decisionArr = data;
       console.log(data);
@@ -107,9 +110,14 @@ export default {
               reactionLinks.push(link);
 
               //add other participant of link
-              reactionNodes.push(
-                this.json.nodes.find((node) => node.id == link.target.id)
-              );
+              let addNode, addNodeId;
+              if (link.target == node.id) {
+                addNodeId = link.source;
+              } else addNodeId = link.target;
+
+              addNode = this.json.nodes.find((n) => n.id == addNodeId);
+              console.log(addNodeId, addNode);
+              reactionNodes.push(addNode);
             }
           });
 
@@ -122,6 +130,8 @@ export default {
 
       console.log(this.reactionsArr);
     }
+    let reactionNum = 0;
+    callDiVil(this.reactionsArr[reactionNum]);
     /* 
     function getNode(nodeID) {
       console.log(this.json);
@@ -132,3 +142,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+#container {
+  min-height: 500px;
+  background-color: lightgray;
+}
+</style>
