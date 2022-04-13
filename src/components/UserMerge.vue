@@ -5,19 +5,37 @@
       <h4>Still under development</h4>
       <p>
         You are in the semi-automatic merging mode. This means you can
-        cherry-pick the changes you want to apply. To base the merging on one
-        model and add parts, choose a main model.
+        cherry-pick the changes you want to apply. We provide different views on
+        the changes:
       </p>
     </div>
 
-    <Carousel
+    <template v-for="(reaction, index) in reactionsArr" :key="index">
+      <div class="card text-center" v-if="currentSlide == index">
+        <div class="card-header">Featured</div>
+        <div class="card-body row g-0 p-0">
+          <div class="col-8 bivesGraph" :id="`bivesGraph-${index}`"></div>
+          <div class="col-4 changeList" :id="`changeList-${index}`">
+            List changes here instead of popup?
+          </div>
+        </div>
+        <div class="card-footer text-muted">Show math here?</div>
+      </div>
+    </template>
+
+    <!-- Slide buttons -->
+    <div class="btn btn-primary" @click="this.currentSlide++">Up</div>
+    <div class="btn btn-primary" @click="this.currentSlide--">Down</div>
+
+    <!--     <Carousel
       :decArr="decisionArr"
       @arrChanged="decisionArr = $event"
       @slideChange="currentSlide = $ent"
       @gotOldDoc="oldDocument = $event"
       @gotNewDoc="newDocument = $event"
-    />
+    /> -->
     <Selection
+      v-if="!hide"
       :decArr="decisionArr"
       :slideChng="currentSlide"
       :oldDoc="oldDocument"
@@ -26,29 +44,44 @@
   </div>
   <div id="devOutput" v-if="dev">
     <h3>Dev mode is active!</h3>
-    <div id="sbgnJson"></div>
-    <div id="container"></div>
   </div>
 </template>
 
 
-<script>
+<script lang="ts">
 import { callDiVil } from "../../DiVil/javascriptAndCss/init";
-import Carousel from "./Carousel.vue";
+/* import Carousel from "./Carousel.vue"; */
 import Selection from "./Selection.vue";
 
 //import dev data
-import devData from "/dev/navicenta/sbgnJson.json";
+/* import devDataJson from "/dev/navicenta/sbgnJson.json";
+import devDataXmlDiff from "raw-loader!/dev/navicenta/xmlDiff.xml";
+import version1 from "raw-loader!/dev/navicenta/version1.xml";
+import version2 from "raw-loader!/dev/navicenta/version2.xml"; */
+import devDataJson from "/dev/dupreez_6-7/sbgnJson.json";
+import devDataXmlDiff from "raw-loader!/dev/dupreez_6-7/xmlDiff.xml";
+import version1 from "raw-loader!/dev/dupreez_6-7/dupreez6.xml";
+import version2 from "raw-loader!/dev/dupreez_6-7/dupreez7.xml";
 
 export default {
   name: "user-merge",
   components: {
-    Carousel,
+    /*     Carousel,*/
     Selection,
   },
   data() {
     return {
-      json: devData,
+      /* START - dev vars */
+      json: devDataJson,
+      xmlDiff: devDataXmlDiff,
+      updates: 0,
+      inserts: 0,
+      deletes: 0,
+      moves: 0,
+      v1: version1,
+      v2: version2,
+      hide: true,
+      /* END */
       decisionArr: [],
       reactionsArr: [],
       currentSlide: 0,
@@ -59,7 +92,12 @@ export default {
   },
   watch: {
     currentSlide: {
-      handler: function () {},
+      handler: function () {
+        if (this.currentSlide == -1)
+          this.currentSlide = this.reactionsArr.length - 1;
+        if (this.currentSlide >= this.reactionsArr.length)
+          this.currentSlide = 0;
+      },
     },
     decisionArr: {
       handler: function () {},
@@ -90,7 +128,12 @@ export default {
     //check for dev mode
     if (this.dev) {
       console.log("Dev Mode is active!");
-      console.log(this.json.links, this.json.nodes);
+      console.log(this.json.links, this.json.nodes, this.xmlDiff);
+
+      //compute change stats
+      console.log(this.xmlDiff, typeof this.xmlDiff);
+      //let xmlLines: string[] ;
+
       //console.log(JSON.parse(this.json));
 
       //compute reaction view
@@ -100,7 +143,7 @@ export default {
        * Reactions with changes can than be viewed.
        */
       this.json.nodes.forEach((node) => {
-        if (node.id.startsWith("r")) {
+        if (node.id.startsWith("r") && node.bivesChange != "nothing") {
           //every reaction ID starts with r
           let reactionNodes = [node];
           let reactionLinks = [];
@@ -122,16 +165,15 @@ export default {
           });
 
           this.reactionsArr.push({
+            bivesChange: node.bivesChange,
             nodes: reactionNodes,
             links: reactionLinks,
           });
         }
       });
 
-      console.log(this.reactionsArr);
+      console.log("reactionsArr: ", this.reactionsArr);
     }
-    let reactionNum = 0;
-    callDiVil(this.reactionsArr[reactionNum]);
     /* 
     function getNode(nodeID) {
       console.log(this.json);
@@ -140,12 +182,38 @@ export default {
       return node;
     } */
   },
+  updated() {
+    callDiVil(
+      this.reactionsArr[this.currentSlide],
+      this.xmlDiff,
+      this.v1,
+      this.v2,
+      "bivesGraph-" + this.currentSlide
+    );
+  },
 };
 </script>
 
-<style scoped>
-#container {
-  min-height: 500px;
+<style>
+.bivesGraph {
+  min-height: 300px;
   background-color: lightgray;
+}
+
+/*bives-colors*/
+.delete-color {
+  color: #d66a56;
+}
+
+.insert-color {
+  color: #76d6af;
+}
+
+.move-color {
+  color: #8e67d6;
+}
+
+.update-color {
+  color: #d6d287;
 }
 </style>

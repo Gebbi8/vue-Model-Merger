@@ -48,7 +48,7 @@
               href="https://integrative-pathway-models.de/"
               title="INCOME-Website"
             >
-              <img src="./assets/csm_logo_INCOME11.png" class="img-fluid" alt />
+              <img src="./assets/csm_logo_INCOME11.png" class="img-fluid" alt="INCOME-LOGO" />
             </a>
           </div>
           <div class="col-10 d-flex align-items-end flex-column" id="contact">
@@ -68,14 +68,17 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
+
+
 //import Selection from './components/Selection.vue'
 //import HelloWorld from './components/HelloWorld.vue'
 import SimpleMerge from "./components/SimpleMerge.vue";
 import UserMerge from "./components/UserMerge.vue";
 //import { useRoute } from "vue-router";
 
-export default {
+export default defineComponent ({
   name: "app",
   components: {
     SimpleMerge,
@@ -93,7 +96,7 @@ export default {
       this.simple = !this.simple;
     },
   },
-};
+});
 
 // export default {
 //   name: 'App',

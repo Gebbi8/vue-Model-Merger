@@ -323,11 +323,11 @@ export default {
     },
     slideChng: {
       handler: function () {
-        this.slide = this.slideChng;
+        /*         this.slide = this.slideChng;
         this.updateBtns(
           this.changes[this.slide].type,
           this.changes[this.slide].decision
-        );
+        ); */
       },
     },
     newDoc: {
