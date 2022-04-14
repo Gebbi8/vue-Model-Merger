@@ -34,13 +34,13 @@
       @gotOldDoc="oldDocument = $event"
       @gotNewDoc="newDocument = $event"
     /> -->
-    <Selection
+<!--     <Selection
       v-if="!hide"
       :decArr="decisionArr"
       :slideChng="currentSlide"
       :oldDoc="oldDocument"
       :newDoc="newDocument"
-    />
+    /> -->
   </div>
   <div id="devOutput" v-if="dev">
     <h3>Dev mode is active!</h3>
@@ -49,22 +49,39 @@
 
 
 <script>
-//import { callDiVil } from "../../DiVil/javascriptAndCss/init";
-//import Carousel from "./Carousel.vue";
+import axios from 'axios';
+import { callDiVil } from "../../DiVil/javascriptAndCss/init";
+/* import Carousel from "./Carousel.vue"; */
 //import Selection from "./Selection.vue";
-
 //import dev data
-import devData from "/dev/navicenta/sbgnJson.json";
+/* import devDataJson from "/dev/navicenta/sbgnJson.json";
+import devDataXmlDiff from "raw-loader!/dev/navicenta/xmlDiff.xml";
+import version1 from "raw-loader!/dev/navicenta/version1.xml";
+import version2 from "raw-loader!/dev/navicenta/version2.xml"; */
+import devDataJson from "/dev/dupreez_6-7/sbgnJson.json";
+/* import devDataXmlDiff from "/dev/dupreez_6-7/xmlDiff.xml";
+import version1 from "/dev/dupreez_6-7/dupreez6.xml";
+import version2 from "/dev/dupreez_6-7/dupreez7.xml"; */
 
 export default {
   name: "user-merge",
   components: {
-    //Carousel,
-    Selection,
+    /*     Carousel,*/
+    /* Selection, */
   },
   data() {
     return {
-      json: devData,
+      /* START - dev vars */
+      json: devDataJson,
+      xmlDiff: null,
+      updates: 0,
+      inserts: 0,
+      deletes: 0,
+      moves: 0,
+      v1: null,
+      v2: null,
+      hide: true,
+      /* END */
       decisionArr: [],
       reactionsArr: [],
       currentSlide: 0,
@@ -75,7 +92,12 @@ export default {
   },
   watch: {
     currentSlide: {
-      handler: function () {},
+      handler: function () {
+        if (this.currentSlide == -1)
+          this.currentSlide = this.reactionsArr.length - 1;
+        if (this.currentSlide >= this.reactionsArr.length)
+          this.currentSlide = 0;
+      },
     },
     decisionArr: {
       handler: function () {},
@@ -102,13 +124,21 @@ export default {
       this.newDocument = data;
       console.log(data);
     }); */
-
     //check for dev mode
     if (this.dev) {
+       axios.get('/dev/dupreez_6-7/xmlDiff.xml')
+        .then(res => this.xmlDiff = res.data )
+        .catch(err => console.log(err))
+      //this.xmlDiff = require("/dev/dupreez_6-7/xmlDiff.xml");
+      console.log(this.xmlDiff);
+/* import version1 from "/dev/dupreez_6-7/dupreez6.xml";
+import version2 from "/dev/dupreez_6-7/dupreez7.xml"; */
       console.log("Dev Mode is active!");
-      console.log(this.json.links, this.json.nodes);
+      console.log(this.json.links, this.json.nodes, this.xmlDiff);
+      //compute change stats
+      console.log(this.xmlDiff, typeof this.xmlDiff);
+      //let xmlLines: string[] ;
       //console.log(JSON.parse(this.json));
-
       //compute reaction view
       /*
        * To go through each single change might be cumbersum.
@@ -116,7 +146,7 @@ export default {
        * Reactions with changes can than be viewed.
        */
       this.json.nodes.forEach((node) => {
-        if (node.id.startsWith("r")) {
+        if (node.id.startsWith("r") && node.bivesChange != "nothing") {
           //every reaction ID starts with r
           let reactionNodes = [node];
           let reactionLinks = [];
@@ -124,30 +154,25 @@ export default {
           this.json.links.forEach((link) => {
             if (link.target == node.id || link.source == node.id) {
               reactionLinks.push(link);
-
               //add other participant of link
               let addNode, addNodeId;
               if (link.target == node.id) {
                 addNodeId = link.source;
               } else addNodeId = link.target;
-
               addNode = this.json.nodes.find((n) => n.id == addNodeId);
               console.log(addNodeId, addNode);
               reactionNodes.push(addNode);
             }
           });
-
           this.reactionsArr.push({
+            bivesChange: node.bivesChange,
             nodes: reactionNodes,
             links: reactionLinks,
           });
         }
       });
-
-      console.log(this.reactionsArr);
+      console.log("reactionsArr: ", this.reactionsArr);
     }
-    let reactionNum = 0;
-    callDiVil(this.reactionsArr[reactionNum]);
     /* 
     function getNode(nodeID) {
       console.log(this.json);
@@ -156,12 +181,34 @@ export default {
       return node;
     } */
   },
+  updated() {
+    callDiVil(
+      this.reactionsArr[this.currentSlide],
+      this.xmlDiff,
+      this.v1,
+      this.v2,
+      "bivesGraph-" + this.currentSlide
+    );
+  },
 };
 </script>
 
-<style scoped>
-#container {
-  min-height: 500px;
+<style>
+.bivesGraph {
+  min-height: 300px;
   background-color: lightgray;
+}
+/*bives-colors*/
+.delete-color {
+  color: #d66a56;
+}
+.insert-color {
+  color: #76d6af;
+}
+.move-color {
+  color: #8e67d6;
+}
+.update-color {
+  color: #d6d287;
 }
 </style>

@@ -79,7 +79,7 @@ export default {
   name: "app",
   components: {
     SimpleMerge,
-   // UserMerge,
+    UserMerge,
   },
   data() {
     return {
