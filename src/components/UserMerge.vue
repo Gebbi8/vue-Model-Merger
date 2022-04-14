@@ -5,19 +5,37 @@
       <h4>Still under development</h4>
       <p>
         You are in the semi-automatic merging mode. This means you can
-        cherry-pick the changes you want to apply. To base the merging on one
-        model and add parts, choose a main model.
+        cherry-pick the changes you want to apply. We provide different views on
+        the changes:
       </p>
     </div>
 
-    <Carousel
+    <template v-for="(reaction, index) in reactionsArr" :key="index">
+      <div class="card text-center" v-if="currentSlide == index">
+        <div class="card-header">Featured</div>
+        <div class="card-body row g-0 p-0">
+          <div class="col-8 bivesGraph" :id="`bivesGraph-${index}`"></div>
+          <div class="col-4 changeList" :id="`changeList-${index}`">
+            List changes here instead of popup?
+          </div>
+        </div>
+        <div class="card-footer text-muted">Show math here?</div>
+      </div>
+    </template>
+
+    <!-- Slide buttons -->
+    <div class="btn btn-primary" @click="this.currentSlide++">Up</div>
+    <div class="btn btn-primary" @click="this.currentSlide--">Down</div>
+
+    <!--     <Carousel
       :decArr="decisionArr"
       @arrChanged="decisionArr = $event"
       @slideChange="currentSlide = $ent"
       @gotOldDoc="oldDocument = $event"
       @gotNewDoc="newDocument = $event"
-    />
+    /> -->
     <Selection
+      v-if="!hide"
       :decArr="decisionArr"
       :slideChng="currentSlide"
       :oldDoc="oldDocument"
@@ -26,16 +44,14 @@
   </div>
   <div id="devOutput" v-if="dev">
     <h3>Dev mode is active!</h3>
-    <div id="sbgnJson"></div>
-    <div id="container"></div>
   </div>
 </template>
 
 
 <script>
-import { callDiVil } from "../../DiVil/javascriptAndCss/init";
-import Carousel from "./Carousel.vue";
-import Selection from "./Selection.vue";
+//import { callDiVil } from "../../DiVil/javascriptAndCss/init";
+//import Carousel from "./Carousel.vue";
+//import Selection from "./Selection.vue";
 
 //import dev data
 import devData from "/dev/navicenta/sbgnJson.json";
@@ -43,7 +59,7 @@ import devData from "/dev/navicenta/sbgnJson.json";
 export default {
   name: "user-merge",
   components: {
-    Carousel,
+    //Carousel,
     Selection,
   },
   data() {
