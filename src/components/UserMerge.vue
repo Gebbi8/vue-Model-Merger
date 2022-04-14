@@ -59,10 +59,10 @@ import devDataXmlDiff from "raw-loader!/dev/navicenta/xmlDiff.xml";
 import version1 from "raw-loader!/dev/navicenta/version1.xml";
 import version2 from "raw-loader!/dev/navicenta/version2.xml"; */
 
-import devDataJson from "/dev/dupreez_6-7/sbgnJson.json";
-import devDataXmlDiff from "@/dev/dupreez_6-7/xmlDiff.xml";
-import version1 from "@/dev/dupreez_6-7/dupreez6.xml";
-import version2 from "@/dev/dupreez_6-7/dupreez7.xml";
+//import devDataJson from "/dev/dupreez_6-7/sbgnJson.json";
+//import devDataXmlDiff from "raw-loader!./../../dev/dupreez_6-7/xmlDiff.xml";
+//import version1 from "raw-loader!./../../dev/dupreez_6-7/dupreez6.xml";
+//import version2 from "raw-loader!./../../dev/dupreez_6-7/dupreez7.xml";
 
 export default {
   name: "user-merge",
@@ -108,6 +108,8 @@ export default {
     },
   },
   mounted() {
+    alert("Test");
+
     //callDivil();
     /*  this.$root.$on("arrChanged", (data) => {
       this.decisionArr = data;

@@ -69,6 +69,7 @@
 </template>
 
 <script>
+alert("Test");
 //import Selection from './components/Selection.vue'
 //import HelloWorld from './components/HelloWorld.vue'
 import SimpleMerge from "./components/SimpleMerge.vue";
