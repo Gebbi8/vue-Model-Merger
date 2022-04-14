@@ -1,0 +1,23 @@
+<reaction metaid="re107" id="re107" reversible="false" sboTerm="SBO:0000397">
+                <annotation>
+                    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                        xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/"
+                        xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"
+                        xmlns:bqbiol="http://biomodels.net/biology-qualifiers/"
+                        xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+                        <rdf:Description rdf:about="#re107">
+                            <bqbiol:isDescribedBy>
+                                <rdf:Bag>
+                                    <rdf:li rdf:resource="urn:miriam:pubmed:31333453" />
+                                </rdf:Bag>
+                            </bqbiol:isDescribedBy>
+                        </rdf:Description>
+                    </rdf:RDF>
+                </annotation>
+                <listOfReactants>
+                    <speciesReference metaid="CDMT00091" sboTerm="SBO:0000010" species="s693" />
+                </listOfReactants>
+                <listOfProducts>
+                    <speciesReference metaid="CDMT00092" sboTerm="SBO:0000011" species="s711" />
+                </listOfProducts>
+            </reaction>
