@@ -11,8 +11,8 @@
     </div>
 
     <template v-for="(reaction, index) in reactionsArr" :key="index">
-      <div class="card text-center" v-if="currentSlide == index">
-        <div class="card-header">Featured</div>
+      <div class="card" v-if="currentSlide == index">
+        <div class="card-header text-center">Featured</div>
         <div class="card-body row g-0 p-0">
           <div class="col-8 bivesGraph" :id="`bivesGraph-${index}`"></div>
           <div class="col-4 changeList" :id="`changeList-${index}`">
@@ -34,7 +34,7 @@
       @gotOldDoc="oldDocument = $event"
       @gotNewDoc="newDocument = $event"
     /> -->
-<!--     <Selection
+    <!--     <Selection
       v-if="!hide"
       :decArr="decisionArr"
       :slideChng="currentSlide"
@@ -50,7 +50,7 @@
 
 <script>
 import axios from 'axios';
-import { callDiVil } from "../../DiVil/javascriptAndCss/init";
+import * as divilApi from "../../DiVil/javascriptAndCss/init";
 /* import Carousel from "./Carousel.vue"; */
 //import Selection from "./Selection.vue";
 //import dev data
@@ -84,6 +84,7 @@ export default {
       /* END */
       decisionArr: [],
       reactionsArr: [],
+      structuredData: null,
       currentSlide: 0,
       oldDocument: null,
       newDocument: null,
@@ -100,13 +101,13 @@ export default {
       },
     },
     decisionArr: {
-      handler: function () {},
+      handler: function () { },
     },
     newDocument: {
-      handler: function () {},
+      handler: function () { },
     },
   },
-  mounted() {
+  async mounted() {
     //callDivil();
     /*  this.$root.$on("arrChanged", (data) => {
       this.decisionArr = data;
@@ -126,51 +127,63 @@ export default {
     }); */
     //check for dev mode
     if (this.dev) {
-       axios.get('/dev/dupreez_6-7/xmlDiff.xml')
-        .then(res => this.xmlDiff = res.data )
-        .catch(err => console.log(err))
-      //this.xmlDiff = require("/dev/dupreez_6-7/xmlDiff.xml");
-      console.log(this.xmlDiff);
-/* import version1 from "/dev/dupreez_6-7/dupreez6.xml";
-import version2 from "/dev/dupreez_6-7/dupreez7.xml"; */
-      console.log("Dev Mode is active!");
-      console.log(this.json.links, this.json.nodes, this.xmlDiff);
-      //compute change stats
-      console.log(this.xmlDiff, typeof this.xmlDiff);
-      //let xmlLines: string[] ;
-      //console.log(JSON.parse(this.json));
-      //compute reaction view
-      /*
-       * To go through each single change might be cumbersum.
-       * With this view we split the network into each reaction.
-       * Reactions with changes can than be viewed.
-       */
-      this.json.nodes.forEach((node) => {
-        if (node.id.startsWith("r") && node.bivesChange != "nothing") {
-          //every reaction ID starts with r
-          let reactionNodes = [node];
-          let reactionLinks = [];
-          //add reaction to Array, include all link and participants
-          this.json.links.forEach((link) => {
-            if (link.target == node.id || link.source == node.id) {
-              reactionLinks.push(link);
-              //add other participant of link
-              let addNode, addNodeId;
-              if (link.target == node.id) {
-                addNodeId = link.source;
-              } else addNodeId = link.target;
-              addNode = this.json.nodes.find((n) => n.id == addNodeId);
-              console.log(addNodeId, addNode);
-              reactionNodes.push(addNode);
+      const promiseDiff = await axios.get('/dev/dupreez_6-7/xmlDiff.xml');
+      const promiseV1 = await axios.get('/dev/dupreez_6-7/dupreez6.xml');
+      const promiseV2 = await axios.get('/dev/dupreez_6-7/dupreez7.xml');
+
+      Promise.allSettled([promiseV1, promiseV2, promiseDiff])
+        .then((responses) => {
+          console.log(responses);
+          //alert("?");
+          this.v1 = responses[0].value.data;
+          this.v2 = responses[1].value.data;
+          this.xmlDiff = responses[2].value.data;
+
+          //compute reaction view
+          /*
+           * To go through each single change might be cumbersum.
+           * With this view we split the network into each reaction.
+           * Reactions with changes can than be viewed.
+           */
+          this.json.nodes.forEach((node) => {
+            if (node.id.startsWith("r") && node.bivesChange != "nothing") {
+              //every reaction ID starts with r
+              let reactionNodes = [node];
+              let reactionLinks = [];
+              //add reaction to Array, include all link and participants
+              this.json.links.forEach((link) => {
+                if (link.target == node.id || link.source == node.id) {
+                  reactionLinks.push(link);
+                  //add other participant of link
+                  let addNode, addNodeId;
+                  if (link.target == node.id) {
+                    addNodeId = link.source;
+                  } else addNodeId = link.target;
+                  addNode = this.json.nodes.find((n) => n.id == addNodeId);
+                  //console.log(addNodeId, addNode);
+                  reactionNodes.push(addNode);
+                }
+              });
+              this.reactionsArr.push({
+                centralNode: node.path,
+                bivesChange: node.bivesChange,
+                nodes: reactionNodes,
+                links: reactionLinks,
+              });
             }
           });
-          this.reactionsArr.push({
-            bivesChange: node.bivesChange,
-            nodes: reactionNodes,
-            links: reactionLinks,
-          });
-        }
-      });
+
+          //init computed divil data
+          this.structuredData = divilApi.initDivil(this.xmlDiff, this.v1, this.v2);
+
+        })
+        .catch(error => {
+          console.error(error.message)
+        });
+
+
+
+      console.log("Dev Mode is active!");
       console.log("reactionsArr: ", this.reactionsArr);
     }
     /* 
@@ -182,12 +195,15 @@ import version2 from "/dev/dupreez_6-7/dupreez7.xml"; */
     } */
   },
   updated() {
-    callDiVil(
+    console.log(this.v1, this.v2);
+    divilApi.callDiVil(
       this.reactionsArr[this.currentSlide],
       this.xmlDiff,
       this.v1,
       this.v2,
-      "bivesGraph-" + this.currentSlide
+      "bivesGraph-" + this.currentSlide,
+      "changeList-" + this.currentSlide,
+      this.structuredData
     );
   },
 };
@@ -198,16 +214,20 @@ import version2 from "/dev/dupreez_6-7/dupreez7.xml"; */
   min-height: 300px;
   background-color: lightgray;
 }
+
 /*bives-colors*/
 .delete-color {
   color: #d66a56;
 }
+
 .insert-color {
   color: #76d6af;
 }
+
 .move-color {
   color: #8e67d6;
 }
+
 .update-color {
   color: #d6d287;
 }
