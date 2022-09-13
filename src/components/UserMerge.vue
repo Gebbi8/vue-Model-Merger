@@ -44,11 +44,13 @@
   </div>
   <div id="devOutput" v-if="dev">
     <h3>Dev mode is active!</h3>
+    <merger :moves="moves" :xml-diff="xmlDiff"></merger>
   </div>
 </template>
 
 
 <script>
+import Merger from "./Merger.vue";
 import axios from 'axios';
 import * as divilApi from "../../DiVil/javascriptAndCss/init";
 /* import Carousel from "./Carousel.vue"; */
@@ -66,6 +68,7 @@ import version2 from "/dev/dupreez_6-7/dupreez7.xml"; */
 export default {
   name: "user-merge",
   components: {
+    Merger
     /*     Carousel,*/
     /* Selection, */
   },
