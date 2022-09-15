@@ -44,7 +44,7 @@
   </div>
   <div id="devOutput" v-if="dev">
     <h3>Dev mode is active!</h3>
-    <merger :moves="moves" :xml-diff="xmlDiff"></merger>
+    <merger :xml-diff="xmlDiff" :decision-arr="decisionArr" :v2="v2"></merger>
   </div>
 </template>
 
@@ -61,6 +61,7 @@ import devDataXmlDiff from "raw-loader!/dev/navicenta/xmlDiff.xml";
 import version1 from "raw-loader!/dev/navicenta/version1.xml";
 import version2 from "raw-loader!/dev/navicenta/version2.xml"; */
 import devDataJson from "/dev/dupreez_6-7/sbgnJson.json";
+import testArr from "/dev/dupreez_6-7/decisionArray.js";
 /* import devDataXmlDiff from "/dev/dupreez_6-7/xmlDiff.xml";
 import version1 from "/dev/dupreez_6-7/dupreez6.xml";
 import version2 from "/dev/dupreez_6-7/dupreez7.xml"; */
@@ -85,7 +86,7 @@ export default {
       v2: null,
       hide: true,
       /* END */
-      decisionArr: [],
+      decisionArr: testArr, // [],
       reactionsArr: [],
       structuredData: null,
       currentSlide: 0,
@@ -93,6 +94,12 @@ export default {
       newDocument: null,
       dev: true, //flag for development, use sample data
     };
+  },
+  methods: {
+    getId: function (line){
+          var regex = new RegExp('id="(.*?)"', 'g');
+          return regex.exec(line)[1];
+    }
   },
   watch: {
     currentSlide: {
@@ -103,9 +110,9 @@ export default {
           this.currentSlide = 0;
       },
     },
-    decisionArr: {
+/*     decisionArr: {
       handler: function () { },
-    },
+    }, */
     newDocument: {
       handler: function () { },
     },
@@ -179,6 +186,38 @@ export default {
           //init computed divil data
           this.structuredData = divilApi.initDivil(this.xmlDiff, this.v1, this.v2);
 
+          console.info(this.decisionArr);
+
+          /**********  Creation of Decision Array, works fine currently not used for development   
+          //create decision array
+          //filter triggered changes and moves
+          let type = '-';
+          let xmlLines = this.xmlDiff.split(/\r?\n/);
+          xmlLines.every(line => {
+            if(line.includes("<move>")) return false;
+            if(line.includes("<insert>")){
+              type = 'i';
+              return true;
+            }
+            if(line.includes("<delete>")){
+              type = 'd';
+              return true;
+            }
+            if(line.includes("<update>")){
+              type = 'u';
+              return true;
+            }
+
+            if(line.includes("id=") && !line.includes("triggeredBy=")){
+              console.info("found lines");
+              this.decisionArr.push([this.getId(line), -1, type]);
+            }
+            return true;
+          })
+
+          if(this.decisionArr[0][0] == "bivesPatch") this.decisionArr.shift();
+          console.info(this.decisionArr);
+          *********************************/
         })
         .catch(error => {
           console.error(error.message)
