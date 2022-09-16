@@ -44,7 +44,7 @@
   </div>
   <div id="devOutput" v-if="dev">
     <h3>Dev mode is active!</h3>
-    <merger :xml-diff="xmlDiff" :decision-arr="decisionArr" :v2="v2"></merger>
+    <merger :xml-diff="xmlDiff" :decision-arr="decisionArr" :v1="v1" :v2="v2"></merger>
   </div>
 </template>
 

@@ -25,6 +25,10 @@ export default {
       type: Array,
       required: true
     },
+    v1: {
+      type: String,
+      required: true
+    },
     v2:{
       type: String,
       required: true
@@ -34,8 +38,7 @@ export default {
   data() {
     return {
       done: false,  
-      file1: "",
-      file2: "",
+      oldDoc: null,
       newDoc: null,
       xmlDiffDoc: null,
       status: "waiting...",
@@ -51,6 +54,7 @@ export default {
 
       let parser = new DOMParser();
 
+      this.oldDoc = parser.parseFromString(this.$props.v1, "application/xml");
       this.newDoc = parser.parseFromString(this.$props.v2, "application/xml");
       this.xmlDiffDoc = parser.parseFromString(this.xmlDiff, "application/xml");
  
@@ -79,9 +83,6 @@ export default {
     if(this.$props.decisionArr == null) selection = ["decision array not loaded"];
     else selection = this.$props.decisionArr;
 
-    console.info(this.moveMap, selection);
-
-
     //loop over selection, relevant attributes: id, type of change, parent path and/or path, 
     selection.forEach(s => {  //s: changeId, decision (0/1/-1) but should not be -1 at this point, type of change (i,u,d)
       switch(s[2]){
@@ -107,15 +108,62 @@ export default {
     })
 
   },
-  restoreDelete: function(id){
-    let line = this.getXmlLineById(id);
-     
-    console.info("restore delete");
+
+  restoreDelete: function(id){                                                 
+    let change = this.getXmlLineById(id);
+    //possibile element types: node, attribute, text, ...?
+    //attribute: needed info: newPath
+    let path = this.checkAncestorsForMove(change.getAttribute("oldPath"));
+
+    path = this.getLocalXPath(path);
+        //check for /math and/or /kineticLaw
+
+    //Attribute
+    if(change.localName == "attribute"){
+      let name = change.getAttribute("name");
+      let value = change.getAttribute("oldValue");
+      this.newDoc.evaluate(path, this.newDoc, null, XPathResult.ANY_TYPE, null).iterateNext().setAttribute(name, value);
+      return;
+    }
+
+    //Text
+    if(change.localName == "text"){
+      let parent = change.getAttribute("oldParent");
+      parent = this.checkAncestorsForMove(parent);
+      parent = this.getLocalXPath(parent);
+      console.info(parent);
+      this.newDoc.evaluate(parent, this.newDoc, null, XPathResult.ANY_TYPE, null).iterateNext().insertAdjacentText('beforeend', change.getAttribute("oldText"));
+      return;
+    }
+
+    //Node
+    if(change.localName == "node"){
+      let oldPath = change.getAttribute("oldPath");
+      let appendPath = change.getAttribute("oldParent");
+      appendPath = this.checkAncestorsForMove(appendPath);
+
+      oldPath = this.getLocalXPath(oldPath);
+      appendPath = this.getLocalXPath(appendPath);
+
+      let node = this.oldDoc.evaluate(oldPath, this.oldDoc, null, XPathResult.ANY_TYPE, null).iterateNext();
+
+      this.newDoc.evaluate(appendPath, this.newDoc, null,XPathResult.ANY_TYPE, null).iterateNext().insertAdjacentElement('beforeend', node);
+      
+      console.info(node);
+      console.info(this.newDoc);
+      alert();
+      return;
+    }
+    console.info("===> Delete of ", change.localName, " not hanlded!");
+
+
   },
+
   removeInsert: function(id){
     console.info("remove Insert");
 
   },
+
   revertUpdate: function(id){
     let change = this.getXmlLineById(id);
     if(change.localName != "attribute") {           //dev check for type of elements that are affected
@@ -128,21 +176,34 @@ export default {
 
     //set Attribute to old value
     this.newDoc.evaluate(path, this.newDoc, null, XPathResult.ANY_TYPE, null).iterateNext().setAttribute(name, value);
-    
-
   },
-  checkAncestorsForMove: function(){
 
+  checkAncestorsForMove: function(oldPath){
+    let trace = oldPath;
+    if(this.moveMap[trace]) return this.moveMap[trace];
+    while(trace.includes("/")){
+      let lastSlash = trace.lastIndexOf('/');
+      let end = trace.substring(lastSlash);
+
+      trace = trace.substring(0, lastSlash);
+      if(this.moveMap[trace]){
+        return this.moveMap[trace] + end;
+      } 
+    }
+    return oldPath;
   },
+
   regEx: function(line, attribute) {
     var regex = new RegExp(attribute + '="(.*?)"', 'g');
     return regex.exec(line)[1];
   },
+
   getXmlLineById: function(id){
     let element = this.xmlDiffDoc.getElementById(id);
     //console.info("element:", element);
     return element;
   },
+
   getLocalXPath: function(path) {
     let pathArray;
     let returnPath = "";
