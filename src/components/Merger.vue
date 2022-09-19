@@ -9,10 +9,17 @@
       >
         Compute Merge
       </button>
+      <download :new-doc="newDoc"></download>
 </template>
 
 <script>
+import Download from "./Download.vue";
+
 export default {
+  name: "Merger",
+  components: {
+    Download
+  },
   props : {
     xmlDiff: {
         type: String,
@@ -83,6 +90,8 @@ export default {
     if(this.$props.decisionArr == null) selection = ["decision array not loaded"];
     else selection = this.$props.decisionArr;
 
+    let insertsToRemove = [];
+
     //loop over selection, relevant attributes: id, type of change, parent path and/or path, 
     selection.forEach(s => {  //s: changeId, decision (0/1/-1) but should not be -1 at this point, type of change (i,u,d)
       switch(s[2]){
@@ -98,7 +107,7 @@ export default {
           break;
         case "i":
           if(s[1] == 0){
-            this.removeInsert(s[0]);
+            insertsToRemove.push(s[0]);
           };
           break;
         default: 
@@ -106,6 +115,10 @@ export default {
           alert("wrong type in selection");
       }
     })
+
+    insertsToRemove.reverse().forEach(id => {  this.removeInsert(id); })
+
+    console.info(this.newDoc);
 
   },
 
@@ -131,7 +144,6 @@ export default {
       let parent = change.getAttribute("oldParent");
       parent = this.checkAncestorsForMove(parent);
       parent = this.getLocalXPath(parent);
-      console.info(parent);
       this.newDoc.evaluate(parent, this.newDoc, null, XPathResult.ANY_TYPE, null).iterateNext().insertAdjacentText('beforeend', change.getAttribute("oldText"));
       return;
     }
@@ -139,6 +151,13 @@ export default {
     //Node
     if(change.localName == "node"){
       let oldPath = change.getAttribute("oldPath");
+      
+      /* --- skips math changes
+         --- handling mathematical changes atomicly will most likely make no sense
+         --- also, it breaks the insertAdjacentElement method, maybe because it would have to handle pure tag nodes
+      --- */
+      if(oldPath.includes("/math")) return; 
+     
       let appendPath = change.getAttribute("oldParent");
       appendPath = this.checkAncestorsForMove(appendPath);
 
@@ -146,12 +165,7 @@ export default {
       appendPath = this.getLocalXPath(appendPath);
 
       let node = this.oldDoc.evaluate(oldPath, this.oldDoc, null, XPathResult.ANY_TYPE, null).iterateNext();
-
       this.newDoc.evaluate(appendPath, this.newDoc, null,XPathResult.ANY_TYPE, null).iterateNext().insertAdjacentElement('beforeend', node);
-      
-      console.info(node);
-      console.info(this.newDoc);
-      alert();
       return;
     }
     console.info("===> Delete of ", change.localName, " not hanlded!");
@@ -160,7 +174,35 @@ export default {
   },
 
   removeInsert: function(id){
-    console.info("remove Insert");
+    let change = this.getXmlLineById(id);
+    let path = change.getAttribute("newPath");
+
+    /* --- skips math changes
+        --- handling mathematical changes atomicly will most likely make no sense
+        --- also, it breaks the insertAdjacentElement method, maybe because it would have to handle pure tag nodes
+    --- */
+
+    if(path.includes("/math")) return; 
+
+    path = this.getLocalXPath(path);
+
+    if(change.localName == "node" || change.localName == "text"){ //if a a delete was readded on the same node or text the iterateNext() + remove() will remove this correct element
+      this.newDoc.evaluate(path,this.newDoc, null, XPathResult.ANY_TYPE, null).iterateNext().remove();
+      return;
+    }
+
+    if(change.localName == "text"){
+      this.newDoc.evaluate(path,this.newDoc, null, XPathResult.ANY_TYPE, null).iterateNext().remove();
+      return;
+    }
+
+    if(change.localName == "attribute"){
+      console.info(path);
+      this.newDoc.evaluate(path,this.newDoc, null, XPathResult.ANY_TYPE, null).iterateNext().removeAttribute(change.getAttribute("name"));
+      return;
+    }
+
+    if(change.localName != "node" || change.localName != "text") console.error("Unhadled remove insert: ", change.localName, change);
 
   },
 
