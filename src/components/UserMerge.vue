@@ -44,6 +44,7 @@
   </div>
   <div id="devOutput" v-if="dev">
     <h3>Dev mode is active!</h3>
+    <p> The Merg is produced with local files for versions, diff and decisionArray. So it is not coupled with the slider. </p>
     <merger :xml-diff="xmlDiff" :decision-arr="decisionArr" :v1="v1" :v2="v2"></merger>
   </div>
 </template>
@@ -53,29 +54,20 @@
 import Merger from "./Merger.vue";
 import axios from 'axios';
 import * as divilApi from "../../DiVil/javascriptAndCss/init";
-/* import Carousel from "./Carousel.vue"; */
-//import Selection from "./Selection.vue";
-//import dev data
-/* import devDataJson from "/dev/navicenta/sbgnJson.json";
-import devDataXmlDiff from "raw-loader!/dev/navicenta/xmlDiff.xml";
-import version1 from "raw-loader!/dev/navicenta/version1.xml";
-import version2 from "raw-loader!/dev/navicenta/version2.xml"; */
+import * as mathJax from "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML";
+
 import devDataJson from "/dev/dupreez_6-7/sbgnJson.json";
 import testArr from "/dev/dupreez_6-7/decisionArray.js";
-/* import devDataXmlDiff from "/dev/dupreez_6-7/xmlDiff.xml";
-import version1 from "/dev/dupreez_6-7/dupreez6.xml";
-import version2 from "/dev/dupreez_6-7/dupreez7.xml"; */
+
 
 export default {
   name: "user-merge",
   components: {
     Merger
-    /*     Carousel,*/
-    /* Selection, */
+
   },
   data() {
     return {
-      /* START - dev vars */
       json: devDataJson,
       xmlDiff: null,
       updates: 0,
@@ -85,8 +77,7 @@ export default {
       v1: null,
       v2: null,
       hide: true,
-      /* END */
-      decisionArr: testArr, // [],
+      decisionArr: testArr, // null,
       reactionsArr: [],
       structuredData: null,
       currentSlide: 0,
@@ -182,6 +173,11 @@ export default {
               });
             }
           });
+
+
+///
+console.info(mathJax);
+
 
           //init computed divil data
           this.structuredData = divilApi.initDivil(this.xmlDiff, this.v1, this.v2);

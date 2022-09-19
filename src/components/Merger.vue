@@ -9,18 +9,12 @@
       >
         Compute Merge
       </button>
-      <download :new-doc="newDoc"></download>
 </template>
 
 <script>
-import Download from "./Download.vue";
-
 export default {
   name: "Merger",
-  components: {
-    Download
-  },
-  props : {
+  props: {
     xmlDiff: {
         type: String,
         required: true
@@ -119,6 +113,7 @@ export default {
     insertsToRemove.reverse().forEach(id => {  this.removeInsert(id); })
 
     console.info(this.newDoc);
+    this.downloadFile();
 
   },
 
@@ -264,7 +259,25 @@ export default {
     }
     //returnPath += '/*:' + pathArray[pathArray.length-1];
     return returnPath;
-  }
+  },
+
+  downloadFile: function () {
+                //download
+                let file = this.newDoc;
+  
+                const blob = new Blob([file.documentElement.outerHTML], { type: 'text/xml' });
+                const url = URL.createObjectURL(blob); 
+
+                const download = document.createElement('a');
+                download.setAttribute("href", url);
+                download.setAttribute("download", "merge.xml");
+                download.setAttribute("display", "none");
+
+                document.body.appendChild(download);
+                download.click();
+                download.remove();
+
+            }
 }
 };
 </script>
