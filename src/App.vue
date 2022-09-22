@@ -2,8 +2,11 @@
   <div id="topLayer" class="d-flex flex-column h-100">
     <div class="custom-color-1" id="head">
       <div class="container">
-        <div class="row">
-          <h1 class="col-8">Model Merger</h1>
+        <div class="row ">
+          <div id="logoContainer" class="col-8  d-flex">
+            <img id="fullLogo" src="/src/assets/full-logo.svg" />
+          </div>
+          
           <div class="col-4 d-flex align-items-center justify-content-end">
             <button
               type="button"
@@ -107,7 +110,8 @@ export default {
 </script>
 
 <style>
-.row > * {
+#head > button {
+  margin-bottom: 0;
 }
 </style>
 
@@ -147,5 +151,17 @@ export default {
 
 #contact > p {
   margin-bottom: auto;
+}
+
+#logoContainer{
+  max-height: 75px;
+  overflow: visible;
+}
+
+#fullLogo {
+  min-height: 130px;
+  position: relative;
+  top: -10px;
+  z-index: 999;
 }
 </style>

@@ -10,37 +10,40 @@
       </p>
     </div>
 
-    <template v-for="(reaction, index) in reactionsArr" :key="index">
-      <div class="card" v-if="currentSlide == index">
-        <div class="card-header text-center">Featured</div>
-        <div class="card-body row g-0 p-0">
-          <div class="col-8 bivesGraph" :id="`bivesGraph-${index}`"></div>
-          <div class="col-4 changeList" :id="`changeList-${index}`">
-            List changes here instead of popup?
+    <div class="row justify-content-evenly">
+      <input type="radio" class="btn-check col-2" name="options" id="option1" autocomplete="off">
+      <label @click="view = 'model'" class="btn btn-outline-primary col-2" for="option1">Model</label>
+
+      <input type="radio" class="btn-check col-2" name="options" id="option2" autocomplete="off">
+      <label @click="view = 'species';" class="btn btn-outline-primary col-2" for="option2">Species</label>
+
+      <input type="radio" class="btn-check col-2" name="options" id="option3" autocomplete="off"  checked>
+      <label @click="view = 'reactions'" class="btn btn-outline-primary col-2" for="option3">Reactions</label>
+
+      <input type="radio" class="btn-check col-2" name="options" id="option4" autocomplete="off">
+      <label @click="view = 'parameters'" class="btn btn-outline-primary col-2" for="option4">Parameters</label>
+    </div>
+
+    <div v-if="view == 'reactions'">
+      <template v-for="(reaction, index) in reactionsArr" :key="index">
+        <div class="card" v-if="currentSlide == index">
+          <div class="card-header text-center">Featured</div>
+          <div class="card-body row g-0 p-0">
+            <div class="col-8 bivesGraph" :id="`bivesGraph-${index}`"></div>
+            <div class="col-4 changeList" :id="`changeList-${index}`">
+              List changes here instead of popup?
+            </div>
           </div>
+          <div class="card-footer text-muted">Show math here?</div>
         </div>
-        <div class="card-footer text-muted">Show math here?</div>
-      </div>
-    </template>
+      </template>
+    </div>
 
     <!-- Slide buttons -->
     <div class="btn btn-primary" @click="this.currentSlide++">Up</div>
     <div class="btn btn-primary" @click="this.currentSlide--">Down</div>
 
-    <!--     <Carousel
-      :decArr="decisionArr"
-      @arrChanged="decisionArr = $event"
-      @slideChange="currentSlide = $ent"
-      @gotOldDoc="oldDocument = $event"
-      @gotNewDoc="newDocument = $event"
-    /> -->
-    <!--     <Selection
-      v-if="!hide"
-      :decArr="decisionArr"
-      :slideChng="currentSlide"
-      :oldDoc="oldDocument"
-      :newDoc="newDocument"
-    /> -->
+
   </div>
   <div id="devOutput" v-if="dev">
     <h3>Dev mode is active!</h3>
@@ -54,7 +57,7 @@
 import Merger from "./Merger.vue";
 import axios from 'axios';
 import * as divilApi from "../../DiVil/javascriptAndCss/init";
-import * as mathJax from "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML";
+ //import * as mathJax from "../../3rdPartyJS/MathJax-2.7.7/MathJax";
 
 import devDataJson from "/dev/dupreez_6-7/sbgnJson.json";
 import testArr from "/dev/dupreez_6-7/decisionArray.js";
@@ -69,11 +72,7 @@ export default {
   data() {
     return {
       json: devDataJson,
-      xmlDiff: null,
-      updates: 0,
-      inserts: 0,
-      deletes: 0,
-      moves: 0,
+      view: "reactions",
       v1: null,
       v2: null,
       hide: true,
@@ -93,6 +92,11 @@ export default {
     }
   },
   watch: {
+    view:{
+      handler: function(){
+        divilApi.removeDivilDiv("bivesGraph-" + this.currentSlide);
+      }
+    },  
     currentSlide: {
       handler: function () {
         if (this.currentSlide == -1)
@@ -175,10 +179,6 @@ export default {
           });
 
 
-///
-console.info(mathJax);
-
-
           //init computed divil data
           this.structuredData = divilApi.initDivil(this.xmlDiff, this.v1, this.v2);
 
@@ -233,16 +233,19 @@ console.info(mathJax);
     } */
   },
   updated() {
-    console.log(this.v1, this.v2);
-    divilApi.callDiVil(
-      this.reactionsArr[this.currentSlide],
-      this.xmlDiff,
-      this.v1,
-      this.v2,
-      "bivesGraph-" + this.currentSlide,
-      "changeList-" + this.currentSlide,
-      this.structuredData
-    );
+    if(this.view == 'reactions'){
+      console.log(this.v1, this.v2);
+      divilApi.callDiVil(
+        this.reactionsArr[this.currentSlide],
+        this.xmlDiff,
+        this.v1,
+        this.v2,
+        "bivesGraph-" + this.currentSlide,
+        "changeList-" + this.currentSlide,
+        this.structuredData
+      );
+      MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
   },
 };
 </script>
