@@ -337,7 +337,6 @@
     <text id="476" triggeredBy="475" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[19]/kineticLaw[1]/math[1]/ci[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[19]/kineticLaw[1]/math[1]/ci[1]/text()[1]" oldText="GLCinflux" />
   </delete>
   <insert>
-    <attribute name="name" id="6666" newValue="dupreez7" oldPath="/sbml[1]/model[1]" newPath="/sbml[1]/model[1]" />
     <node id="477" newParent="/sbml[1]/model[1]/listOfSpecies[1]/species[11]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[11]/annotation[1]" newTag="annotation" />
     <node id="478" triggeredBy="477" newParent="/sbml[1]/model[1]/listOfSpecies[1]/species[11]/annotation[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[11]/annotation[1]/RDF[1]" newTag="RDF" />
     <node id="479" triggeredBy="478" newParent="/sbml[1]/model[1]/listOfSpecies[1]/species[11]/annotation[1]/RDF[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[11]/annotation[1]/RDF[1]/Description[1]" newTag="Description" />
