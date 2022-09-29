@@ -32,7 +32,23 @@
             <h5>{{ element.id }}</h5>
             <ul class="list-group">
               <template v-for="(el, key) in element.attr" :key="key">
-                <li class="list-group-item" ><b>{{ key }}</b>: {{ el }}</li>
+                <li class="list-group-item d-flex justify-content-evenly row" >
+                  <div class="col-3"><b>{{ key }}</b>:</div>
+                  <div v-if="el.changeID" class="col-3">{{ el.oldValue }}</div>
+                  <div v-if="el.changeID" class="col-3">{{ el.newValue }}</div>
+                  <div v-else class="col-9">{{ el }} </div>
+
+                    <div v-if="el.changeID" class="btn-group col-3" role="group" aria-label="Basic radio toggle button group">
+                      <input type="radio" class="btn-check" name="btnradio" :id="`${el.changeID}-bV1`" autocomplete="off" @click="this.updateDecision(el.changeID, 0)">
+                      <label class="btn btn-outline-primary" :for="`${el.changeID}-bV1`">V1</label>
+
+                      <input type="radio" class="btn-check" name="btnradio" :id="`${el.changeID}-bNew`" autocomplete="off" @click="this.updateDecision(el.changeID, 2)" disabled>
+                      <label class="btn btn-outline-primary" :for="`${el.changeID}-bNew`">New</label>
+
+                      <input type="radio" class="btn-check" name="btnradio" :id="`${el.changeID}-bV2`" autocomplete="off" @click="this.updateDecision(el.changeID, 1)">
+                      <label class="btn btn-outline-primary" :for="`${el.changeID}-bV2`">V2</label>
+                    </div>
+                </li>
               </template>
             </ul>
           </li>
@@ -113,7 +129,8 @@ export default {
       v2: null,
       hide: true,
       modelArr: [],
-      decisionArr: testArr, // null,
+      listsArr: [],
+      decisionArr: {}, //testArr
       reactionsArr: [],
       speciesArr: [],
       structuredData: null,
@@ -151,9 +168,6 @@ export default {
           p["type"] = type;
           p["target"] = line.firstChild.localName;
           
-          //console.debug(line);
-          //alert();
-
           let attr = line.firstChild.attributes;
 
           for(let i = 0; i < attr.length; i++){
@@ -162,6 +176,11 @@ export default {
 
           modelChanges.push(p);
         }
+        else if(!line.includes("/listOfSpecies") && !line.includes("/listOfReactions") && line.includes("/listOf") && type != null){
+          console.debug(type, line); //***************!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+
+        }
+
       });
       
       return modelChanges;
@@ -175,20 +194,19 @@ export default {
       attr = this.getAllNodeAttr(this.newDocument.firstChild);
       modelAttr.push({'id': 'sbmlAttr', 'attr': attr});
 
-      //get al Attributes of model
+      //get all Attributes of model
       attr = this.getAllNodeAttr(this.newDocument.firstChild.children.item('model'));
       modelAttr.push({'id': 'modelAttr', 'attr': attr});
 
       //get all childrenTags of <model>
       let lists = this.newDocument.firstChild.children.item(0).children;
-      console.debug("...", lists);
       for(let i = 0; i < lists.length; i++){
         let p = {};
         p["class"] = "list";
         p["id"] = lists[i].localName;
         
         modelAttr.push(p);
-      }
+      } 
 
       return modelAttr;
     },
@@ -201,50 +219,65 @@ export default {
       
       changes.forEach((c) => {
         if(c.target == "attribute"){
+          
+          let el = {};
+          let target;
+          if(c.newPath == "/sbml[1]/model[1]")  target = attributes.find(a => a.id === "modelAttr");
+          else if(c.newPath == "/sbml[1]")  target = attributes.find(a => a.id === "sbmlAttr");
+
           if(c.type == "u"){
-            let el;
-            if(c.newPath == "/sbml[1]/model[1]"){
-              console.debug(attributes);
-              let target = attributes.find(a => a.id === "modelAttr");
-              let el = {};
-              el["changeID"] = c.id;
-              el["changeType"] = "u";
-              el["oldValue"] = c.oldValue;
-              el["newValue"] = c.newValue;
-              
-              target.attr[c.name] = el;
-
-              console.debug(attributes);
-            } else if(c.newPath == "/sbml[1]"){
-
-            }
+            el["changeID"] = c.id;
+            el["changeType"] = "u";
+            el["oldValue"] = c.oldValue;
+            el["newValue"] = c.newValue;
             
+            target.attr[c.name] = el;
+
           } else if(c.type == "i"){
+            el["changeID"] = c.id;
+            el["changeType"] = "i";
+            el["newValue"] = c.newValue;
+            
+            target.attr[c.name] = el;
 
           } else if(c.type == "d"){
-
+            el["changeID"] = c.id;
+            el["changeType"] = "d";
+            el["oldValue"] = c.oldValue;
+            
+            target.attr[c.name] = el;
           }
         }
         else if(c.target == "node"){
-
+          
+          console.debug(c);
         }
         else alert("can't handle " + c.target + " change on model level");
       })
 
       this.modelArr = attributes;
+      console.debug(this.modelArr);
       
+    },
+
+    computeListChanges: function(){
+
     },
 
     getAllNodeAttr: function(node) {
       let attrMap = node.attributes;
       let p = {};
       for(let i = 0; i < attrMap.length; i++){
-       //let p;
-       p[attrMap[i].localName] = attrMap[i].value;
-       //attr.push(p);
+        p[attrMap[i].localName] = attrMap[i].value;
       }
 
       return p;
+    },
+
+    updateDecision: function(cID, d) {
+      this.decisionArr[cID]['decision'] = d;
+
+      console.debug(this.decisionArr);
     }
   },
   watch: {
@@ -408,7 +441,7 @@ export default {
           console.info(this.speciesArr);
           console.info(this.reactionsArr);
 
-          /**********  Creation of Decision Array, works fine currently not used for development   
+          /**********  Creation of Decision Array, works fine currently not used for development   */
           //create decision array
           //filter triggered changes and moves
           let type = '-';
@@ -428,16 +461,22 @@ export default {
               return true;
             }
 
-            if(line.includes("id=") && !line.includes("triggeredBy=")){
+            if(line.includes("id=") && !line.includes("triggeredBy=") && !line.includes("bivesPatch")){
               console.info("found lines");
-              this.decisionArr.push([this.getId(line), -1, type]);
+              let a = {};
+              let id = this.getId(line);
+         
+              
+              a["decision"] = -1;
+              a["type"] = type;
+
+
+              this.decisionArr[id] = a;
             }
             return true;
           })
 
-          if(this.decisionArr[0][0] == "bivesPatch") this.decisionArr.shift();
-          console.info(this.decisionArr);
-          *********************************/
+          /*********************************/
           this.combineModelAttrWithChanges();
 
         })
