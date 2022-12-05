@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { useGetLocalXPath } from '../composables/xmlInteraction';
 export default {
   name: "Merger",
   props: {
@@ -123,7 +124,7 @@ export default {
     //attribute: needed info: newPath
     let path = this.checkAncestorsForMove(change.getAttribute("oldPath"));
 
-    path = this.getLocalXPath(path);
+    path = useGetLocalXPath(path);
         //check for /math and/or /kineticLaw
 
     //Attribute
@@ -138,7 +139,7 @@ export default {
     if(change.localName == "text"){
       let parent = change.getAttribute("oldParent");
       parent = this.checkAncestorsForMove(parent);
-      parent = this.getLocalXPath(parent);
+      parent = useGetLocalXPath(parent);
       this.newDoc.evaluate(parent, this.newDoc, null, XPathResult.ANY_TYPE, null).iterateNext().insertAdjacentText('beforeend', change.getAttribute("oldText"));
       return;
     }
@@ -156,8 +157,8 @@ export default {
       let appendPath = change.getAttribute("oldParent");
       appendPath = this.checkAncestorsForMove(appendPath);
 
-      oldPath = this.getLocalXPath(oldPath);
-      appendPath = this.getLocalXPath(appendPath);
+      oldPath = useGetLocalXPath(oldPath);
+      appendPath = useGetLocalXPath(appendPath);
 
       let node = this.oldDoc.evaluate(oldPath, this.oldDoc, null, XPathResult.ANY_TYPE, null).iterateNext();
       this.newDoc.evaluate(appendPath, this.newDoc, null,XPathResult.ANY_TYPE, null).iterateNext().insertAdjacentElement('beforeend', node);
@@ -179,7 +180,7 @@ export default {
 
     if(path.includes("/math")) return; 
 
-    path = this.getLocalXPath(path);
+    path = useGetLocalXPath(path);
 
     if(change.localName == "node" || change.localName == "text"){ //if a a delete was readded on the same node or text the iterateNext() + remove() will remove this correct element
       this.newDoc.evaluate(path,this.newDoc, null, XPathResult.ANY_TYPE, null).iterateNext().remove();
@@ -207,7 +208,7 @@ export default {
       console.error("revert update ist not on an attribute", change);
     }
 
-    let path = this.getLocalXPath(change.getAttribute("newPath"));
+    let path = useGetLocalXPath(change.getAttribute("newPath"));
     let name = change.getAttribute("name");
     let value = change.getAttribute("oldValue");
 
@@ -241,25 +242,7 @@ export default {
     return element;
   },
 
-  getLocalXPath: function(path) {
-    let pathArray;
-    let returnPath = "";
 
-    path = path.substr(1);
-    pathArray = path.split("/");
-    for (let j = 0; j < pathArray.length; j++) {
-      let splitArr = pathArray[j].split("[");
-
-        if (splitArr[0] == "text()") {
-            //add special cases
-            returnPath += "/" + splitArr[0] + "[" + splitArr[1];
-        } else if (splitArr[1] == null) {//last element not specified -> path to group
-            returnPath += "/*[local-name()='" + splitArr[0] + "']";
-        } else returnPath += "/*[local-name()='" + splitArr[0] + "'][" + splitArr[1];
-    }
-    //returnPath += '/*:' + pathArray[pathArray.length-1];
-    return returnPath;
-  },
 
   downloadFile: function () {
                 //download

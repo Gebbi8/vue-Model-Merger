@@ -11,47 +11,66 @@
     </div>
 
     <div class="row justify-content-evenly">
-      <input type="radio" class="btn-check col-2" name="options" id="option1" autocomplete="off" checked>
-      <label @click="view = 'model'" class="btn btn-outline-primary col-2" for="option1">Model</label>
+      <input type="radio" class="btn-check col-2" name="options" id="modalTab" autocomplete="off">
+      <label @click="view = 'model'" class="btn btn-outline-primary col-1" for="modalTab">Model</label>
+
+      <input type="radio" class="btn-check col-2" name="options" id="unitsTab" autocomplete="off">
+      <label @click="view = 'units'" class="btn btn-outline-primary col-1" for="unitsTab">Units</label>
+
+      <input type="radio" class="btn-check col-2" name="options" id="parametersTab" autocomplete="off" checked>
+      <label @click="view = 'parameters'" class="btn btn-outline-primary col-1" for="parametersTab">Parameters</label>
+
+      <input type="radio" class="btn-check col-2" name="options" id="rulesTab" autocomplete="off">
+      <label @click="view = 'rules'" class="btn btn-outline-primary col-1" for="rulesTab">Rules</label>
 
       <input type="radio" class="btn-check col-2" name="options" id="option2" autocomplete="off">
-      <label @click="view = 'species';" class="btn btn-outline-primary col-2" for="option2">Species</label>
+      <label @click="view = 'species';" class="btn btn-outline-primary col-1" for="option2">Species</label>
 
       <input type="radio" class="btn-check col-2" name="options" id="option3" autocomplete="off"  >
-      <label @click="view = 'reactions'" class="btn btn-outline-primary col-2" for="option3">Reactions</label>
+      <label @click="view = 'reactions'" class="btn btn-outline-primary col-1" for="option3">Reactions</label>
 
-      <input type="radio" class="btn-check col-2" name="options" id="option4" autocomplete="off" disabled>
-      <label @click="view = 'parameters'" class="btn btn-outline-primary col-2" for="option4">Parameters</label>
     </div>
 
     <div  v-if="view == 'model'">
       <p>Looking at the changes in model describtion, name, ...</p>
         <ul class="list-group">
           <template v-for="(element, index) in modelArr" :key="index">
-          <li v-if="element.id != 'listOfSpecies' && element.id != 'listOfReactions'" class="list-group-item" :id="`${element.id}`">
+          <li v-if="index === 'modelAttr' || index === 'sbmlAttr'" class="list-group-item" :id="`${element.id}`">
             <h5>{{ element.id }}</h5>
             <ul class="list-group">
               <template v-for="(el, key) in element.attr" :key="key">
                 <li class="list-group-item d-flex justify-content-evenly row" >
                   <div class="col-3"><b>{{ key }}</b>:</div>
-                  <div v-if="el.changeID" class="col-3">{{ el.oldValue }}</div>
-                  <div v-if="el.changeID" class="col-3">{{ el.newValue }}</div>
+                  <div v-if="el.changeID" class="col-3 delete-color">{{ el.oldValue }}</div>
+                  <div v-if="el.changeID" class="col-3 insert-color">{{ el.newValue }}</div>
                   <div v-else class="col-9">{{ el }} </div>
 
-                    <div v-if="el.changeID" class="btn-group col-3" role="group" aria-label="Basic radio toggle button group">
-                      <input type="radio" class="btn-check" name="btnradio" :id="`${el.changeID}-bV1`" autocomplete="off" @click="this.updateDecision(el.changeID, 0)">
+                    <div v-if="el.changeID" class="btn-group col-3" role="group" aria-label="Toggle group">
+                      <input type="radio" class="btn-check" :name="`${el.changeID}-btnradio`" :id="`${el.changeID}-bV1`" autocomplete="off" @click="this.updateDecision(el.changeID, 0)">
                       <label class="btn btn-outline-primary" :for="`${el.changeID}-bV1`">V1</label>
 
-                      <input type="radio" class="btn-check" name="btnradio" :id="`${el.changeID}-bNew`" autocomplete="off" @click="this.updateDecision(el.changeID, 2)" disabled>
+                      <input type="radio" class="btn-check" :name="`${el.changeID}-btnradio`" :id="`${el.changeID}-bNew`" autocomplete="off" @click="this.updateDecision(el.changeID, 2)" disabled>
                       <label class="btn btn-outline-primary" :for="`${el.changeID}-bNew`">New</label>
 
-                      <input type="radio" class="btn-check" name="btnradio" :id="`${el.changeID}-bV2`" autocomplete="off" @click="this.updateDecision(el.changeID, 1)">
+                      <input type="radio" class="btn-check" :name="`${el.changeID}-btnradio`" :id="`${el.changeID}-bV2`" autocomplete="off" @click="this.updateDecision(el.changeID, 1)">
                       <label class="btn btn-outline-primary" :for="`${el.changeID}-bV2`">V2</label>
                     </div>
                 </li>
               </template>
             </ul>
           </li>
+        </template>
+      </ul>
+    </div>
+
+    <div v-if="view == 'parameters'">
+      <p>Looking at the changes in model paremeters</p>
+      <ul>
+        <template v-for="(el, index) in modelArr['listOfParameters']" :key="index">
+          <div v-if="el.change === 'i'" class="insert-color"><p> --- {{el}}</p></div>
+          <div v-else-if="el.change === 'd'" class="delete-color"><p> --- {{el}}</p></div>
+          <div v-else><p> --- {{el}}</p></div>
+
         </template>
       </ul>
     </div>
@@ -112,7 +131,8 @@ import * as divilApi from "../../DiVil/javascriptAndCss/init";
 import devDataJson from "/dev/dupreez_6-7/sbgnJson.json";
 import testArr from "/dev/dupreez_6-7/decisionArray.js";
 import modelTestArr from "/dev/dupreez_6-7/decisionArray.js";
-import { list } from "postcss";
+
+import { useGetLocalXPath, getNode } from "../composables/xmlInteraction";
 
 
 export default {
@@ -124,11 +144,12 @@ export default {
   data() {
     return {
       json: devDataJson,
-      view: "model",
+      view: "parameters",
       v1: null,
       v2: null,
       hide: true,
       modelArr: [],
+      unitsArr: [],
       listsArr: [],
       decisionArr: {}, //testArr
       reactionsArr: [],
@@ -149,6 +170,7 @@ export default {
       let modelChanges = [];
       let xmlLines = this.xmlDiff.split(/\r?\n/);
       let type;
+      let parser = new DOMParser();
       xmlLines.forEach(line => {
         if(line.includes("triggeredBy="));
         else if(line.includes("<move>")) type = null;
@@ -161,9 +183,10 @@ export default {
         else if(line.includes("<update>")){
               type = 'u';
             }
-        else if(line.includes('/sbml[1]/model[1]\"') && type != null){
-          let parser = new DOMParser();
+        else if((line.includes('/sbml[1]\"') || line.includes('/sbml[1]/model[1]\"')) && type != null){
+          
           line = parser.parseFromString(line, "application/xml");
+
           let p = {};
           p["type"] = type;
           p["target"] = line.firstChild.localName;
@@ -176,8 +199,24 @@ export default {
 
           modelChanges.push(p);
         }
-        else if(!line.includes("/listOfSpecies") && !line.includes("/listOfReactions") && line.includes("/listOf") && type != null){
-          console.debug(type, line); //***************!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+        else if(type != null && !line.includes("/listOfSpecies") && !line.includes("/listOfReactions") && line.includes("/listOf") ){
+
+          line = parser.parseFromString(line, "application/xml");
+
+
+
+
+          let p = {};
+          p["type"] = type;
+          p["target"] = line.firstChild.localName;
+
+          let attr = line.firstChild.attributes;
+
+          for(let i = 0; i < attr.length; i++){
+            p[attr[i].localName] = attr[i].value;
+          }
+
+          modelChanges.push(p);
 
         }
 
@@ -190,72 +229,144 @@ export default {
 
       // gets Attributes on SBML tag
       let attr = [];
-      let modelAttr = [];
+      let modelAttr = {};
       attr = this.getAllNodeAttr(this.newDocument.firstChild);
-      modelAttr.push({'id': 'sbmlAttr', 'attr': attr});
+      modelAttr['sbmlAttr'] = {'attr': attr};
 
       //get all Attributes of model
       attr = this.getAllNodeAttr(this.newDocument.firstChild.children.item('model'));
-      modelAttr.push({'id': 'modelAttr', 'attr': attr});
+      modelAttr['modelAttr'] = {'attr': attr};
 
       //get all childrenTags of <model>
       let lists = this.newDocument.firstChild.children.item(0).children;
       for(let i = 0; i < lists.length; i++){
-        let p = {};
-        p["class"] = "list";
-        p["id"] = lists[i].localName;
+        modelAttr[lists[i].localName] = {"attr": {}};
         
-        modelAttr.push(p);
+
+        //additional but most likely different data will be available for each list
+        
+        //modelAttr.push(p);
       } 
 
       return modelAttr;
     },
 
     combineModelAttrWithChanges: function(){
+      let modelData = this.getModelAttr();
       let changes = this.getModelChanges();
-      let attributes = this.getModelAttr();
+      
+      
+      //get units
+      let unitsListPath = useGetLocalXPath("/sbml[1]/model[1]/listOfUnitDefinitions[1]");
+      let units = this.getUnits(this.newDocument, unitsListPath);
+      if(units) modelData["listOfUnitDefinitions"] = units;
 
+      //get parameters
+      let parameterListPath = useGetLocalXPath("/sbml[1]/model[1]/listOfParameters[1]");
+      let parameters = this.getParameters(this.newDocument, parameterListPath);
+      if(parameters) modelData["listOfParameters"] = parameters;
+
+      //get rules
+      let rulesListPath = useGetLocalXPath("/sbml[1]/model[1]/listOfRules[1]");
+      let rules = this.getRules(this.newDocument, rulesListPath);
+      if(rules) modelData["listOfRules"] = rules;
+      
+      //sort changes by sbml lists
+      let path;
+      let unitChanges = [];
+      let parameterChanges = [];
+      let rulesChanges = [];
+      let sbmlChanges = [];
+      let modelChanges = [];
 
       
       changes.forEach((c) => {
-        if(c.target == "attribute"){
-          
-          let el = {};
           let target;
-          if(c.newPath == "/sbml[1]/model[1]")  target = attributes.find(a => a.id === "modelAttr");
-          else if(c.newPath == "/sbml[1]")  target = attributes.find(a => a.id === "sbmlAttr");
 
-          if(c.type == "u"){
-            el["changeID"] = c.id;
-            el["changeType"] = "u";
-            el["oldValue"] = c.oldValue;
-            el["newValue"] = c.newValue;
-            
-            target.attr[c.name] = el;
+          if(c.newPath === "/sbml[1]/model[1]")  target = "modelAttr";
+          else if(c.newPath === "/sbml[1]")  target = "sbmlAttr";
+          else if(c.newPath) path = c.newPath;
+          else path = c.oldPath;
 
-          } else if(c.type == "i"){
-            el["changeID"] = c.id;
-            el["changeType"] = "i";
-            el["newValue"] = c.newValue;
-            
-            target.attr[c.name] = el;
-
-          } else if(c.type == "d"){
-            el["changeID"] = c.id;
-            el["changeType"] = "d";
-            el["oldValue"] = c.oldValue;
-            
-            target.attr[c.name] = el;
+          if (path != undefined){
+            target = this.getList(path);          
           }
-        }
-        else if(c.target == "node"){
-          
-          console.debug(c);
-        }
-        else alert("can't handle " + c.target + " change on model level");
+
+          switch(target){
+            case "listOfRules": rulesChanges.push(c); break;
+            case "listOfParameters": parameterChanges.push(c); break;
+            case "listOfUnitDefinitions": unitChanges.push(c); break;
+            case "modelAttr": modelChanges.push(c); break;
+            case "sbmlAttr": sbmlChanges.push(c); break;
+            default: alert("no change list for: " + target);
+          }
       })
 
-      this.modelArr = attributes;
+
+      //connect changes to rules, go through the possible lists in sbml reuse as much code as possible
+
+      //changes in model info
+      modelChanges.forEach((c) => {           //handle possible targets, call functions for reusable code
+        //target: attribute
+        if(c.target == "attribute"){
+          modelData = this.addAttributeChanges(c, modelData, "modelAttr");
+
+        }
+        else if(c.target == "node"){  //TODO: target node
+          console.info(c);
+          alert("Node in modelChanges");
+        }
+      })
+
+      sbmlChanges.forEach((c) => {           //handle possible targets, call functions for reusable code
+        //target: attribute
+        if(c.target == "attribute"){
+          modelData = this.addAttributeChanges(c, modelData, "sbmlAttr");
+
+        }
+        else if(c.target == "node"){  //TODO: target node
+          modelData = this.changedNode(c, modelData, "sbmlAttr");
+          //alert("Node in sbmlChanges");
+        }
+      })
+
+      parameterChanges.forEach((c) => {           //handle possible targets, call functions for reusable code
+        //target: attribute
+        if(c.target == "attribute"){
+          modelData = this.addAttributeChanges(c, modelData, "listOfParameters");
+
+        }
+        else if(c.target == "node"){  //TODO: target node
+          modelData = this.changedNode(c, modelData, "listOfParameters");
+        }
+      })
+
+      unitChanges.forEach((c) => {           //handle possible targets, call functions for reusable code
+        //target: attribute
+        if(c.target == "attribute"){
+          modelData = this.addAttributeChanges(c, modelData, "listOfUnits");
+
+        }
+        else if(c.target == "node"){  //TODO: target node
+          console.error(c);
+          //alert("Node in unitChanges");
+        }
+      })
+
+      rulesChanges.forEach((c) => {           //handle possible targets, call functions for reusable code
+        //target: attribute
+        if(c.target == "attribute"){
+          modelData = this.addAttributeChanges(c, modelData, "listOfRules");
+
+        }
+        else if(c.target == "node"){  //TODO: target node
+          console.error(c);
+          //alert("Node in rulesChanges");
+        }
+      })
+
+
+      this.modelArr = modelData;
       console.debug(this.modelArr);
       
     },
@@ -278,7 +389,235 @@ export default {
       this.decisionArr[cID]['decision'] = d;
 
       console.debug(this.decisionArr);
+    },
+
+    addAttributeChanges: function (c, modelData, list){
+
+      let el = this.getAttributeChange(c);
+      let target;
+      
+      if(list === "sbmlAttr" || list === "modelAtr") target = modelData[list].attr[el.name];
+      else console.error("anderen Listen behandeln");
+      
+      
+      if(el.changeType === "u"){
+        target = {"changeID": el.changeID, "oldValue": el.oldValue, "newValue": el.newValue};
+      }
+      else if(el.changeType === "i"){
+        target = {"changeID": el.changeID, "newValue": el.newValue};
+      }
+      else if(el.changeType === "d"){
+        target = {"changeID": el.changeID, "oldValue": el.oldValue};
+      }
+
+      return modelData;
+    },
+
+    changedNode: function(c, modelData, list){
+      let el = this.getAttributeChange(c);
+      console.info(el, c);
+      if(el.changeType === "i"){
+        modelData[list][c.newChildNo]["change"] = "i";
+      }
+      else if(el.changeType === "d"){
+
+      }
+
+      return modelData
+    },
+
+    getUnits: function (doc, path){  //produces Array out of information from Unit list of a doc
+      // name: , attr: [name: , oldV: , newV: ], unitDefs: [oldU, newU]
+      let n = getNode(doc, path);
+      let units = n.children;
+      let unitList = {};
+      
+      
+
+      for(let i = 0; i < units.length; i++){
+        let unit = {};
+
+        unit["name"] = units.item(i).attributes.name.value;
+        unit["id"] = units.item(i).attributes.id.value;
+
+        //compute attribute list
+        unit["attr"] = {};
+        let attr = units[i].attributes;
+        for(let j = 0; j < attr.length; j++){
+          unit["attr"][attr[j].localName] = {};
+          unit["attr"][attr[j].localName]["newV"] = attr[j].value;
+        }
+        
+
+        //compute presentation MathML for units
+        let times = " &InvisibleTimes; ";
+
+        let definitions = units.item(i).children[0].children;
+
+        let numerator = null;
+        let denominator = null;
+
+        for(let j = 0; j< definitions.length; j++){
+          //unit["childNumber"] = j;  due to the transformation to mathML, i can't fix the elemnts to the path
+
+
+          let exp = Number(definitions[j].attributes.exponent.value);
+          let s = this.getScaleSymbol(definitions[j].attributes.scale);
+          let m = definitions[j].attributes.multiplier.value;
+          let u = this.getUnit(definitions[j].attributes.kind)
+
+
+          let e = "";
+          if(m && m != 1) e = m;
+          if(Math.abs(exp) != 1) e += "<msup>" + s + u + " " + Math.abs(exp) + "</msup>"
+          else e += s + u;
+
+          if(exp > 0){
+            if(numerator == null) numerator = "<mrow>" + e;
+            else  numerator += times + e;
+          } 
+          else if(exp < 0){
+            if(denominator == null) denominator = "<mrow>" + e;
+            else denominator += times + e;
+          } 
+          else console.error("exponent zero");
+        
+
+        }
+
+        numerator += "</mrow>";
+        denominator += "</mrow>";
+
+        unit["unitDefs"] = {};
+        if(denominator != "<mrow></mrow>") unit["unitDefs"]["newU"] = "<mfrac>" + numerator + denominator + "</mfrac>";
+        else unit["unitDefs"]["newU"] =  numerator;
+
+        //let id =  units.item(i).attributes.id.value;
+        unitList[i]  = unit;
+      }
+
+      return unitList;
+      
+      
+
+      ///////////////////////<-------------------------------------------------
+    },
+
+    getRules: function(doc, path){
+
+    },
+
+    getAttributeChange: function(change){
+      let el = {};
+      el["target"] = change.target;
+      el["name"] = change.name;
+
+      if(change.type == "u"){
+        el["changeID"] = change.id;
+        el["changeType"] = "u";
+        el["oldValue"] = change.oldValue;
+        el["newValue"] = change.newValue;         
+      }
+      else if(change.type == "i"){
+        el["changeID"] = change.id;
+        el["changeType"] = "i";
+        el["newValue"] = change.newValue;
+      }
+      else if(change.type == "d"){
+        el["changeID"] = change.id;
+        el["changeType"] = "d";
+        el["oldValue"] = change.oldValue;
+      }
+
+      return el;
+    },
+
+    getChangeTarget: function(path){
+      //target = modelData[this.getList(path)];
+
+      let leaf = path.slice(path.lastIndexOf('/')+1);
+      let childNo = (leaf.slice(leaf.indexOf('[')+1, leaf.lastIndexOf(']')));
+      childNo = Number(childNo) - 1;
+      let leafTag = leaf.substring(0, leaf.indexOf('['));
+
+      return {"tag": leafTag, "childNo": childNo};
+    },
+
+    getParameters: function(doc, path){
+      let parameters = getNode(doc, path).children;
+      let parameterList = {};
+
+      for(let i = 0; i < parameters.length; i++){
+        parameterList[i] = {};
+        let attr = parameters[i].attributes;
+
+        for(let j = 0; j < attr.length; j++){
+          parameterList[i][attr[j].localName] = attr[j].value;
+        }
+      }
+      return parameterList;
+    },
+
+    getScaleSymbol: function(s){
+      s = Number (s.value);
+      console.debug(s);
+      switch(s){
+        case NaN: return '';
+        case 24: return 'Y';
+        case 21: return 'Z';
+        case 18: return 'E';
+        case 15: return 'P';
+        case 12: return 'T';
+        case 9: return 'G';
+        case 6: return 'M';
+        case 3: return 'k';
+        case 2: return 'h';
+        case 1: return 'da';
+        case 0: return '';
+        case -1: return 'd';
+        case -2: return 'c';
+        case -3: return 'm';
+        case -6: return 'µ';
+        case -9: return 'n';
+        case -12: return 'p';
+        case -15: return 'f';
+        case -18: return 'a';
+        case -21: return 'z';
+        case -24: return 'y';
+        default: return 'missing scale';
+      }
+    },
+
+    getUnit: function(u){
+      console.debug (u);
+      u = u.value;
+      console.debug (u);
+      switch(u){
+        case "": return '';
+        case "meter": return 'm';
+        case "litre": return 'l';
+        case "kilogram": return 'kg';
+        case "gram": return 'g';
+        case "second": return 's';
+        case "ampere": return 'A';
+        case "kelvin": return 'K';
+        case "celsius": return '°C';
+        case "mole": return 'mol';
+        case "candela": return 'cd';
+        case "hertz": return 'Hz';
+        case "newton": return 'N';
+        case "candela": return 'cd';
+        case "joule": return 'J';
+        default: return 'missing unit';
+      }
+    },
+
+    getList: function(path){ //list from path
+      let regex = new RegExp('listOf[^\[]*', 'g');
+      let r = regex.exec(path);
+      return r[0];
     }
+
   },
   watch: {
     view:{
@@ -362,7 +701,7 @@ export default {
                   
                   //console.log(addNodeId, addNode);
                   if(!reactionNodes.some(rN => rN.id === addNodeId)){
-                    console.info(reactionNodes, addNodeId);
+                    //console.info(reactionNodes, addNodeId);
                     //alert("check nodes");
                     addNode = this.json.nodes.find((n) => n.id == addNodeId);
                     reactionNodes.push(addNode);
@@ -438,8 +777,8 @@ export default {
           this.structuredData = divilApi.initDivil(this.xmlDiff, this.v1, this.v2);
 
           //console.info(this.decisionArr);
-          console.info(this.speciesArr);
-          console.info(this.reactionsArr);
+          //console.info(this.speciesArr);
+          //console.info(this.reactionsArr);
 
           /**********  Creation of Decision Array, works fine currently not used for development   */
           //create decision array
@@ -462,7 +801,7 @@ export default {
             }
 
             if(line.includes("id=") && !line.includes("triggeredBy=") && !line.includes("bivesPatch")){
-              console.info("found lines");
+              //console.info("found lines");
               let a = {};
               let id = this.getId(line);
          
@@ -477,10 +816,15 @@ export default {
           })
 
           /*********************************/
+          
+          // get units
+
+
           this.combineModelAttrWithChanges();
 
         })
         .catch(error => {
+          console.info(error);
           console.error(error.message);
         });
 
