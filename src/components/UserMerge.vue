@@ -23,7 +23,7 @@
       <input type="radio" class="btn-check col-2" name="options" id="rulesTab" autocomplete="off">
       <label @click="view = 'rules'" class="btn btn-outline-primary col-1" for="rulesTab">Rules</label>
 
-      <input type="radio" class="btn-check col-2" name="options" id="compartmentsTab" autocomplete="off">
+      <input type="radio" class="btn-check col-2" name="options" id="compartmentsTab" autocomplete="off" >
       <label @click="view = 'compartments';" class="btn btn-outline-primary col-1" for="compartmentsTab">Compartments</label>
 
       <input type="radio" class="btn-check col-2" name="options" id="speciesTab" autocomplete="off">
@@ -35,6 +35,7 @@
     </div>
 
     <div  v-if="view == 'model'">
+
         <ul class="list-group">
           <template v-for="(element, index) in modelArr" :key="index">
           <li v-if="index === 'modelAttr' || index === 'sbmlAttr'" class="list-group-item" :id="`${element.id}`">
@@ -47,16 +48,9 @@
                   <div v-if="el.newValue" class="col-3 insert-color">{{ el.newValue }}</div>
                   <div v-if="!el.changeID" class="col-9">{{ el }} </div>
 
-                    <div v-if="el.changeID" class="btn-group col-3" role="group" aria-label="Toggle group">
-                      <input type="radio" class="btn-check" :name="`${el.changeID}-btnradio`" :id="`${el.changeID}-bV1`" autocomplete="off" @click="this.updateDecision(el.changeID, 0)">
-                      <label class="btn btn-outline-primary" :for="`${el.changeID}-bV1`">V1</label>
-
-                      <input type="radio" class="btn-check" :name="`${el.changeID}-btnradio`" :id="`${el.changeID}-bNew`" autocomplete="off" @click="this.updateDecision(el.changeID, 2)" disabled>
-                      <label class="btn btn-outline-primary" :for="`${el.changeID}-bNew`">New</label>
-
-                      <input type="radio" class="btn-check" :name="`${el.changeID}-btnradio`" :id="`${el.changeID}-bV2`" autocomplete="off" @click="this.updateDecision(el.changeID, 1)">
-                      <label class="btn btn-outline-primary" :for="`${el.changeID}-bV2`">V2</label>
-                    </div>
+                  <div v-if="el.changeID" class="container col-1">
+                      <decision-btn :changeID="el.changeID" :d="this.decisionArr[el.changeID]['decision']" @decision="this.updateDecision"/>
+                  </div>
                 </li>
               </template>
             </ul>
@@ -68,28 +62,9 @@
     <div v-if="view == 'parameters'">
       <ul>
         <li v-for="(el, index) in modelArr['listOfParameters']" :key="index"  class="list-group-item">
-          <div v-if="el.change === 'i'">
-            <ul class="list-group list-group-horizontal">
-              <li v-for="(attr, name) in el" :key="name" class="list-group-item insert-color">
-                <b>{{ name }}: </b> {{attr}}
-              </li>
-            </ul>
+          <div class="container">
+            <lists-template :el="el" :decisionArr="this.decisionArr"  @decision="this.updateDecision"/>
           </div>
-          <div v-if="el.change === 'd'">
-            <ul class="list-group list-group-horizontal">
-              <li v-for="(attr, name) in el" :key="name" class="list-group-item delete-color">
-                <b>{{ name }}: </b> {{attr}}
-              </li>
-            </ul>
-          </div>
-          <div v-else>         
-            <ul class="list-group list-group-horizontal">
-              <li v-for="(attr, name) in el" :key="name" class="list-group-item">
-                <b>{{ name }}: </b> {{attr}}
-              </li>
-            </ul>
-          </div>
-
         </li>
       </ul>
     </div>
@@ -97,35 +72,8 @@
     <div v-if="view == 'units'">
       <ul>
         <li v-for="(el, index) in modelArr['listOfUnitDefinitions']" :key="index"  class="list-group-item">
-          <div v-if="el.change === 'i'">
-            <ul class="list-group list-group-horizontal">
-              <li v-for="(attr, name) in el" :key="name" class="list-group-item insert-color">
-                <b>{{ name }}: </b> {{attr}}
-              </li>
-            </ul>
-          </div>
-          <div v-else-if="el.change === 'd'">
-            <ul class="list-group list-group-horizontal">
-              <li v-for="(attr, name) in el" :key="name" class="list-group-item delete-color">
-                <b>{{ name }}: </b> {{attr}}
-              </li>
-            </ul>
-          </div>
-          <div v-else>         
-            <ul class="list-group list-group-horizontal">
-              <li v-for="(attr, name) in el" :key="name" class="list-group-item">
-                <ul v-if="name === 'attr'">
-                    <li v-for="(value, name) in attr" :key="name">
-                      <b> {{ name }}:</b> {{ value }}
-                    </li>
-                </ul>
-                
-                <div v-else-if="name === 'unitDefs'">
-                  <span v-html="attr"></span>
-                </div>
-                <div v-else><b>{{ name }}: </b> {{attr}}</div>
-              </li>
-            </ul>
+          <div class="container">
+            <lists-template :el="el" :decisionArr="this.decisionArr" @decision="this.updateDecision"/>
           </div>
         </li>
       </ul>
@@ -134,52 +82,8 @@
     <div v-if="view == 'rules'">
       <ul>
         <li v-for="(el, index) in modelArr['listOfRules']" :key="index"  class="list-group-item">
-          <div v-if="el.change === 'i'">
-            <ul class="list-group list-group-horizontal">
-              <li class="list-group-item">
-                <ul class="list-group">
-                    <li v-for="(value, name) in el.attr" :key="name" class="list-group-item insert-color">
-                      <b> {{ name }}: </b> {{ value }}
-                    </li>
-                </ul>
-
-       <!--     <div v-else><b>{{ name }}: </b> {{attr}}</div> -->
-              </li>
-              <li class="list-group-item insert-color">
-                  <span v-html="el.math"></span>
-              </li>
-            </ul>
-          </div>
-          <div v-if="el.change === 'd'"> 
-            <ul class="list-group list-group-horizontal">
-              <li class="list-group-item">
-                <ul class="list-group">
-                    <li v-for="(value, name) in el.attr" :key="name" class="list-group-item delete-color">
-                      <b> {{ name }}: </b> {{ value }}
-                    </li>
-                </ul>
-
-       <!--     <div v-else><b>{{ name }}: </b> {{attr}}</div> -->
-              </li>
-              <li class="list-group-item delete-color">
-                  <span v-html="el.math"></span>
-              </li>
-            </ul>
-          </div>
-          <div v-else>         
-            <ul class="list-group list-group-horizontal">
-              <li v-for="(attr, name) in el" :key="name" class="list-group-item">
-                <ul v-if="name === 'attr'">
-                    <li v-for="(value, name) in attr" :key="name">
-                      <b> {{ name }}:</b> {{ value }}
-                    </li>
-                </ul>
-                <div v-else-if="name === 'math'">
-                  <span v-html="attr"></span>
-                </div>
-                <div v-else><b>{{ name }}: </b> --> {{attr}}</div>
-              </li>
-            </ul>
+          <div class="container">
+            <lists-template :el="el" :decisionArr="this.decisionArr" @decision="this.updateDecision"/>
           </div>
         </li>
       </ul>
@@ -188,26 +92,8 @@
     <div v-if="view == 'compartments'">
       <ul>
         <li v-for="(el, index) in modelArr['listOfCompartments']" :key="index"  class="list-group-item">
-          <div v-if="el.change === 'i'">
-            <ul class="list-group list-group-horizontal">
-              <li v-for="(attr, name) in el" :key="name" class="list-group-item insert-color">
-                <b>{{ name }}: </b> {{attr}}
-              </li>
-            </ul>
-          </div>
-          <div v-if="el.change === 'd'">
-            <ul class="list-group list-group-horizontal">
-              <li v-for="(attr, name) in el" :key="name" class="list-group-item delete-color">
-                <b>{{ name }}: </b> {{attr}}
-              </li>
-            </ul>
-          </div>
-          <div v-else>         
-            <ul class="list-group list-group-horizontal">
-              <li v-for="(attr, name) in el" :key="name" class="list-group-item">
-                <b>{{ name }}: </b> {{attr}}
-              </li>
-            </ul>
+          <div class="container">
+            <lists-template :el="el" :decisionArr="this.decisionArr" @decision="this.updateDecision"/>
           </div>
         </li>
       </ul>
@@ -215,19 +101,24 @@
 
 
     <div v-if="view == 'species'">
+      <div class="btn btn-primary" @click="this.currentSlide++">Up</div>
+
       <template v-for="(species, index) in speciesArr" :key="index">
         <div class="card" v-if="currentSlide == index">
           <div class="card-header text-center">Featured</div>
           <div class="card-body row g-0 p-0">
             <div class="col-8 bivesGraph" :id="`bivesGraphSpecies-${index}`"></div>
             <div class="col-4 changeList" :id="`changeListSpecies-${index}`">
-              Species focus view, just like reaction view, but the subgraph is computed for d=2
-              {{ this.currentSlide }}
+
             </div>
           </div>
-          <div class="card-footer text-muted">Show math here?</div>
+         
+<!--           <span> Species focus view, just like reaction view, but the subgraph is computed for d=2
+              {{ this.currentSlide }}
+            </span> -->
         </div>
       </template>
+      <div class="btn btn-primary" @click="this.currentSlide--">Down</div>
     </div>
 
 
@@ -236,20 +127,15 @@
         <div class="card" v-if="currentSlide == index">
           <div class="card-header text-center">Featured</div>
           <div class="card-body row g-0 p-0">
-            <div class="col-8 bivesGraph" :id="`bivesGraphReaction-${index}`"></div>
-            <div class="col-4 changeList" :id="`changeListReaction-${index}`">
-              List changes here instead of popup?
+              <div class="col-8 bivesGraph" :id="`bivesGraphReaction-${index}`"></div>
+              <div class="col-4 changeList" :id="`changeListReaction-${index}`">
             </div>
           </div>
           <div class="card-footer text-muted">Show math here?</div>
         </div>
       </template>
     </div>
-
-    <!-- Slide buttons -->
-    <div class="btn btn-primary" @click="this.currentSlide++">Up</div>
-    <div class="btn btn-primary" @click="this.currentSlide--">Down</div>
-
+    
 
   </div>
   <div id="devOutput" v-if="dev">
@@ -261,6 +147,8 @@
 
 
 <script>
+import DecisionBtn from "./DecisionBtn.vue";
+import ListsTemplate from "./ListsTemplate.vue";
 import Merger from "./Merger.vue";
 import axios from 'axios';
 import * as divilApi from "../../DiVil/javascriptAndCss/init";
@@ -276,8 +164,9 @@ import { useGetLocalXPath, getNode } from "../composables/xmlInteraction";
 export default {
   name: "user-merge",
   components: {
-    Merger
-
+    Merger,
+    ListsTemplate,
+    DecisionBtn
   },
   data() {
     return {
@@ -300,9 +189,13 @@ export default {
     };
   },
   methods: {
+    filterChangeAttr: function(el, attr){
+      console.info(el, attr);
+      alert("wqdesasd");
+    },
     getId: function (line){
-          var regex = new RegExp('id="(.*?)"', 'g');
-          return regex.exec(line)[1];
+          let regex = new RegExp('id="(.*?)"', 'g');
+          return regex.exec(line)[1]; 
     },
     getModelChanges: function () {
       let modelChanges = [];
@@ -393,7 +286,7 @@ export default {
       let modelData = this.getModelAttr();
       let changes = this.getModelChanges();
       
-      
+
       //get units
       let unitsListPath = useGetLocalXPath("/sbml[1]/model[1]/listOfUnitDefinitions[1]");
       let units = this.getUnits(this.newDocument, unitsListPath);
@@ -407,46 +300,60 @@ export default {
       //get rules
       let rulesListPath = useGetLocalXPath("/sbml[1]/model[1]/listOfRules[1]");
       let rules = this.getRules(this.newDocument, rulesListPath);
-      if(rules){
-        if(modelData["listOfRules"]){
-          let l = modelData["listOfRules"].length();
-          for(let i = 0; i < rules.length; i++) modelData["listOfRules"][l+i] = rules[i];
-        }
-        else modelData["listOfRules"] = rules;
-      } 
+      if(rules) modelData["listOfRules"] = rules;
+      
+
 
       //get compartments
       let compartmentsListPath = useGetLocalXPath("/sbml[1]/model[1]/listOfCompartments[1]");
       let compartments = this.getCompartments(this.newDocument, compartmentsListPath);
       if(compartments) modelData["listOfCompartments"] = compartments;
-      
+
       //sort changes by sbml lists
-      let path;
       let unitChanges = [];
       let parameterChanges = [];
       let rulesChanges = [];
       let sbmlChanges = [];
       let modelChanges = [];
+      let compartmentsChanges = [];
 
-      
+
       changes.forEach((c) => {
+        let path;
+
           let target;
 
           if(c.newPath === "/sbml[1]/model[1]")  target = "modelAttr";
           else if(c.newPath === "/sbml[1]")  target = "sbmlAttr";
           else if(c.newPath) path = c.newPath;
+          else if(c.oldPath === "/sbml[1]/model[1]")  target = "modelAttr";
+          else if(c.oldPath === "/sbml[1]")  target = "sbmlAttr";
           else path = c.oldPath;
+
+          //console.debug(path);
 
           if (path != undefined){
             target = this.getList(path);          
           }
 
+
+
+          //console.debug(target);
+
           switch(target){
-            case "listOfRules": rulesChanges.push(c); break;
+            case "listOfRules": 
+              if(c.oldPath === "/sbml[1]/model[1]/listOfRules[1]") return;
+              //check whether a parentNode was already added, because math changes are missing the "triggeredBy" sometimes
+              for(let i = 0; i < rulesChanges.length; i++){
+                if(c.oldParent.startsWith(rulesChanges[i].oldPath)) return;
+              }
+              rulesChanges.push(c);
+              break;
             case "listOfParameters": parameterChanges.push(c); break;
             case "listOfUnitDefinitions": unitChanges.push(c); break;
             case "modelAttr": modelChanges.push(c); break;
             case "sbmlAttr": sbmlChanges.push(c); break;
+            case "listOfCompartments": compartmentsChanges.push(c); break;
             default: alert("no change list for: " + target);
           }
       })
@@ -465,6 +372,7 @@ export default {
           console.info(c);
           alert("Node in modelChanges");
         }
+        else console.error(c);
       })
 
       sbmlChanges.forEach((c) => {           //handle possible targets, call functions for reusable code
@@ -483,23 +391,23 @@ export default {
         //target: attribute
         if(c.target == "attribute"){
           modelData = this.addAttributeChanges(c, modelData, "listOfParameters");
-
         }
         else if(c.target == "node"){  //TODO: target node
           modelData = this.changedNode(c, modelData, "listOfParameters");
         }
+        else console.error(c);
       })
 
       unitChanges.forEach((c) => {           //handle possible targets, call functions for reusable code
         //target: attribute
         if(c.target == "attribute"){
-          modelData = this.addAttributeChanges(c, modelData, "listOfUnits");
+          modelData = this.addAttributeChanges(c, modelData, "listOfUnitDefinitions");
 
         }
         else if(c.target == "node"){  //TODO: target node
-          console.error(c);
-          //alert("Node in unitChanges");
+          modelData = this.changedNode(c, modelData, "listOfUnitDefinitions");
         }
+        else console.error(c);
       })
 
       let addedNodes = {};
@@ -509,15 +417,18 @@ export default {
         if(c.target == "attribute"){
           modelData = this.addAttributeChanges(c, modelData, "listOfRules");
         }
-        else if(c.target == "node"){  //TODO: target node
-          if(c.oldPath === "/sbml[1]/model[1]/listOfRules[1]"){ //complete list was deleted
-            let rulesListPath = useGetLocalXPath("/sbml[1]/model[1]/listOfRules");
-            let rules = this.getRules(this.oldDocument, rulesListPath, "d");
-            if(rules) modelData["listOfRules"] = rules;
-          }
-          console.error(c);
+        else if(c.target == "node" && c.oldPath !== "/sbml[1]/model[1]/listOfRules[1]"){  //TODO: target node
+          modelData = this.changedNode(c, modelData, "listOfRules");
+        }
+        else console.error(c);
+      })
 
-          //alert("Node in rulesChanges");
+      compartmentsChanges.forEach((c) => {
+        if(c.target == "attribute"){
+          modelData = this.addAttributeChanges(c, modelData, "listOfCompartments");
+        }
+        if(c.target == "node"){
+          modelData = this.changedNode(c, modelData, "listOfCompartments");
         }
       })
 
@@ -525,10 +436,6 @@ export default {
       this.modelArr = modelData;
       console.debug(this.modelArr);
       
-    },
-
-    computeListChanges: function(){
-
     },
 
     getAllNodeAttr: function(node) {
@@ -541,52 +448,129 @@ export default {
       return p;
     },
 
-    updateDecision: function(cID, d) {
-      this.decisionArr[cID]['decision'] = d;
-
-      console.debug(this.decisionArr);
+    updateDecision: function(changeID, d) {
+      this.decisionArr[changeID]['decision'] = d;
     },
 
     addAttributeChanges: function (c, modelData, list){
 
-      let el = this.getAttributeChange(c);
-      let target;
-        alert(list);
-      if(!list === "sbmlAttr" && !list === "modelAttr") console.error("anderen Listen behandeln", list);
+      let el = this.getAttributeChange(c); //?? eigentlich unnötig ??
+
+
+      //if(list != "sbmlAttr" && list != "modelAttr") console.error("anderen Listen behandeln", list);
       
       
-      if(el.changeType === "u"){
+      if(c.type === "u"){
         if(list === "sbmlAttr" || list === "modelAttr") modelData[list].attr[el.name] = {"changeID": el.changeID, "oldValue": el.oldValue, "newValue": el.newValue};      //TODO: anderen Listen behandeln! target= modelData[list].attr[el.name]; geht nicht da call-by-value
+        else if(list === "listOfParameters" || list ==="listOfCompartments" || list === "listOfUnitDefinitions"){ //parameterupdate
+
+          let target = this.getChangeTarget(c.newPath);
+          
+
+          let targetAttr = c.name;
+          modelData[list][target.childNo][targetAttr] = {"type": "u", "changeID": c.id, "oldValue": c.oldValue, "newValue": c.newValue};
+
+
+        }
+        else {
+          console.debug(c, c.type === "d");
+          alert("attribute updated");
+        } 
+
       }
-      else if(el.changeType === "i"){
-        if(list === "sbmlAttr" || list === "modelAttr")modelData[list].attr[el.name] = {"changeID": el.changeID, "newValue": el.newValue};       
+      else if(c.type === "i"){  //elements are already contained in newDoc -> mark inserted elements and add changeID
+        if(list === "sbmlAttr" || list === "modelAttr") modelData[list].attr[el.name] = {"changeID": el.changeID, "newValue": el.newValue};       
+        //elements are already contained in newDoc -> mark inserted elements
+        else if(list === "listOfParameters" || list ==="listOfCompartments" || list === "listOfUnitDefinitions"){ //parameterupdate
+
+          let target = this.getChangeTarget(c.newPath);
+
+
+          let targetAttr = c.name;
+          modelData[list][target.childNo][targetAttr] = {"type": "i", "newValue": c.newValue};
+
+        }
+        else {
+          console.debug(c, c.type === "d");
+          alert("attribute inserted");
+        } 
+       
       }
-      else if(el.changeType === "d"){
-        if(list === "sbmlAttr" || list === "modelAttr")modelData[list].attr[el.name] = {"changeID": el.changeID, "oldValue": el.oldValue};
+      else if(c.type === "d"){
+        if(list === "sbmlAttr" || list === "modelAttr") modelData[list].attr[el.name] = {"changeID": el.changeID, "oldValue": el.oldValue};
+        //insert attribute at right element, mark attribute as deleted
+        else if(list === "listOfParameters" || list ==="listOfCompartments" || list === "listOfUnitDefinitions"){
+          console.debug(c, el, list);
+          //fthisalert("japp");
+          let target = this.getChangeTarget(c.oldPath);
+
+          let targetAttr = c.name;
+          modelData[list][target.childNo][targetAttr] = {"type": "i", "changeID": c.id, "newValue": c.oldValue};
+        }
+        else {
+          console.debug(c, c.type === "d");
+          alert("attribute deleted");
+        } 
       }
 
       return modelData;
     },
 
     changedNode: function(c, modelData, list){
-      let el = this.getAttributeChange(c);
-      console.info(el, c);
-      if(el.changeType === "i"){
-        modelData[list][c.newChildNo] = {};
-        modelData[list][c.newChildNo]["change"] = "i";
-      }
-      else if(el.changeType === "d"){
+      console.info(c.id, c);
 
-      }
+      if(c.type == "i"){
 
-      return modelData
+        let childNo = c.newChildNo - 1;
+        
+        if(list === "sbmlAttr" || list === "modelAttr"){
+            modelData[list][childNo] = {};
+            modelData[list][childNo]["change"] = c.type;
+            modelData[list][childNo]["changeID"] = c.id;
+        }
+        else if(list === "listOfParameters" || list === "listOfUnitDefinitions" || list === "listOfCompartments"){
+          console.debug( modelData[list]);
+
+            //let target = this.getChangeTarget(c.newPath);
+            let h = modelData[list][childNo];
+            modelData[list][childNo] = {};
+            modelData[list][childNo]["change"] = c.type;
+            modelData[list][childNo]["changeID"] = c.id;
+            modelData[list][childNo]["attr"] = h;
+            console.debug( modelData[list][childNo]);
+        }
+      }
+      else if(c.type = "d"){
+        
+        let n;
+
+        if(list === "listOfParameters") n = this.getSingleParameter(this.oldDocument, c.oldPath);
+        else if(list === "listOfUnitDefinitions") n = this.getSingleUnit(this.oldDocument, c.oldPath);
+        else if(list === "listOfRules"){
+          n = this.getSingleRule(this.oldDocument, c.oldPath);
+        }
+        else {
+          alert("handle node deletetion pls! " + c.oldTag);
+        }
+
+        //check whether list exists
+        if(modelData[list] === undefined) modelData[list] = [];
+
+        // attach node to model data
+        modelData[list].push({
+          "change": c.type,
+          "changeID": c.id,
+          "attr": n
+        });
+      }
+      return modelData;
     },
 
     getUnits: function (doc, path){  //produces Array out of information from Unit list of a doc
-      // name: , attr: [name: , oldV: , newV: ], unitDefs: [oldU, newU]
+      // name: , attr: [name: , oldV: , newV: ], math: [oldU, newU]
       let n = getNode(doc, path);
       let units = n.children;
-      let unitList = {};
+      let unitList = [];
       
       
 
@@ -594,18 +578,32 @@ export default {
         let unit = {};
 
         //compute attribute list
-        unit["attr"] = {};
+       
         let attr = units[i].attributes;
         for(let j = 0; j < attr.length; j++){
-          unit["attr"][attr[j].localName] = attr[j].value;
+          unit[attr[j].localName] = attr[j].value;
         }
         
 
         //compute presentation MathML for units
-        let times = " &InvisibleTimes; ";
-
+        
         let definitions = units.item(i).children[0].children;
 
+        unit["math"] = this.getUnitMathML(definitions);
+
+        unitList[i]  = unit;
+      }
+
+      return unitList;
+      
+      
+
+      ///////////////////////<-------------------------------------------------
+    },
+
+    getUnitMathML: function(definitions){
+
+        let times = " &InvisibleTimes; ";
         let numerator = null;
         let denominator = null;
 
@@ -640,17 +638,8 @@ export default {
         numerator += "</mrow>";
         if(denominator != null) denominator += "</mrow>";
        
-        if(denominator != null)  unit["unitDefs"] = '<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"> ' +"<mfrac>" + numerator + denominator + "</mfrac></math>";
-        else  unit["unitDefs"] =  '<math xmlns="http://www.w3.org/1998/Math/MathML">' + numerator + "</math>";
-
-        unitList[i]  = unit;
-      }
-
-      return unitList;
-      
-      
-
-      ///////////////////////<-------------------------------------------------
+        if(denominator != null)  return '<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"> ' +"<mfrac>" + numerator + denominator + "</mfrac></math>";
+        else  return  '<math xmlns="http://www.w3.org/1998/Math/MathML">' + numerator + "</math>";
     },
 
     getRules: function(doc, path, changeType){
@@ -658,10 +647,10 @@ export default {
       let n = getNode(doc, path);
       if(n == null) return;
       let rules = n.children;
-      let rulesList = {};
+      let rulesList = [];
       for(let i = 0; i < rules.length; i++){
         
-        console.debug(rules[i]);
+        //console.debug(rules[i]);
 
         let rule = {};
         if(changeType) rule["change"] = changeType;
@@ -670,9 +659,12 @@ export default {
       
 
         //compute attribute list
+        rule["type"] = type;
+        //rule["changeID"] = type;
+
         rule["attr"] = {};
-        rule["attr"]["type"] = type;
         let attr = rules[i].attributes;
+
         for(let j = 0; j < attr.length; j++){
           rule["attr"][attr[j].localName] = attr[j].value;
         }
@@ -680,7 +672,7 @@ export default {
         let childs = rules[i].children;
         for(let j = 0; j < childs.length; j++){
           if(childs[j].localName == "math"){
-            rule["math"] = childs[j].outerHTML;
+            rule["attr"]["math"] = childs[j].outerHTML;
           }
         }
 
@@ -710,7 +702,7 @@ export default {
     getCompartments: function (doc, path){ // produces array of 
       let n = getNode(doc, path);
       let compartments = n.children;
-      let compartmentList = {};
+      let compartmentList = [];
 
       console.debug(compartments);
 
@@ -721,7 +713,7 @@ export default {
           comp[compartments[i].attributes[a].name] = compartments[i].attributes[a].value;
         }
         
-        compartmentList[compartments[i].id] = comp;
+        compartmentList[i] = comp;
       }
 
       return compartmentList;
@@ -764,8 +756,9 @@ export default {
     },
 
     getParameters: function(doc, path){
+      
       let parameters = getNode(doc, path).children;
-      let parameterList = {};
+      let parameterList = [];
 
       for(let i = 0; i < parameters.length; i++){
         parameterList[i] = {};
@@ -778,9 +771,65 @@ export default {
       return parameterList;
     },
 
+    getSingleParameter: function(doc, path){
+      
+      //
+      path = useGetLocalXPath(path)
+      let parameterNode = getNode(doc, path);
+      let parameter = {};
+
+      let attr = parameterNode.attributes;
+      
+      for(let j = 0; j < attr.length; j++){
+        parameter[attr[j].localName] = attr[j].value;
+      }
+      
+      return parameter;
+    },
+
+    getSingleRule: function(doc, path){       //same structure as unit but not for math 
+      path = useGetLocalXPath(path);
+      let ruleNode = getNode(doc, path);
+
+      let rule = {};
+
+      let attr = ruleNode.attributes;
+      for(let j = 0; j < attr.length; j++){
+        rule[attr[j].localName] = attr[j].value;
+      }
+      
+      console.debug(ruleNode.children[0]);
+  
+      rule["math"] = ruleNode.children[0].outerHTML;
+      //console.debug(path, rule, ruleNode);
+
+      return rule;
+    },
+
+    getSingleUnit: function (doc, path){
+      path = useGetLocalXPath(path);
+      let unitNode = getNode(doc, path);
+
+      let unit = {};
+
+        let attr = unitNode.attributes;
+        for(let j = 0; j < attr.length; j++){
+          unit[attr[j].localName] = attr[j].value;
+        }
+        
+
+        //compute presentation MathML for units
+        
+        let definitions = unitNode.children[0].children;
+        unit["math"] = this.getUnitMathML(definitions);
+
+
+        return unit;
+
+    },
+
     getScaleSymbol: function(s){
       s = Number (s.value);
-      console.debug(s);
       switch(s){
         case NaN: return '';
         case 24: return 'Y';
@@ -809,9 +858,7 @@ export default {
     },
 
     getUnit: function(u){
-      console.debug (u);
       u = u.value;
-      console.debug (u);
       switch(u){
         case "": return '';
         case "meter": return 'm';
@@ -843,6 +890,7 @@ export default {
     view:{
       handler: function(){
         divilApi.stopD3ForceOfDivil("bivesGraph-" + this.currentSlide);
+       
       }
     },  
     currentSlide: {
@@ -883,14 +931,17 @@ export default {
     }); */
     //check for dev mode
     if (this.dev) {
-      const promiseDiff = await axios.get('/dev/dupreez_6-7/xmlDiff.xml');
+/*       const promiseDiff = await axios.get('/dev/dupreez_6-7/xmlDiff.xml');
       const promiseV1 = await axios.get('/dev/dupreez_6-7/dupreez6.xml');
-      const promiseV2 = await axios.get('/dev/dupreez_6-7/dupreez7.xml');
+      const promiseV2 = await axios.get('/dev/dupreez_6-7/dupreez7.xml');  */
+
+    const promiseDiff = await axios.get('/dev/fake-dupreez/xmlDiff.xml');
+      const promiseV1 = await axios.get('/dev/fake-dupreez/dupreez6.xml');
+      const promiseV2 = await axios.get('/dev/fake-dupreez/dupreez7-f.xml');
 
       Promise.allSettled([promiseV1, promiseV2, promiseDiff])
         .then((responses) => {
           console.log(responses);
-          //alert("?");
           this.v1 = responses[0].value.data;
           this.v2 = responses[1].value.data;
           this.xmlDiff = responses[2].value.data;
@@ -899,13 +950,17 @@ export default {
           this.newDocument = parser.parseFromString(this.v2, "application/xml");
           this.oldDocument = parser.parseFromString(this.v1, "application/xml");
 
+        
           //compute reaction view
           /*
            * To go through each single change might be cumbersum.
            * With this view we split the network into each reaction.
            * Reactions with changes can than be viewed.
            */
+
+
           this.json.nodes.forEach((node) => {
+
             if (node.id.startsWith("r") && node.bivesChange != "nothing") {
               //every reaction ID starts with r
               let reactionNodes = [node];
@@ -993,6 +1048,7 @@ export default {
             }
           });
 
+          
 
           //init computed divil data
           this.structuredData = divilApi.initDivil(this.xmlDiff, this.v1, this.v2);
@@ -1032,6 +1088,7 @@ export default {
 
 
               this.decisionArr[id] = a;
+              //console.debug(this.decisionArr);
             }
             return true;
           })
@@ -1039,9 +1096,10 @@ export default {
           /*********************************/
           
           // get units
-
+          console.debug(this.decisionArr);
 
           this.combineModelAttrWithChanges();
+
 
         })
         .catch(error => {

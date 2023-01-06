@@ -229,7 +229,7 @@
     <attribute name="name" id="10" oldValue="ADP" oldPath="/sbml[1]/model[1]/listOfSpecies[1]/species[2]" />
     <attribute name="name" id="20" oldValue="NAD" oldPath="/sbml[1]/model[1]/listOfSpecies[1]/species[11]" />
     <node id="251" oldParent="/sbml[1]/model[1]" oldChildNo="5" oldPath="/sbml[1]/model[1]/listOfRules[1]" oldTag="listOfRules" />
-    <node id="252" oldParent="/sbml[1]/model[1]/listOfRules[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[1]" oldTag="assignmentRule" />
+    <node id="252" oldParent="/sbml[1]/model[1]/listOfRules[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfRules[1]/sky[1]" oldTag="assignmentRule" />
     <attribute name="metaid" id="253" triggeredBy="252" oldValue="metaid_121" oldPath="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[1]" />
     <attribute name="variable" id="254" triggeredBy="252" oldValue="NAD" oldPath="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[1]" />
     <node id="255" triggeredBy="252" oldParent="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[1]/math[1]" oldTag="math" />
