@@ -67,6 +67,7 @@ import DecisionBtn from './DecisionBtn.vue';
 
 export default {
     props: ['el', 'decisionArr'],
+    emits: ['decision'],
     components: {
         DecisionBtn
     },
@@ -76,6 +77,17 @@ export default {
         }
     },
     methods: {
+        currentSlide: {
+      handler: function () {
+        let length;
+        if(this.view == 'species') length = this.speciesArr.length;
+        else length = this.reactionsArr.length;
+        if (this.currentSlide == -1)
+          this.currentSlide = length - 1;
+        if (this.currentSlide >= length)
+          this.currentSlide = 0;
+      },
+    },
         updateDecision: function(changeID, dec){
             this.$emit('decision', changeID, dec);
         }

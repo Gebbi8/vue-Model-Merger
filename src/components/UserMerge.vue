@@ -34,7 +34,7 @@
 
     </div>
 
-    <div  v-if="view == 'model'">
+    <div v-if="view == 'model'">
 
         <ul class="list-group">
           <template v-for="(element, index) in modelArr" :key="index">
@@ -59,7 +59,7 @@
       </ul>
     </div>
 
-    <div v-if="view == 'parameters'">
+    <div v-else-if="view == 'parameters'">
       <ul>
         <li v-for="(el, index) in modelArr['listOfParameters']" :key="index"  class="list-group-item">
           <div class="container">
@@ -69,7 +69,7 @@
       </ul>
     </div>
 
-    <div v-if="view == 'units'">
+    <div v-else-if="view == 'units'">
       <ul>
         <li v-for="(el, index) in modelArr['listOfUnitDefinitions']" :key="index"  class="list-group-item">
           <div class="container">
@@ -79,7 +79,7 @@
       </ul>
     </div>
 
-    <div v-if="view == 'rules'">
+    <div v-else-if="view == 'rules'">
       <ul>
         <li v-for="(el, index) in modelArr['listOfRules']" :key="index"  class="list-group-item">
           <div class="container">
@@ -89,7 +89,7 @@
       </ul>
     </div>
 
-    <div v-if="view == 'compartments'">
+    <div v-else-if="view == 'compartments'">
       <ul>
         <li v-for="(el, index) in modelArr['listOfCompartments']" :key="index"  class="list-group-item">
           <div class="container">
@@ -100,46 +100,24 @@
     </div>
 
 
-    <div v-if="view == 'species'">
-      <div class="btn btn-primary" @click="this.currentSlide++">Up</div>
-
-      <template v-for="(species, index) in speciesArr" :key="index">
-        <div class="card" v-if="currentSlide == index">
-          <div class="card-header text-center">Featured</div>
-          <div class="card-body row g-0 p-0">
-            <div class="col-8 bivesGraph" :id="`bivesGraphSpecies-${index}`"></div>
-            <div class="col-4 changeList" :id="`changeListSpecies-${index}`">
-
-            </div>
-          </div>
-         
-<!--           <span> Species focus view, just like reaction view, but the subgraph is computed for d=2
-              {{ this.currentSlide }}
-            </span> -->
-        </div>
-      </template>
-      <div class="btn btn-primary" @click="this.currentSlide--">Down</div>
+    <div v-else-if="view == 'species'" class="container row slider">
+      <slider :data="this.speciesArr" :structuredData="this.structuredData" :slideNumber="this.currentSpecies" @decision="this.updateDecision" @slideNum="(num) => this.currentSpecies = num"
+         ></slider>
     </div>
 
 
-    <div v-if="view == 'reactions'">
-      <template v-for="(reaction, index) in reactionsArr" :key="index">
-        <div class="card" v-if="currentSlide == index">
-          <div class="card-header text-center">Featured</div>
-          <div class="card-body row g-0 p-0">
-              <div class="col-8 bivesGraph" :id="`bivesGraphReaction-${index}`"></div>
-              <div class="col-4 changeList" :id="`changeListReaction-${index}`">
-            </div>
-          </div>
-          <div class="card-footer text-muted">Show math here?</div>
-        </div>
-      </template>
+    <div v-else-if="view == 'reactions'" class="container row slider">
+      <slider :data="this.reactionsArr" :structuredData="this.structuredData" :slideNumber="this.currentReaction" @slideNum="(num) => this.currentReaction = num"
+         @decision="this.updateDecision"></slider>
     </div>
-    
+
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" :style="{width: this.progress + '%'}" :aria-valuenow="this.progress" aria-valuemin="0" aria-valuemax="100"> {{ progress }}%</div>
+    </div>
 
   </div>
   <div id="devOutput" v-if="dev">
-    <h3>Dev mode is active!</h3>
+    <h3>Dev mode is active!!</h3>
     <p> The Merg is produced with local files for versions, diff and decisionArray. So it is not coupled with the slider. </p>
     <merger :xml-diff="xmlDiff" :decision-arr="decisionArr" :v1="v1" :v2="v2"></merger>
   </div>
@@ -147,6 +125,7 @@
 
 
 <script>
+import Slider from "./Slider.vue";
 import DecisionBtn from "./DecisionBtn.vue";
 import ListsTemplate from "./ListsTemplate.vue";
 import Merger from "./Merger.vue";
@@ -166,7 +145,8 @@ export default {
   components: {
     Merger,
     ListsTemplate,
-    DecisionBtn
+    DecisionBtn,
+    Slider
   },
   data() {
     return {
@@ -179,10 +159,14 @@ export default {
       unitsArr: [],
       listsArr: [],
       decisionArr: {}, //testArr
+      decisionArrCount: 0,
+      progress: 0,
+      progressCount: 0,
       reactionsArr: [],
       speciesArr: [],
       structuredData: null,
-      currentSlide: 0,
+      currentSpecies: 0,
+      currentReaction: 0,
       oldDocument: null,
       newDocument: null, //should also be given to subcomponent to avoid parsing it twice!
       dev: true, //flag for development, use sample data
@@ -449,7 +433,18 @@ export default {
     },
 
     updateDecision: function(changeID, d) {
-      this.decisionArr[changeID]['decision'] = d;
+      console.debug(changeID, d);
+      let h = this.decisionArr[changeID]['decision'];
+      if(h != d){
+        if(h == -1){
+          this.progressCount++;
+          this.progress = Math.round(100 / this.decisionArrCount * this.progressCount * 100 )/100;
+          console.debug(this.progressCount, this.progress, this.decisionArrCount);
+        } 
+        this.decisionArr[changeID]['decision'] = d;
+      }
+      
+
     },
 
     addAttributeChanges: function (c, modelData, list){
@@ -887,23 +882,9 @@ export default {
 
   },
   watch: {
-    view:{
-      handler: function(){
-        divilApi.stopD3ForceOfDivil("bivesGraph-" + this.currentSlide);
-       
-      }
-    },  
-    currentSlide: {
-      handler: function () {
-        let length;
-        if(this.view == 'species') length = this.speciesArr.length;
-        else length = this.reactionsArr.length;
-        if (this.currentSlide == -1)
-          this.currentSlide = length - 1;
-        if (this.currentSlide >= length)
-          this.currentSlide = 0;
-      },
-    },
+/*     view:{
+      
+    } */
 /*     decisionArr: {
       handler: function () { },
     }, */
@@ -1088,6 +1069,7 @@ export default {
 
 
               this.decisionArr[id] = a;
+              this.decisionArrCount++;
               //console.debug(this.decisionArr);
             }
             return true;
@@ -1113,36 +1095,7 @@ export default {
     }
   },
   updated() {
-    if(this.view === "reactions" || this.view === "species"){
-      let currentSlide;
-      let container;
-      let changeList;
-      if(this.view == 'reactions'){
-        currentSlide = this.reactionsArr[this.currentSlide];
-        container = "bivesGraphReaction-" + this.currentSlide;
-        changeList = "changeListReaction-" + this.currentSlide;
-      } else if(this.view == 'species'){
-        currentSlide = this.speciesArr[this.currentSlide];  //OBACHT: this.currentSlide is atm the same for both views
-        container = "bivesGraphSpecies-" + this.currentSlide;
-        changeList = "changeListSpecies-" + this.currentSlide;
-      }
-    
-
-
-      console.info(currentSlide);
-
-      divilApi.callDiVil(
-        currentSlide,
-        this.xmlDiff,
-        this.v1,
-        this.v2,
-        container,
-        changeList,
-        this.structuredData
-      );
-      MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-    }
-    else if(this.view === "units" || this.view === "rules"){
+    if(this.view === "units" || this.view === "rules"){
       MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
     }
   },
@@ -1171,4 +1124,9 @@ export default {
 .update-color {
   color: #d6d287;
 }
+
+.slider{
+ /*  align-items: center; */
+}
+
 </style>

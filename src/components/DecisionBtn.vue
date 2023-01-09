@@ -1,6 +1,6 @@
 <template>
     <div class="btn-group col-1" role="group" :id="`${changeID}-btngrp`" aria-label="Toggle group">
-        <input type="radio" class="btn-check" :test="`${d}-test`" :name="`${changeID}-btnradio`" :id="`${changeID}-bV1`" autocomplete="off" @click="this.emitDecision(changeID, 0)" :checked="d == 0">
+        <input type="radio" class="btn-check" :name="`${changeID}-btnradio`" :id="`${changeID}-bV1`" autocomplete="off" @click="this.emitDecision(changeID, 0)" :checked="d == 0">
         <label class="btn btn-outline-primary" :for="`${changeID}-bV1`">V1</label>
 
         <input type="radio" class="btn-check" :name="`${changeID}-btnradio`" :id="`${changeID}-bNew`" autocomplete="off" @click="this.emitDecision(changeID, 2)" disabled :checked="d == 2">
@@ -15,12 +15,17 @@
 export default {
     emits: ['decision'],
     props: {
-        changeID: String,
+        changeID: [String,  Array],
         d: Number
     },
     methods: {
         emitDecision: function(changeID, dec){
-            this.$emit('decision', changeID, dec);
+            if(typeof changeID === String) this.$emit('decision', changeID, dec);
+            else {
+                for(let n = 0; n < changeID.length; n++){
+                    this.$emit('decision', changeID[n], dec);
+                } 
+            }
         }
         
     }
