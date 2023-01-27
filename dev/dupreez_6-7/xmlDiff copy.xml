@@ -229,739 +229,85 @@
     <attribute name="name" id="10" oldValue="ADP" oldPath="/sbml[1]/model[1]/listOfSpecies[1]/species[2]" />
     <attribute name="name" id="20" oldValue="NAD" oldPath="/sbml[1]/model[1]/listOfSpecies[1]/species[11]" />
     <node id="251" oldParent="/sbml[1]/model[1]" oldChildNo="5" oldPath="/sbml[1]/model[1]/listOfRules[1]" oldTag="listOfRules" />
-    <node id="252" oldParent="/sbml[1]/model[1]/listOfRules[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfRules[1]/sky[1]" oldTag="assignmentRule" />
-
-
-
-
-
-
-
-
-
-    <node id="262" oldParent="/sbml[1]/model[1]/listOfRules[1]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[2]" oldTag="assignmentRule" />
-
-
+    <node id="252" oldParent="/sbml[1]/model[1]/listOfRules[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfRules[1]/sky[1]" oldTag="assignmentRule" />    <node id="262" oldParent="/sbml[1]/model[1]/listOfRules[1]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[2]" oldTag="assignmentRule" />
     <node id="265" oldParent="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[2]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[2]/math[1]" oldTag="math" />
     <node id="266" oldParent="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[2]/math[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[2]/math[1]/apply[1]" oldTag="apply" />
     <node id="267" oldParent="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[2]/math[1]/apply[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[2]/math[1]/apply[1]/minus[1]" oldTag="minus" />
-    <node id="269" oldParent="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[2]/math[1]/apply[1]/apply[1]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[2]/math[1]/apply[1]/apply[1]/ci[1]" oldTag="ci" />
-
-    <node id="271" oldParent="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[2]/math[1]/apply[1]/apply[1]" oldChildNo="3" oldPath="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[2]/math[1]/apply[1]/apply[1]/ci[2]" oldTag="ci" />
-
-    <node id="273" oldParent="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[2]/math[1]/apply[1]" oldChildNo="3" oldPath="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[2]/math[1]/apply[1]/ci[1]" oldTag="ci" />
-
-    <attribute name="name" id="278" oldValue="v_ADH" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]" />
-    <node id="282" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]" oldChildNo="3" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]/listOfModifiers[1]" oldTag="listOfModifiers" />
-
-
-
-    <attribute name="name" id="288" oldValue="v_AK" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[2]" />
-    <node id="292" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[2]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[2]/listOfModifiers[1]" oldTag="listOfModifiers" />
-
-
-
-    <node id="306" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[4]/listOfReactants[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[4]/listOfReactants[1]/speciesReference[1]" oldTag="speciesReference" />
-
-
-
-
+    <node id="269" oldParent="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[2]/math[1]/apply[1]/apply[1]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[2]/math[1]/apply[1]/apply[1]/ci[1]" oldTag="ci" />    <node id="271" oldParent="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[2]/math[1]/apply[1]/apply[1]" oldChildNo="3" oldPath="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[2]/math[1]/apply[1]/apply[1]/ci[2]" oldTag="ci" />    <node id="273" oldParent="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[2]/math[1]/apply[1]" oldChildNo="3" oldPath="/sbml[1]/model[1]/listOfRules[1]/assignmentRule[2]/math[1]/apply[1]/ci[1]" oldTag="ci" />    <attribute name="name" id="278" oldValue="v_ADH" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]" />
+    <node id="282" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]" oldChildNo="3" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]/listOfModifiers[1]" oldTag="listOfModifiers" />    <attribute name="name" id="288" oldValue="v_AK" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[2]" />
+    <node id="292" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[2]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[2]/listOfModifiers[1]" oldTag="listOfModifiers" />    <node id="306" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[4]/listOfReactants[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[4]/listOfReactants[1]/speciesReference[1]" oldTag="speciesReference" />
     <attribute name="name" id="322" oldValue="v_G3PDH" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[7]" />
     <node id="327" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[7]/listOfModifiers[1]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[7]/listOfModifiers[1]/modifierSpeciesReference[2]" oldTag="modifierSpeciesReference" />
-
-
     <attribute name="name" id="336" oldValue="v_GAPDH" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]" />
-    <node id="342" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]" oldChildNo="4" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/listOfModifiers[1]" oldTag="listOfModifiers" />
-
-
-
-    <node id="347" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/plus[1]" oldTag="plus" />
+    <node id="342" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]" oldChildNo="4" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/listOfModifiers[1]" oldTag="listOfModifiers" />    <node id="347" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/plus[1]" oldTag="plus" />
     <node id="349" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/minus[1]" oldTag="minus" />
     <text id="352" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[1]/text()[1]" oldText="biomassFac" />
     <text id="354" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[3]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[3]/text()[1]" oldText="BPG" />
-    <node id="355" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]" oldChildNo="5" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[4]" oldTag="ci" />
-
-    <node id="357" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[2]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[2]/ci[1]" oldTag="ci" />
-
-    <node id="359" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]" oldChildNo="3" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]" oldTag="apply" />
+    <node id="355" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]" oldChildNo="5" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[4]" oldTag="ci" />    <node id="357" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[2]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[2]/ci[1]" oldTag="ci" />    <node id="359" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]" oldChildNo="3" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]" oldTag="apply" />
     <node id="360" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/divide[1]" oldTag="divide" />
-    <node id="361" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[1]" oldTag="apply" />
-
-
-
-
-
-
-
-
-
-
-
-    <node id="373" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]" oldChildNo="3" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[2]" oldTag="apply" />
+    <node id="361" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[1]" oldTag="apply" />    <node id="373" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]" oldChildNo="3" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[2]" oldTag="apply" />
     <node id="374" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[2]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[2]/times[1]" oldTag="times" />
     <node id="375" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[2]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[2]/apply[1]" oldTag="apply" />
     <node id="376" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[2]/apply[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[2]/apply[1]/plus[1]" oldTag="plus" />
     <node id="377" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[2]/apply[1]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[2]/apply[1]/cn[1]" oldTag="cn" />
-
-
-    <node id="381" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[2]" oldChildNo="3" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[2]/ci[1]" oldTag="ci" />
-
-    <node id="383" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[2]" oldChildNo="4" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[2]/ci[2]" oldTag="ci" />
-
-    <attribute name="name" id="387" oldValue="v_GLK" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[9]" />
+    <node id="381" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[2]" oldChildNo="3" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[2]/ci[1]" oldTag="ci" />    <node id="383" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[2]" oldChildNo="4" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[2]/ci[2]" oldTag="ci" />    <attribute name="name" id="387" oldValue="v_GLK" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[9]" />
     <node id="389" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[9]/listOfReactants[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[9]/listOfReactants[1]/speciesReference[1]" oldTag="speciesReference" />
-
-
-
-
-    <node id="397" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[9]" oldChildNo="4" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[9]/listOfModifiers[1]" oldTag="listOfModifiers" />
-
-
-
-    <node id="416" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]/listOfReactants[1]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]/listOfReactants[1]/speciesReference[2]" oldTag="speciesReference" />
-
-
-
-
+    <node id="397" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[9]" oldChildNo="4" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[9]/listOfModifiers[1]" oldTag="listOfModifiers" />    <node id="416" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]/listOfReactants[1]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]/listOfReactants[1]/speciesReference[2]" oldTag="speciesReference" />
     <attribute name="name" id="431" oldValue="v_PGK" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[14]" />
-    <node id="437" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[14]" oldChildNo="4" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[14]/listOfModifiers[1]" oldTag="listOfModifiers" />
-
-
-
-    <attribute name="name" id="449" oldValue="v_PYK" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[16]" />
-    <node id="454" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[16]" oldChildNo="3" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[16]/listOfModifiers[1]" oldTag="listOfModifiers" />
-
-
-
-    <node id="475" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[19]/kineticLaw[1]/math[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[19]/kineticLaw[1]/math[1]/ci[1]" oldTag="ci" />
-
-  </delete>
+    <node id="437" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[14]" oldChildNo="4" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[14]/listOfModifiers[1]" oldTag="listOfModifiers" />    <attribute name="name" id="449" oldValue="v_PYK" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[16]" />
+    <node id="454" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[16]" oldChildNo="3" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[16]/listOfModifiers[1]" oldTag="listOfModifiers" />    <node id="475" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[19]/kineticLaw[1]/math[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[19]/kineticLaw[1]/math[1]/ci[1]" oldTag="ci" />  </delete>
   <insert>
-    <node id="477" newParent="/sbml[1]/model[1]/listOfSpecies[1]/species[11]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[11]/annotation[1]" newTag="annotation" />
-
-
-
-
-
-
-
-    <node id="485" newParent="/sbml[1]/model[1]/listOfParameters[1]" newChildNo="5" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[5]" newTag="parameter" />
-
-
-
-
+    <node id="477" newParent="/sbml[1]/model[1]/listOfSpecies[1]/species[11]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[11]/annotation[1]" newTag="annotation" />    <node id="485" newParent="/sbml[1]/model[1]/listOfParameters[1]" newChildNo="5" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[5]" newTag="parameter" />
     <node id="490" newParent="/sbml[1]/model[1]/listOfParameters[1]" newChildNo="6" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[6]" newTag="parameter" />
-
-
-
-
     <node id="495" newParent="/sbml[1]/model[1]/listOfParameters[1]" newChildNo="14" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[14]" newTag="parameter" />
-
-
-
-
     <node id="500" newParent="/sbml[1]/model[1]/listOfParameters[1]" newChildNo="16" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[16]" newTag="parameter" />
-
-
-
-
     <node id="505" newParent="/sbml[1]/model[1]/listOfParameters[1]" newChildNo="17" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[17]" newTag="parameter" />
-
-
-
-
     <node id="510" newParent="/sbml[1]/model[1]/listOfParameters[1]" newChildNo="18" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[18]" newTag="parameter" />
-
-
-
-
     <node id="515" newParent="/sbml[1]/model[1]/listOfParameters[1]" newChildNo="19" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[19]" newTag="parameter" />
-
-
-
-
     <node id="520" newParent="/sbml[1]/model[1]/listOfParameters[1]" newChildNo="88" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[88]" newTag="parameter" />
-
-
-
-
     <node id="525" newParent="/sbml[1]/model[1]/listOfParameters[1]" newChildNo="89" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[89]" newTag="parameter" />
-
-
-
-
     <node id="530" newParent="/sbml[1]/model[1]/listOfParameters[1]" newChildNo="90" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[90]" newTag="parameter" />
-
-
-
-
     <node id="535" newParent="/sbml[1]/model[1]/listOfParameters[1]" newChildNo="91" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[91]" newTag="parameter" />
-
-
-
-
     <node id="540" newParent="/sbml[1]/model[1]/listOfParameters[1]" newChildNo="92" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[92]" newTag="parameter" />
-
-
-
-
     <node id="545" newParent="/sbml[1]/model[1]/listOfParameters[1]" newChildNo="93" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[93]" newTag="parameter" />
-
-
-
-
     <node id="550" newParent="/sbml[1]/model[1]/listOfParameters[1]" newChildNo="95" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[95]" newTag="parameter" />
-
-
-
-
     <node id="555" newParent="/sbml[1]/model[1]/listOfParameters[1]" newChildNo="111" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[111]" newTag="parameter" />
-
-
-
-
     <node id="560" newParent="/sbml[1]/model[1]/listOfParameters[1]" newChildNo="113" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[113]" newTag="parameter" />
-
-
-
-
     <node id="565" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]" newTag="reaction" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <node id="592" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[2]" newChildNo="3" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[2]/listOfProducts[1]" newTag="listOfProducts" />
-
-
-
-
-
-    <node id="598" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="3" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[3]" newTag="reaction" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <node id="621" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[4]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[4]/listOfReactants[1]" newTag="listOfReactants" />
-
-
-
-
-
-    <node id="627" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="6" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[6]" newTag="reaction" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <node id="592" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[2]" newChildNo="3" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[2]/listOfProducts[1]" newTag="listOfProducts" />    <node id="598" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="3" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[3]" newTag="reaction" />
+    <node id="621" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[4]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[4]/listOfReactants[1]" newTag="listOfReactants" />    <node id="627" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="6" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[6]" newTag="reaction" />
     <node id="650" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[7]/listOfReactants[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[7]/listOfReactants[1]/speciesReference[1]" newTag="speciesReference" />
-
-
-
-
-    <node id="655" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[7]" newChildNo="3" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[7]/listOfProducts[1]" newTag="listOfProducts" />
-
-
-
-
-
-    <node id="661" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="8" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]" newTag="reaction" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <node id="655" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[7]" newChildNo="3" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[7]/listOfProducts[1]" newTag="listOfProducts" />    <node id="661" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="8" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]" newTag="reaction" />
     <node id="684" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="9" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[9]" newTag="reaction" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <node id="711" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="11" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[11]" newTag="reaction" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <node id="738" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="12" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]" newTag="reaction" />
-
-
-
-
-    <node id="743" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]/listOfProducts[1]" newTag="listOfProducts" />
-
-
-
-
-
-    <node id="749" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]/kineticLaw[1]" newTag="kineticLaw" />
+    <node id="743" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]/listOfProducts[1]" newTag="listOfProducts" />    <node id="749" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]/kineticLaw[1]" newTag="kineticLaw" />
     <node id="750" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]/kineticLaw[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]/kineticLaw[1]/math[1]" newTag="math" />
-    <node id="751" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]/kineticLaw[1]/math[1]/apply[1]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]/kineticLaw[1]/math[1]/apply[1]/apply[1]" newTag="apply" />
-
-
-
-
-
-
-
-
-
-    <node id="761" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[14]/listOfProducts[1]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[14]/listOfProducts[1]/speciesReference[2]" newTag="speciesReference" />
-
-
-
-
+    <node id="751" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]/kineticLaw[1]/math[1]/apply[1]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]/kineticLaw[1]/math[1]/apply[1]/apply[1]" newTag="apply" />    <node id="761" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[14]/listOfProducts[1]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[14]/listOfProducts[1]/speciesReference[2]" newTag="speciesReference" />
     <node id="766" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="15" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[15]" newTag="reaction" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <node id="793" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="16" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[16]" newTag="reaction" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <node id="820" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/listOfReactants[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/listOfReactants[1]/speciesReference[1]" newTag="speciesReference" />
-
-
-
-
     <node id="825" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]/times[1]" newTag="times" />
-    <node id="826" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]/ci[1]" newTag="ci" />
-
-    <node id="828" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/plus[1]" newTag="plus" />
-    <node id="829" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]" newTag="apply" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <text id="849" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[2]/apply[1]/ci[3]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[2]/apply[1]/ci[3]/text()[1]" newText="NAD" />
+    <node id="826" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]/ci[1]" newTag="ci" />    <node id="828" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/plus[1]" newTag="plus" />
+    <node id="829" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]" newTag="apply" />    <text id="849" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[2]/apply[1]/ci[3]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[2]/apply[1]/ci[3]/text()[1]" newText="NAD" />
     <text id="850" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[2]/apply[1]/ci[4]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[2]/apply[1]/ci[4]/text()[1]" newText="TRIO" />
     <node id="851" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[2]/apply[2]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[2]/apply[2]/apply[1]" newTag="apply" />
-
-
-
-
-
-
-    <node id="858" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[18]/kineticLaw[1]/math[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[18]/kineticLaw[1]/math[1]/apply[1]" newTag="apply" />
-
-
-
-
-
-
-
-
-
-    <node id="868" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[19]/listOfReactants[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[19]/listOfReactants[1]/speciesReference[1]" newTag="speciesReference" />
-
-
-
-
+    <node id="858" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[18]/kineticLaw[1]/math[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[18]/kineticLaw[1]/math[1]/apply[1]" newTag="apply" />    <node id="868" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[19]/listOfReactants[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[19]/listOfReactants[1]/speciesReference[1]" newTag="speciesReference" />
     <node id="873" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[19]/listOfProducts[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[19]/listOfProducts[1]/speciesReference[1]" newTag="speciesReference" />
-
-
-
-
-    <node id="878" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[20]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[20]/listOfProducts[1]" newTag="listOfProducts" />
-
-
-
-
-
-    <node id="884" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="21" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[21]" newTag="reaction" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <node id="878" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[20]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[20]/listOfProducts[1]" newTag="listOfProducts" />    <node id="884" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="21" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[21]" newTag="reaction" />
     <node id="907" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="22" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[22]" newTag="reaction" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <node id="930" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="23" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]" newTag="reaction" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <node id="957" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="24" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[24]" newTag="reaction" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <node id="984" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="26" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[26]" newTag="reaction" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <node id="1011" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[27]/listOfReactants[1]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[27]/listOfReactants[1]/speciesReference[2]" newTag="speciesReference" />
-
-
-
-
     <node id="1016" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[27]/listOfProducts[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[27]/listOfProducts[1]/speciesReference[1]" newTag="speciesReference" />
-
-
-
-
     <node id="1021" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[29]/listOfReactants[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[29]/listOfReactants[1]/speciesReference[1]" newTag="speciesReference" />
-
-
-
-
     <node id="1026" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[31]/listOfReactants[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[31]/listOfReactants[1]/speciesReference[1]" newTag="speciesReference" />
-
-
-
-
     <node id="1031" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="32" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[32]" newTag="reaction" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <node id="1058" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[33]/listOfReactants[1]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[33]/listOfReactants[1]/speciesReference[2]" newTag="speciesReference" />
-
-
-
-
     <node id="1063" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[33]/listOfProducts[1]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[33]/listOfProducts[1]/speciesReference[2]" newTag="speciesReference" />
-
-
-
-
     <node id="1068" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="34" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[34]" newTag="reaction" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <node id="1095" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[35]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[35]/listOfProducts[1]" newTag="listOfProducts" />
-
-
-
-
-
-  </insert>
+    <node id="1095" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[35]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[35]/listOfProducts[1]" newTag="listOfProducts" />  </insert>
   <move>
     <node id="3" oldParent="/sbml[1]/model[1]/listOfUnitDefinitions[1]" newParent="/sbml[1]/model[1]/listOfUnitDefinitions[1]" oldChildNo="1" newChildNo="4" oldPath="/sbml[1]/model[1]/listOfUnitDefinitions[1]/unitDefinition[1]" newPath="/sbml[1]/model[1]/listOfUnitDefinitions[1]/unitDefinition[4]" />
     <node id="5" oldParent="/sbml[1]/model[1]/listOfUnitDefinitions[1]" newParent="/sbml[1]/model[1]/listOfUnitDefinitions[1]" oldChildNo="2" newChildNo="1" oldPath="/sbml[1]/model[1]/listOfUnitDefinitions[1]/unitDefinition[2]" newPath="/sbml[1]/model[1]/listOfUnitDefinitions[1]/unitDefinition[1]" />
