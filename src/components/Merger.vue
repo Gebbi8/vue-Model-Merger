@@ -1,7 +1,7 @@
 <template>
     <p>{{status}}</p>
     <button
-        v-if="!done"
+        v-if="this.progress == 100"
         ref="compute merge"
         v-on:click="computeMerge"
         type="button"
@@ -17,37 +17,43 @@ export default {
   name: "Merger",
   props: {
     xmlDiff: {
-        type: String,
+        //type: String,
         required: true
     },
     decisionArr:{
+      type: Object,
       required: true
     },
     structuredData:{
       type: Array,
       required: true
     },
-    v1: {
-      type: String,
+    oldDoc: {
+      //type: String,
       required: true
     },
-    v2:{
-      type: String,
+    newDoc:{
+      //type: String,
       required: true
-    }
+    },
+    progress: {
+      type: Number,
+      required: true
+    }    
 
   },
   data() {
     return {
-      done: false,  
-      oldDoc: null,
-      newDoc: null,
+      
       xmlDiffDoc: null,
       status: "waiting...",
       changesHandled: 0,
       totalChanges: 0,
       moveMap: []
     };
+  },
+  watch: {
+
   },
   methods: {
     computeMerge: function () {
@@ -56,9 +62,10 @@ export default {
 
       let parser = new DOMParser();
 
-      this.oldDoc = parser.parseFromString(this.$props.v1, "application/xml");
-      this.newDoc = parser.parseFromString(this.$props.v2, "application/xml");
-      this.xmlDiffDoc = parser.parseFromString(this.xmlDiff, "application/xml");
+      //this.oldDoc = parser.parseFromString(this.v1, "text/xml");
+      console.debug(this.oldDoc);
+      //this.newDoc = parser.parseFromString(this.v2, "text/xml");
+      this.xmlDiffDoc = parser.parseFromString(this.xmlDiff, "text/xml");
  
       let moveFlag;  
       //create move map -- copy from DiVils xmlParser
@@ -80,36 +87,39 @@ export default {
         }
     })
 
-    let selection;
-    console.info(this.$props);
-    if(this.$props.decisionArr == null) selection = ["decision array not loaded"];
-    else selection = this.$props.decisionArr;
+ 
+    
+    if(this.decisionArr == null) alert("decision array not loaded");
+ 
 
     let insertsToRemove = [];
 
+    console.log(this.decisionArr);
     //loop over selection, relevant attributes: id, type of change, parent path and/or path, 
-    selection.forEach(s => {  //s: changeId, decision (0/1/-1) but should not be -1 at this point, type of change (i,u,d)
-      switch(s[2]){
+    for (const [id, a] of Object.entries(this.decisionArr)) {  //s: changeId, decision (0/1/-1) but should not be -1 at this point, type of change (i,u,d)
+      
+      
+      switch(a.type){
         case "u":
-          if(s[1] == 0){
-            this.revertUpdate(s[0]);
+          if(a.decision == 0){
+            this.revertUpdate(id);
           };
           break;
         case "d":
-          if(s[1] == 0){
-            this.restoreDelete(s[0]);
+          if(a.decision == 0){
+            this.restoreDelete(id);
           };
           break;
         case "i":
-          if(s[1] == 0){
-            insertsToRemove.push(s[0]);
+          if(a.decision == 0){
+            insertsToRemove.push(id);
           };
           break;
         default: 
-          console.log(s);
-          alert("wrong type in selection");
+          console.log(id, a.decision, a.type);
+          alert("wrong value in change type");
       }
-    })
+    }
 
     insertsToRemove.reverse().forEach(id => {  this.removeInsert(id); })
 
@@ -150,9 +160,10 @@ export default {
       
       /* --- skips math changes
          --- handling mathematical changes atomicly will most likely make no sense
-         --- also, it breaks the insertAdjacentElement method, maybe because it would have to handle pure tag nodes
+         --- also, it breaks the insertAdjacentElement method
       --- */
-      if(oldPath.includes("/math")) return; 
+
+      //if(oldPath.includes("/math")) return; 
      
       let appendPath = change.getAttribute("oldParent");
       appendPath = this.checkAncestorsForMove(appendPath);
@@ -161,34 +172,55 @@ export default {
       appendPath = useGetLocalXPath(appendPath);
 
       let node = this.oldDoc.evaluate(oldPath, this.oldDoc, null, XPathResult.ANY_TYPE, null).iterateNext();
-      this.newDoc.evaluate(appendPath, this.newDoc, null,XPathResult.ANY_TYPE, null).iterateNext().insertAdjacentElement('beforeend', node);
+      
+      console.debug(appendPath, this.newDoc, node);
+      if(this.newDoc.evaluate(appendPath, this.newDoc, null,XPathResult.ANY_TYPE, null).iterateNext() == null){ //insert parent list
+        
+        
+
+        let parentNode = this.oldDoc.evaluate(appendPath, this.oldDoc, null, XPathResult.ANY_TYPE, null).iterateNext();
+        let parentPath = appendPath.substring(0, appendPath.lastIndexOf('/'));
+        
+        console.debug(parentPath, parentNode);
+        this.newDoc.evaluate(parentPath, this.newDoc, null,XPathResult.ANY_TYPE, null).iterateNext().insertAdjacentElement('beforeend', parentNode.cloneNode(false));
+      }
+      
+      this.newDoc.evaluate(appendPath, this.newDoc, null,XPathResult.ANY_TYPE, null).iterateNext().insertAdjacentElement('beforeend', node.cloneNode(true));
+      if(oldPath.includes("math")) alert("!");
       return;
     }
-    console.info("===> Delete of ", change.localName, " not hanlded!");
+    console.error("===> Delete of ", change.localName, " not handled!");
 
 
   },
 
   removeInsert: function(id){
     let change = this.getXmlLineById(id);
-    let path = change.getAttribute("newPath");
+    //let path = change.getAttribute("newPath");
 
     /* --- skips math changes
         --- handling mathematical changes atomicly will most likely make no sense
         --- also, it breaks the insertAdjacentElement method, maybe because it would have to handle pure tag nodes
     --- */
 
-    if(path.includes("/math")) return; 
 
-    path = useGetLocalXPath(path);
+    if(change.attributes.newPath.value.includes("/math")) {
+      
+      //if(change.localName == "node")
+      	
+      //return; 
+    } 
+
+    console.debug(change);
+     
+    //path = useGetLocalXPath(path);
 
     if(change.localName == "node" || change.localName == "text"){ //if a a delete was readded on the same node or text the iterateNext() + remove() will remove this correct element
-      this.newDoc.evaluate(path,this.newDoc, null, XPathResult.ANY_TYPE, null).iterateNext().remove();
-      return;
-    }
-
-    if(change.localName == "text"){
-      this.newDoc.evaluate(path,this.newDoc, null, XPathResult.ANY_TYPE, null).iterateNext().remove();
+      let path = useGetLocalXPath(change.attributes.newPath.value);
+      console.debug(path);
+      //alert("?");
+      this.newDoc.evaluate(path, this.newDoc, null, XPathResult.ANY_TYPE, null).iterateNext().remove();
+      console.debug("check");
       return;
     }
 
@@ -205,7 +237,7 @@ export default {
   revertUpdate: function(id){
     let change = this.getXmlLineById(id);
     if(change.localName != "attribute") {           //dev check for type of elements that are affected
-      console.error("revert update ist not on an attribute", change);
+      console.error("revert update is not on an attribute", change);
     }
 
     let path = useGetLocalXPath(change.getAttribute("newPath"));

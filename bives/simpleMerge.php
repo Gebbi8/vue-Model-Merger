@@ -11,6 +11,7 @@ $storage = '/tmp/mergestorage';
 $f1 = $_FILES['file1'];
 $f2 = $_FILES['file2'];
 $job = $_GET['jobID'];
+$commands = $_GET['commands'];
 $getFile = $_GET['getFile'];
 
 $saveMerge = true;
@@ -48,9 +49,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 			$readFile1,
 			$readFile2
 		),
-		'commands' => array(
-			"merge"
-		)
+		'commands'=> $commands
 
 	));
 

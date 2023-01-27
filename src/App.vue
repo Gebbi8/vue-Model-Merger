@@ -12,7 +12,6 @@
               type="button"
               class="btn btn-light btn-sm"
               v-on:click="btnSwitchView"
-              v-if="true"
             >
               Switch Mode
             </button>
