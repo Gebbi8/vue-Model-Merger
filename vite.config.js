@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
+      base: '/vue3-merger/',
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
