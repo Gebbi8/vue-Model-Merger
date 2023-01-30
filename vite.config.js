@@ -10,6 +10,7 @@ export default defineConfig({
     alias: {
       base: '/vue3-merger/',
       "@": fileURLToPath(new URL("./src", import.meta.url)),
+      "bootstrap": "../node_modules/bootstrap/"
     },
   },
 });
