@@ -132,7 +132,7 @@
 </div>
 <div v-else-if="dev == 2">
     <h3>Dev mode 2</h3>
-    <p> The Merge is produced with files from the from.</p>
+    <p> The Merge is gitproduced with files from the from.</p>
 </div>
 <merger :decision-arr="decisionArr" :oldDoc="this.oldDocument" :newDoc="this.newDocument" :xmlDiff="this.xmlDiff" :progress="this.progress"></merger>
 </template>
