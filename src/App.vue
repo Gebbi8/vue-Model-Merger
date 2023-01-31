@@ -106,7 +106,7 @@ export default {
 //     UserMerge
 //   }
 // }
-import 'bootstrap/dist/css/bootstrap.min.css'
+//import 'bootstrap/dist/css/bootstrap.min.css'
 
 </script>
 

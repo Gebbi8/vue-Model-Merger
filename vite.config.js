@@ -13,7 +13,8 @@ export default defineConfig({
       base: '/vue3-merger/',
       root: path.resolve(__dirname, 'src'),
       //"@": fileURLToPath(new URL("./src", import.meta.url)),
-      '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
+      vue: path.resolve('./node_modules/vue'),
+      //'~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
 
     },
   },
