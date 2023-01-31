@@ -106,6 +106,8 @@ export default {
 //     UserMerge
 //   }
 // }
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 </script>
 
 <style>
@@ -115,6 +117,7 @@ export default {
 </style>
 
 <style scoped>
+
 .custom-color-1 {
   background-color: #365b9e;
   color: #feffff;
