@@ -9,7 +9,8 @@ import vue from "@vitejs/plugin-vue";
 export default defineConfig({
   plugins: [vue()],
   build: {
-    base: "https://gebbi8.github.io/vue-Model-Merger/",
+    //base: "/vue-Model-Merger/",
+    base: "/",
     //outDir: "./sbml-merger/",
     //sourcemap: true,
     emptyOutDir: true,
