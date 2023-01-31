@@ -1,11 +1,9 @@
-import { fileURLToPath, URL } from "url";
+//import { fileURLToPath, URL } from "url";
 
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
 const path = require('path');
-
-console.debug(path);
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,8 +12,9 @@ export default defineConfig({
     alias: {
       base: '/vue3-merger/',
       root: path.resolve(__dirname, 'src'),
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
+      //"@": fileURLToPath(new URL("./src", import.meta.url)),
       '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
+
     },
   },
 });
