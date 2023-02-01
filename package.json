@@ -2,7 +2,7 @@
   "name": "merger",
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://gebbi8.github.io/vue-Model-Merger/",
+  "homepage": "https://merge-proto.bio.informatik.uni-rostock.de/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
