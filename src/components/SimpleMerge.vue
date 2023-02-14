@@ -19,9 +19,9 @@
         it.
       </p>
 
-      <local-files>
-
-      </local-files>
+      <div class="container">
+        <local-files></local-files>
+      </div>
 
       <button
         v-if="!job"
@@ -112,7 +112,13 @@
 </template>
 
 <script>
+import LocalFiles from "./LocalFiles.vue";
+import axios from 'axios';
+
 export default {
+  components: {
+        LocalFiles
+    },
   data() {
     return {
       job: this.$route.query.jobID,
@@ -127,7 +133,7 @@ export default {
   computed: {},
   methods: {
     download: function () {
-      const axios = require("axios");
+      //const axios = require("axios");
       //alert("job is set");
       const paramsBuild = new URLSearchParams();
       paramsBuild.append("jobID", this.job);
@@ -145,7 +151,7 @@ export default {
     },
     downloadMerge: function () {},
     computeMerge: function () {
-      const axios = require("axios");
+      //const axios = require("axios");
       /*
           Initialize the form data
         */

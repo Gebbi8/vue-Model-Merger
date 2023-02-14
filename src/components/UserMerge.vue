@@ -223,9 +223,10 @@ export default {
                     Make the request to the POST /multiple-files URL
                 */
 
-                console.log("sending files to bives for merge. returning Job ID");
+                console.debug(formData);
+                console.log("sending files to bives for merge");
                 const bivesData = await axios
-                    .post("/bives/bives.php", formData, {
+                    .post("/bives/simpleMerge.php", formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
@@ -1169,7 +1170,6 @@ export default {
     },
     watch: {
         file1: function(){
-            alert("?");
             this.checkForm();
         },
         file2: function (){
