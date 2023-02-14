@@ -99,7 +99,7 @@
       </p>
       <p>
         1. Send a post request to
-        https://merge-proto.bio.informatik.uni-rostock.de/bives/simpleMerge.php
+        https://merge-proto.bio.informatik.uni-rostock.de/bives-php/simpleMerge.php
         with the two files atached with the keys file1 and file2. You will
         recieve an ID as response.
       </p>
@@ -172,7 +172,7 @@ export default {
 
       console.log("sending files to bives for merge. returning Job ID");
       axios
-        .post("/bives/simpleMerge.php", formData, {
+        .post("/bives-php/simpleMerge.php", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
