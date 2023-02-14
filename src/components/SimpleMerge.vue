@@ -140,7 +140,7 @@ export default {
       paramsBuild.append("getFile", "mergedModel");
 
       axios
-        .get("/bives/simpleMerge.php", {
+        .get("/bives-php/simpleMerge.php", {
           params: paramsBuild,
         })
         .then((response) => {
