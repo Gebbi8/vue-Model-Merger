@@ -5,7 +5,7 @@
   "homepage": "https://merge-proto.bio.informatik.uni-rostock.de/",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && cp -r bives /",
+    "build": "vite build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "preview": "vite preview --port 5050",
