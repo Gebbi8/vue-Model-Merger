@@ -193,7 +193,6 @@ export default {
     },
     methods: {
         async checkForm(){
-            console.debug(this.file1);
             if(this.file1 != null && this.file2 != null){
                 //get all files
                 //const promiseV1 = await axios.get(this.file1);
@@ -241,10 +240,13 @@ export default {
                     },
                     })
                 //////////
-
+                
                 Promise.allSettled([bivesData])
                     .then((responses) => {
+
                         console.debug(responses);
+                        this.json = responses.sbgnJson;
+                        this.xmlDiff = responses.xmlDiff;
                         alert("12345");
                     })
                     .catch(error => {
@@ -253,7 +255,7 @@ export default {
                     });
 
 
-                this.createInterface(promiseV1, promiseV2, bivesData);
+                this.createInterface(this.file1, this.file2, this.xmlDiff, this.json);
             }
         },
         createInterface: function(promiseV1, promiseV2, promiseDiff, promiseJson){
