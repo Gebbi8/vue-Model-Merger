@@ -192,7 +192,7 @@ export default {
       var el = document.createElement("textarea");
       // Set value (string to be copied)
       var baseURL =
-        "https://merge-proto.bio.informatik.uni-rostock.de/bives/simpleMerge.php?";
+        "https://merge-proto.bio.informatik.uni-rostock.de/bives-php/simpleMerge.php?";
 
       ///bives/simpleMerge.php?getFile=mergedModel&jobID=fdc5ba9ea21ea49bcc6db0a8af335955
 

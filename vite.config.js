@@ -10,7 +10,6 @@ export default defineConfig({
   plugins: [vue()],
   build: {
     base: '/',
-    //base: "/",
     //outDir: "./sbml-merger/",
     //sourcemap: true,
     emptyOutDir: true,
