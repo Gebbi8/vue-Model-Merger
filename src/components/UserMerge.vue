@@ -235,7 +235,7 @@ export default {
                 console.debug(formData);
                 console.log("sending files to bives for merge");
                 const bivesData = await axios
-                    .post("/bives/simpleMerge.php", formData, {
+                    .post("/bives/userMerge.php", formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
