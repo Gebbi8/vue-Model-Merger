@@ -217,7 +217,16 @@ export default {
                 formData.append("file1", file);
                 file = this.file2;
                 formData.append("file2", file);
-                formData.append("commands", ["reactionsSbgnJson", "xmlDiff"]);
+                let bivesJob =  ["reactionsSbgnJson", "xmlDiff"];
+                bivesJob = JSON.stringify(bivesJob);
+                //for(let i=0; i < bivesJob.length; i++){
+                  
+                formData.append("commands", bivesJob);
+                //}
+
+                console.debug(formData);
+                alert("formData check");
+                
 
                 /*
                     Make the request to the POST /multiple-files URL
