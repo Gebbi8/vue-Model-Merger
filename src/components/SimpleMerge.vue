@@ -99,7 +99,7 @@
       </p>
       <p>
         1. Send a post request to
-        https://merge-proto.bio.informatik.uni-rostock.de/bives-php/simpleMerge.php
+        https://merge-proto.bio.informatik.uni-rostock.de/bives/simpleMerge.php
         with the two files atached with the keys file1 and file2. You will
         recieve an ID as response.
       </p>
@@ -140,7 +140,7 @@ export default {
       paramsBuild.append("getFile", "mergedModel");
 
       axios
-        .get("/bives-php/simpleMerge.php", {
+        .get("/bives/simpleMerge.php", {
           params: paramsBuild,
         })
         .then((response) => {
@@ -172,7 +172,7 @@ export default {
 
       console.log("sending files to bives for merge. returning Job ID");
       axios
-        .post("/bives-php/simpleMerge.php", formData, {
+        .post("/bives/simpleMerge.php", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -192,7 +192,7 @@ export default {
       var el = document.createElement("textarea");
       // Set value (string to be copied)
       var baseURL =
-        "https://merge-proto.bio.informatik.uni-rostock.de/bives-php/simpleMerge.php?";
+        "https://merge-proto.bio.informatik.uni-rostock.de/bives/simpleMerge.php?";
 
       ///bives/simpleMerge.php?getFile=mergedModel&jobID=fdc5ba9ea21ea49bcc6db0a8af335955
 
