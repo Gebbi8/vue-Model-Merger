@@ -224,7 +224,6 @@ export default {
                 //}
 
                 console.debug(formData);
-                alert("formData check");
                 
 
                 /*
@@ -232,7 +231,6 @@ export default {
                 */
 
                 console.debug(formData);
-                console.log("sending files to bives for merge");
                 const bivesData = await axios
                     .post("/bives/userMerge.php", formData, {
                     headers: {
@@ -244,10 +242,10 @@ export default {
                 Promise.allSettled([bivesData])
                     .then((responses) => {
 
-                        console.debug(responses);
+                        console.debug("responses:", responses);
                         this.json = responses.sbgnJson;
                         this.xmlDiff = responses.xmlDiff;
-                        alert("12345");
+
                     })
                     .catch(error => {
                     console.info(error);
@@ -255,6 +253,7 @@ export default {
                     });
 
 
+                
                 this.createInterface(this.file1, this.file2, this.xmlDiff, this.json);
             }
         },
