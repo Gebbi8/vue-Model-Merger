@@ -29,7 +29,7 @@
               "\n
               f2 set: " . isset($f2) . ", not empty: " . !empty($f2) .
               "\n 
-              commads set: " . isset($commands) . ", not empty: " . !empty($commands) . "commads: " . $commands;
+              commads: " . $commands;
     }
 
     function callBives($bivesJob, $BIVES){
