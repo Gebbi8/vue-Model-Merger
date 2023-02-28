@@ -21,7 +21,16 @@
 
 	));
 
-	callBives($bivesJob, $BIVES);
+    if (isset($f1) && !empty($f1) && isset($f2) && !empty($f2) && !isset($commands) && !empty($commands)) {
+	    callBives($bivesJob, $BIVES);
+    } else {
+        echo "FAILED \n
+              f1 set: " . isset($f1) . ", not empty: " . !empty($f1) .
+              "\n
+              f2 set: " . isset($f2) . ", not empty: " . !empty($f2) .
+              "\n 
+              commads set: " . isset($commands) . ", not empty: " . !empty($commands) . "commads: " . $commands;
+    }
 
     function callBives($bivesJob, $BIVES){
         
