@@ -223,7 +223,6 @@ export default {
                 formData.append("commands", bivesJob);
                 //}
 
-                console.debug(formData);
                 
 
                 /*
