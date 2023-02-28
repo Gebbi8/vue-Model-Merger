@@ -7,6 +7,7 @@
     $f2 = $_FILES['file2'];
     //$job = $_GET['jobID'];
     $commands = $_GET['commands'];
+    $commands = explode(',', $commands);
     //$getFile = $_GET['getFile'];
 
     $saveMerge = true;
@@ -21,7 +22,7 @@
 
 	));
 
-    if (isset($f1) && !empty($f1) && isset($f2) && !empty($f2) && !isset($commands) && !empty($commands)) {
+    if (isset($f1) && !empty($f1) && isset($f2) && !empty($f2) && isset($commands)) {
 	    callBives($bivesJob, $BIVES);
     } else {
         echo "FAILED \n

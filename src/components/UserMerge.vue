@@ -216,8 +216,8 @@ export default {
                 formData.append("file1", file);
                 file = this.file2;
                 formData.append("file2", file);
-                let bivesJob =  ["reactionsSbgnJson", "xmlDiff"];
-                bivesJob = JSON.stringify(bivesJob);
+                let bivesJob =  "reactionsSbgnJson,xmlDiff";
+                //bivesJob = JSON.stringify(bivesJob);
                 //for(let i=0; i < bivesJob.length; i++){
                   
                 formData.append("commands", bivesJob);
