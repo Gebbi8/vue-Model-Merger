@@ -37,7 +37,7 @@
     //echo "commands[0]: " . $commands[0] . ",  [1]:" . $commands[1];
 
     if (isset($f1) && !empty($f1) && isset($f2) && !empty($f2) && isset($commands)) {
-	    callBives($bivesJob, $BIVES);
+	    echo callBives($bivesJob, $BIVES);
     } else {
         echo "FAILED \n
               f1 set: " . isset($f1) . ", not empty: " . !empty($f1) .
@@ -48,7 +48,8 @@
     }
 
     function callBives($bivesJob, $BIVES){
-        
+
+
         $curl = curl_init();
 
         curl_setopt($curl, CURLOPT_URL, $BIVES);
