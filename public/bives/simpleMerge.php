@@ -10,9 +10,9 @@ $BIVES = "https://bives.bio.informatik.uni-rostock.de/";
 $storage = '/tmp/mergestorage';
 $f1 = $_FILES['file1'];
 $f2 = $_FILES['file2'];
-$job = $_GET['jobID'];
-$commands = $_GET['commands'];
-$getFile = $_GET['getFile'];
+$job = $_POST['jobID'];
+$commands = $_POST['commands'];
+$getFile = $_POST['getFile'];
 
 $saveMerge = true;
 

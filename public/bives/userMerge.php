@@ -15,7 +15,14 @@
     $BIVES = "https://bives.bio.informatik.uni-rostock.de/";
     //$storage = '/tmp/mergestorage';
     $f1 = $_FILES['file1'];
+    $openFile = fopen($f1, "r");
+	$readFile1 = fread($openFile, filesize($f1));
+	fclose($openFile);
+
     $f2 = $_FILES['file2'];
+    $openFile = fopen($f2, "r");
+	$readFile2 = fread($openFile, filesize($f2));
+	fclose($openFile);
     //$job = $_GET['jobID'];
     $c = $_POST['commands'];
     //echo "commands: " . $commands;
@@ -26,11 +33,11 @@
 
 
     $bivesJob = json_encode(array(
-		'files' => array($f1, $f2),
+		'files' => array($readFile1, $readFile2),
 		'commands'=> array($commands[0], $commands[1])
 	));
 
-    echo "0.2 ";
+    echo "0.3 ";
 
     if (isset($f1) && !empty($f1) && isset($f2) && !empty($f2) && isset($commands)) {
 	    echo callBives($bivesJob, $BIVES);
