@@ -22,6 +22,8 @@
 
 	));
 
+    echo "commands: " . $commands;
+
     if (isset($f1) && !empty($f1) && isset($f2) && !empty($f2) && isset($commands)) {
 	    callBives($bivesJob, $BIVES);
     } else {
