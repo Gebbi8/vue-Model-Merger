@@ -17,7 +17,7 @@
     $f1 = $_FILES['file1'];
     $f2 = $_FILES['file2'];
     //$job = $_GET['jobID'];
-    $commands = $_GET['commands'];
+    $commands = $_POST['commands'];
     echo "commands: " . $commands;
     $commands = explode(',', $commands);
     //$getFile = $_GET['getFile'];
