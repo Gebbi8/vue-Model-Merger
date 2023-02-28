@@ -17,9 +17,9 @@
     $f1 = $_FILES['file1'];
     $f2 = $_FILES['file2'];
     //$job = $_GET['jobID'];
-    $commands = $_POST['commands'];
+    $c = $_POST['commands'];
     //echo "commands: " . $commands;
-    $bivesJob = explode(',', $commands);
+    $commands = explode(',', $c);
     //$getFile = $_GET['getFile'];
 
     $saveMerge = true;
