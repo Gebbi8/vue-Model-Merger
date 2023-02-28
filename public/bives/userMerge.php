@@ -1,9 +1,17 @@
 <?php
     error_reporting(E_ALL ^ E_WARNING);
 
-    foreach (getallheaders() as $name => $value) {
-        echo "$name: $value\n";
+    foreach ($_POST as $key => $value) {
+        echo "<tr>";
+        echo "<td>";
+        echo $key;
+        echo "</td>";
+        echo "<td>";
+        echo $value;
+        echo "</td>";
+        echo "</tr>";
     }
+
     $BIVES = "https://bives.bio.informatik.uni-rostock.de/";
     //$storage = '/tmp/mergestorage';
     $f1 = $_FILES['file1'];
