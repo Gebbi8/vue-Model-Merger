@@ -26,15 +26,11 @@
 
 
     $bivesJob = json_encode(array(
-		'files' => array(
-			$f1,
-			$f2
-		),
-		'commands'=> $commands
-
+		'files' => array($f1, $f2),
+		'commands'=> array($commands[0], $commands[1])
 	));
 
-    echo "commands[0]: " . $commands[0] . ",  [1]:" . $commands[1];
+    echo "0.2 ";
 
     if (isset($f1) && !empty($f1) && isset($f2) && !empty($f2) && isset($commands)) {
 	    echo callBives($bivesJob, $BIVES);
