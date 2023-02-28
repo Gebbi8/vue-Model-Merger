@@ -7,6 +7,7 @@
     $f2 = $_FILES['file2'];
     //$job = $_GET['jobID'];
     $commands = $_GET['commands'];
+    echo "commands: " . $commands;
     $commands = explode(',', $commands);
     //$getFile = $_GET['getFile'];
 
