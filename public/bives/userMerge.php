@@ -7,15 +7,15 @@
     $f2 = $_FILES['file2'];
     //$job = $_GET['jobID'];
     $commands = $_GET['commands'];
-    $getFile = $_GET['getFile'];
+    //$getFile = $_GET['getFile'];
 
     $saveMerge = true;
 
 
     $bivesJob = json_encode(array(
 		'files' => array(
-			$readFile1,
-			$readFile2
+			$f1,
+			$f2
 		),
 		'commands'=> $commands
 
