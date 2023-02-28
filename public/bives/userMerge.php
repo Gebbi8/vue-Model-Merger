@@ -34,7 +34,7 @@
 
 	));
 
-    //echo "commands[0]: " . $commands[0] . ",  [1]:" . $commands[1];
+    echo "commands[0]: " . $commands[0] . ",  [1]:" . $commands[1];
 
     if (isset($f1) && !empty($f1) && isset($f2) && !empty($f2) && isset($commands)) {
 	    echo callBives($bivesJob, $BIVES);
