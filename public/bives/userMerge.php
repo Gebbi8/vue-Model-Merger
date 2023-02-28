@@ -1,7 +1,7 @@
 <?php
     error_reporting(E_ALL ^ E_WARNING);
 
-    foreach ($_POST as $key => $value) {
+/*     foreach ($_POST as $key => $value) {
         echo "<tr>";
         echo "<td>";
         echo $key;
@@ -10,7 +10,7 @@
         echo $value;
         echo "</td>";
         echo "</tr>";
-    }
+    } */
 
     $BIVES = "https://bives.bio.informatik.uni-rostock.de/";
     //$storage = '/tmp/mergestorage';
@@ -18,8 +18,8 @@
     $f2 = $_FILES['file2'];
     //$job = $_GET['jobID'];
     $commands = $_POST['commands'];
-    echo "commands: " . $commands;
-    $commands = explode(',', $commands);
+    //echo "commands: " . $commands;
+    $bivesJob = explode(',', $commands);
     //$getFile = $_GET['getFile'];
 
     $saveMerge = true;
