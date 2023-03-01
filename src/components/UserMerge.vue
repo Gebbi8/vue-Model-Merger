@@ -237,14 +237,19 @@ export default {
                     .then((responses) => {
 
                         console.debug("responses:", responses);
-                        this.json = responses.value.data.reactionsSbgnJson;
-                        this.xmlDiff = responses.value.data.xmlDiff;
+                        this.json = responses[0].value.data.reactionsSbgnJson;
+                        this.xmlDiff = responses[0].value.data.xmlDiff;
 
                         this.v1 = this.file1;
                         this.v2 = this.file2;
 
-                        this.newDocument = this.file2;
-                        this.oldDocument = this.file1;
+                        //this.newDocument = this.file2;
+                        let parser1 = new DOMParser();
+                        this.newDocument = parser1.parseFromString(this.v2, "text/xml");
+                        
+                        let parser2 = new DOMParser();
+                        this.oldDocument = parser2.parseFromString(this.v1, "text/xml");
+                        
 
                         console.debug("check");
                         this.createInterface();
