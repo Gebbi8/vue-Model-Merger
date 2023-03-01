@@ -15,6 +15,7 @@
     $BIVES = "https://bives.bio.informatik.uni-rostock.de/";
     //$storage = '/tmp/mergestorage';
     $f1 = $_FILES['file1'];
+    $f1String = file_get_contents($f1);
     print_r($f1);
     echo "\n        get contents:   ";
     echo file_get_contents($f1);
@@ -23,6 +24,7 @@
 	fclose($openFile); */
 
     $f2 = $_FILES['file2'];
+    $f2String = file_get_contents($f2);
     /* $openFile = fopen($f2, "r");
 	$readFile2 = fread($openFile, filesize($f2));
 	fclose($openFile); */
@@ -36,7 +38,7 @@
 
 
     $bivesJob = json_encode(array(
-		'files' => array($f1, $f2),
+		'files' => array($f1String, $f2String),
 		'commands'=> array($commands[0], $commands[1])
 	));
 
