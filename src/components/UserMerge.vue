@@ -15,10 +15,10 @@
     </div>
 
     <div class="btn-group d-flex" role="group" id="all-btngrp" aria-label="Toggle group">
-        <input type="radio" class="btn-check" name="allV1" id="allV1" autocomplete="off" @click="this.allFrom(0)" :checked="all == 0"/>
+        <input type="radio" class="btn-check" name="allV1" id="allV1" autocomplete="off" @click="this.allFrom(0)" :checked="all == 0" />
         <label class="btn btn-outline-primary" for="allV1">V1</label>
 
-        <input type="radio" class="btn-check" name="allV2" id="allV2" autocomplete="off" @click="this.allFrom(1)" :checked="all == 1"/>
+        <input type="radio" class="btn-check" name="allV2" id="allV2" autocomplete="off" @click="this.allFrom(1)" :checked="all == 1" />
         <label class="btn btn-outline-primary" for="allV2">V2</label>
     </div>
 
@@ -52,7 +52,7 @@
 
     <div v-if="view == 'model'">
         <ul class="list-group">
-             <template v-for="(element, index) in modelArr" :key="index">
+            <template v-for="(element, index) in modelArr" :key="index">
                 <li v-if="index === 'modelAttr' || index === 'sbmlAttr'" class="list-group-item" :id="`${element.id}`">
                     <h5>{{ element.id }}</h5>
                     <ul class="list-group">
@@ -128,7 +128,7 @@
     <p> {{ Object.keys(this.decisionArr).length}}</p>
     <h3>Dev mode is active!!</h3>
     <p> The Merge is produced with local files for versions and diff.</p>
-    
+
 </div>
 <div v-else-if="dev == 2">
     <h3>Dev mode 2</h3>
@@ -146,8 +146,6 @@ import LocalFiles from "./LocalFiles.vue";
 import axios from 'axios';
 import * as divilApi from "../../DiVil/javascriptAndCss/init";
 //import * as mathJax from "../../3rdPartyJS/MathJax-2.7.7/MathJax";
-
-
 
 import {
     useGetLocalXPath,
@@ -192,14 +190,13 @@ export default {
         };
     },
     methods: {
-        async checkForm(){
-            if(this.file1 != null && this.file2 != null){
+        async checkForm() {
+            if (this.file1 != null && this.file2 != null) {
                 //get all files
                 //const promiseV1 = await axios.get(this.file1);
                 //const promiseV2 = await axios.get(this.file2);
                 //const promiseDiff = await axios.get('/dev/fake-dupreez/supershort/xmlDiff.xml');
                 //const promiseJson = await axios.get('/dev/fake-dupreez/supershort/xmlDiff.xml');
- 
 
                 //////////////
                 //const axios = require("axios");
@@ -216,14 +213,12 @@ export default {
                 formData.append("file1", file);
                 file = this.file2;
                 formData.append("file2", file);
-                let bivesJob =  "reactionsSbgnJson,xmlDiff";
+                let bivesJob = "reactionsSbgnJson,xmlDiff";
                 //bivesJob = JSON.stringify(bivesJob);
                 //for(let i=0; i < bivesJob.length; i++){
-                  
+
                 formData.append("commands", bivesJob);
                 //}
-
-                
 
                 /*
                     Make the request to the POST /multiple-files URL
@@ -232,12 +227,12 @@ export default {
                 console.debug(formData);
                 const bivesData = await axios
                     .post("/bives/userMerge.php", formData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                        },
                     })
                 //////////
-                
+
                 Promise.allSettled([bivesData])
                     .then((responses) => {
 
@@ -245,18 +240,126 @@ export default {
                         this.json = responses.sbgnJson;
                         this.xmlDiff = responses.xmlDiff;
 
+                        this.v1 = this.file1;
+                        this.v2 = this.file2;
+
+                        this.newDocument = this.file2;
+                        this.oldDocument = this.file1;
+
+
                     })
                     .catch(error => {
-                    console.info(error);
-                    console.error(error.message);
+                        console.info(error);
+                        console.error(error.message);
                     });
 
 
-                
-                this.createInterface(this.file1, this.file2, this.xmlDiff, this.json);
+                this.createInterface();
             }
         },
-        createInterface: function(promiseV1, promiseV2, promiseDiff, promiseJson){
+        createInterface: function () {
+            //compute reaction view
+            /*
+             * To go through each single change might be cumbersum.
+             * With this view we split the network into each reaction.
+             * Reactions with changes can than be viewed.
+             */
+
+             console.debug(this.json, this.v1, this.newDocument, this.xmlDiff);
+
+            this.json.nodes.forEach((node) => {
+
+                if (node.id.startsWith("r") && node.bivesChange != "nothing") {
+                    //every reaction ID starts with r
+                    let reactionNodes = [node];
+                    let reactionLinks = [];
+                    //add reaction to Array, include all link and participants
+                    this.json.links.forEach((link) => {
+                        if (link.target == node.id || link.source == node.id) {
+                            reactionLinks.push(link);
+                            //add other participant of link
+                            let addNode, addNodeId;
+                            if (link.target == node.id) {
+                                addNodeId = link.source;
+                            } else addNodeId = link.target;
+
+                            //console.log(addNodeId, addNode);
+                            if (!reactionNodes.some(rN => rN.id === addNodeId)) {
+                                //console.info(reactionNodes, addNodeId);
+                                //alert("check nodes");
+                                addNode = this.json.nodes.find((n) => n.id == addNodeId);
+                                reactionNodes.push(addNode);
+                            }
+                        }
+                    });
+                    this.reactionsArr.push({
+                        centralNode: node.path,
+                        bivesChange: node.bivesChange,
+                        nodes: reactionNodes,
+                        links: reactionLinks,
+                    });
+                } else if (node.id.startsWith("s") && node.bivesChange != "nothing") { //want the subnetwork for the distance 2
+                    let speciesNodes = [node];
+                    let speciesLinks = [];
+                    //add reaction to Array, include all link and participants
+                    this.json.links.forEach((link) => {
+                        if (link.target == node.id || link.source == node.id) {
+                            speciesLinks.push(link);
+                            //add other participant of link
+                            let addNode, addNodeId;
+                            if (link.target == node.id) {
+                                addNodeId = link.source;
+                            } else addNodeId = link.target;
+
+                            if (!speciesNodes.some(sN => sN.id === addNodeId)) {
+                                addNode = this.json.nodes.find((n) => n.id == addNodeId);
+                                speciesNodes.push(addNode);
+                            }
+                            this.json.links.forEach((link2) => {
+
+                                if (link2.target == addNodeId || link2.source == addNodeId) {
+
+                                    //alert("before before");
+
+                                    if (!speciesLinks.some(sL => sL.path === link2.path)) {
+                                        speciesLinks.push(link2);
+
+                                        let addNode2, addNodeId2;
+                                        if (link2.target == addNodeId) addNodeId2 = link2.source;
+                                        else addNodeId2 = link2.target;
+
+                                        if (!speciesNodes.some(sN => sN.id === addNodeId2)) {
+                                            //alert("check nodes"); 
+                                            addNode2 = this.json.nodes.find((n) => n.id === addNodeId2);
+                                            speciesNodes.push(addNode2);
+                                        }
+                                    }
+                                }
+                            })
+                        }
+                    });
+
+                    console.debug(node);
+                    alert("before push");
+                    this.speciesArr.push({
+                        centralNode: node.path,
+                        bivesChange: node.bivesChange,
+                        nodes: speciesNodes,
+                        links: speciesLinks,
+                    });
+                }
+            });
+
+            //init computed divil data
+            this.structuredData = divilApi.initDivil(this.xmlDiff, this.v1, this.v2);
+
+            // get units
+            console.debug(this.decisionArr);
+
+            this.combineModelAttrWithChanges();
+        },
+
+        createInterfaceLocally: function (promiseV1, promiseV2, promiseDiff, promiseJson) {
             Promise.allSettled([promiseV1, promiseV2, promiseDiff, promiseJson])
                 .then((responses) => {
                     console.log(responses);
@@ -271,140 +374,6 @@ export default {
                     this.json = responses[3].value.data;
                     console.debug(this.json);
 
-
-                    //compute reaction view
-                    /*
-                     * To go through each single change might be cumbersum.
-                     * With this view we split the network into each reaction.
-                     * Reactions with changes can than be viewed.
-                     */
-
-                    this.json.nodes.forEach((node) => {
-
-                        if (node.id.startsWith("r") && node.bivesChange != "nothing") {
-                            //every reaction ID starts with r
-                            let reactionNodes = [node];
-                            let reactionLinks = [];
-                            //add reaction to Array, include all link and participants
-                            this.json.links.forEach((link) => {
-                                if (link.target == node.id || link.source == node.id) {
-                                    reactionLinks.push(link);
-                                    //add other participant of link
-                                    let addNode, addNodeId;
-                                    if (link.target == node.id) {
-                                        addNodeId = link.source;
-                                    } else addNodeId = link.target;
-
-                                    //console.log(addNodeId, addNode);
-                                    if (!reactionNodes.some(rN => rN.id === addNodeId)) {
-                                        //console.info(reactionNodes, addNodeId);
-                                        //alert("check nodes");
-                                        addNode = this.json.nodes.find((n) => n.id == addNodeId);
-                                        reactionNodes.push(addNode);
-                                    }
-                                }
-                            });
-                            this.reactionsArr.push({
-                                centralNode: node.path,
-                                bivesChange: node.bivesChange,
-                                nodes: reactionNodes,
-                                links: reactionLinks,
-                            });
-                        } else if (node.id.startsWith("s") && node.bivesChange != "nothing") { //want the subnetwor for the distance 2
-                            let speciesNodes = [node];
-                            let speciesLinks = [];
-                            //add reaction to Array, include all link and participants
-                            this.json.links.forEach((link) => {
-                                if (link.target == node.id || link.source == node.id) {
-                                    speciesLinks.push(link);
-                                    //add other participant of link
-                                    let addNode, addNodeId;
-                                    if (link.target == node.id) {
-                                        addNodeId = link.source;
-                                    } else addNodeId = link.target;
-
-                                    if (!speciesNodes.some(sN => sN.id === addNodeId)) {
-                                        addNode = this.json.nodes.find((n) => n.id == addNodeId);
-                                        speciesNodes.push(addNode);
-                                    }
-                                    this.json.links.forEach((link2) => {
-
-                                        if (link2.target == addNodeId || link2.source == addNodeId) {
-
-                                            //alert("before before");
-
-                                            if (!speciesLinks.some(sL => sL.path === link2.path)) {
-                                                speciesLinks.push(link2);
-
-                                                let addNode2, addNodeId2;
-                                                if (link2.target == addNodeId) addNodeId2 = link2.source;
-                                                else addNodeId2 = link2.target;
-
-                                                if (!speciesNodes.some(sN => sN.id === addNodeId2)) {
-                                                    //alert("check nodes"); 
-                                                    addNode2 = this.json.nodes.find((n) => n.id === addNodeId2);
-                                                    speciesNodes.push(addNode2);
-                                                }
-                                            }
-                                        }
-                                    })
-                                }
-                            });
-
-                            console.debug(node);
-                            alert("before push");
-                            this.speciesArr.push({
-                                centralNode: node.path,
-                                bivesChange: node.bivesChange,
-                                nodes: speciesNodes,
-                                links: speciesLinks,
-                            });
-                        }
-                    });
-
-                    //init computed divil data
-                    this.structuredData = divilApi.initDivil(this.xmlDiff, this.v1, this.v2);
-
-                    //create decision array
-                    //filter triggered changes and moves
-/*                     let type = '-';
-                    let xmlLines = this.xmlDiff.split(/\r?\n/);
-                    xmlLines.every(line => {
-                        if (line.includes("<move>")) return false;
-                        if (line.includes("<insert>")) {
-                            type = 'i';
-                            return true;
-                        }
-                        if (line.includes("<delete>")) {
-                            type = 'd';
-                            return true;
-                        }
-                        if (line.includes("<update>")) {
-                            type = 'u';
-                            return true;
-                        }
-
-                        if (line.includes("id=") && !line.includes("triggeredBy=") && !line.includes("bivesPatch") && !line.includes('Tag="listOf')) {
-                            //console.info("found lines");
-                            let a = {};
-                            let id = this.getId(line);
-
-                            a["decision"] = -1;
-                            a["type"] = type;
-
-                            this.decisionArr[id] = a;
-                            this.decisionArrCount++;
-                            //console.debug(this.decisionArr);
-                        }
-                        return true;
-                    }) */
-
-
-                    // get units
-                    console.debug(this.decisionArr);
-
-                    this.combineModelAttrWithChanges();
-
                 })
                 .catch(error => {
                     console.info(error);
@@ -413,6 +382,8 @@ export default {
 
             console.log("Dev Mode is active!");
             console.log("reactionsArr: ", this.reactionsArr);
+
+            this.createInterface();
         },
         filterChangeAttr: function (el, attr) {
             console.info(el, attr);
@@ -452,25 +423,25 @@ export default {
                     }
 
                     modelChanges.push(p);
-                }
-                else if(type != null && (line.includes("/listOfSpecies") || line.includes("/listOfReactions"))){ //species and reaction changes are shown with DiVil, but we still need to add the changes to the decision array
-                    
-                    
+                } else if (type != null && (line.includes("/listOfSpecies") || line.includes("/listOfReactions"))) { //species and reaction changes are shown with DiVil, but we still need to add the changes to the decision array
+
                     let id = this.getLineAttr(line, 'id');
- /*                    let path;
-                    if(type == 'u' || type == 'i') path = this.getLineAttr(line, 'newPath');
-                    else path = this.getLineAttr(line, 'oldPath');
-                    
-                    if(path.includes('math')){
-                        path = path.substring(0, path.indexOf("/math"));
-                        console.debug(speciesAndReactionMath);
-                        if(speciesAndReactionMath[path + TYPE]) return;
-                    } */
-                    
-                    this.decisionArr[id] = {"type": type, "decision": -1};
+                    /*                    let path;
+                                       if(type == 'u' || type == 'i') path = this.getLineAttr(line, 'newPath');
+                                       else path = this.getLineAttr(line, 'oldPath');
+
+                                       if(path.includes('math')){
+                                           path = path.substring(0, path.indexOf("/math"));
+                                           console.debug(speciesAndReactionMath);
+                                           if(speciesAndReactionMath[path + TYPE]) return;
+                                       } */
+
+                    this.decisionArr[id] = {
+                        "type": type,
+                        "decision": -1
+                    };
                     this.decisionArrCount++;
-                } 
-                else if (type != null && line.includes("/listOf")) {
+                } else if (type != null && line.includes("/listOf")) {
                     line = parser.parseFromString(line, "application/xml");
 
                     let p = {};
@@ -604,9 +575,12 @@ export default {
                     default:
                         alert("no change list for: " + target);
                 }
-                
+
                 //fill decision array
-                this.decisionArr[c.id] = {"decision": -1, "type": c.type};
+                this.decisionArr[c.id] = {
+                    "decision": -1,
+                    "type": c.type
+                };
                 this.decisionArrCount++;
                 console.debug(this.decisionArr);
             })
@@ -690,12 +664,12 @@ export default {
             return p;
         },
 
-        allFrom: function(version){
+        allFrom: function (version) {
             this.all = version;
 
             for (const [key] of Object.entries(this.decisionArr)) {
                 this.updateDecision(key, version);
-            } 
+            }
         },
 
         updateDecision: function (changeID, d) {
@@ -1178,10 +1152,10 @@ export default {
 
     },
     watch: {
-        file1: function(){
+        file1: function () {
             this.checkForm();
         },
-        file2: function (){
+        file2: function () {
             this.checkForm();
         }
     },
@@ -1191,16 +1165,14 @@ export default {
         if (this.dev == 1) {
 
             const promiseDiff = await axios.get('/dev/fake-dupreez/supershort/xmlDiff.xml');
-            
+
             const promiseV1 = await axios.get('/dev/fake-dupreez/supershort/v1.xml');
             const promiseV2 = await axios.get('/dev/fake-dupreez/supershort/v2.xml');
             const promiseJson = await axios.get('/dev/fake-dupreez/supershort/sbgnJson.json');
-            
+
             this.createInterface(promiseV1, promiseV2, promiseDiff, promiseJson);
         }
 
-
-        
     },
     updated() {
         if (this.view === "units" || this.view === "rules") {
