@@ -237,8 +237,8 @@ export default {
                     .then((responses) => {
 
                         console.debug("responses:", responses);
-                        this.json = responses.sbgnJson;
-                        this.xmlDiff = responses.xmlDiff;
+                        this.json = responses.value.data.reactionsSbgnJson;
+                        this.xmlDiff = responses.value.data.xmlDiff;
 
                         this.v1 = this.file1;
                         this.v2 = this.file2;
