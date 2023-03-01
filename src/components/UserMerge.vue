@@ -246,6 +246,7 @@ export default {
                         this.newDocument = this.file2;
                         this.oldDocument = this.file1;
 
+                        this.createInterface();
 
                     })
                     .catch(error => {
@@ -254,7 +255,7 @@ export default {
                     });
 
 
-                this.createInterface();
+                
             }
         },
         createInterface: function () {
