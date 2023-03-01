@@ -15,7 +15,9 @@
     $BIVES = "https://bives.bio.informatik.uni-rostock.de/";
     //$storage = '/tmp/mergestorage';
     $f1 = $_FILES['file1'];
-    echo $f1;
+    print_r($f1);
+    echo "\n        get contents:   ";
+    echo file_get_contents($f1);
    /*  $openFile = fopen($f1, "r");
 	$readFile1 = fread($openFile, filesize($f1));
 	fclose($openFile); */
