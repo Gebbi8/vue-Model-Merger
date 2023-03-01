@@ -237,7 +237,7 @@ export default {
                     .then((responses) => {
 
                         console.debug("responses:", responses);
-                        this.json = responses[0].value.data.reactionsSbgnJson;
+                        this.json = JSON.parse(responses[0].value.data.reactionsSbgnJson);
                         this.xmlDiff = responses[0].value.data.xmlDiff;
 
                         this.v1 = this.file1;
@@ -274,7 +274,7 @@ export default {
 
              console.debug("check createInterface");
 
-             console.debug(this.json, this.v1, this.newDocument, this.xmlDiff);
+             console.debug(this.json, this.oldDocument, this.newDocument, this.xmlDiff);
 
             this.json.nodes.forEach((node) => {
 
