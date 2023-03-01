@@ -349,7 +349,7 @@ export default {
                     });
 
                     console.debug(node);
-                    alert("before push");
+                    //alert("before push");
                     this.speciesArr.push({
                         centralNode: node.path,
                         bivesChange: node.bivesChange,
@@ -359,12 +359,14 @@ export default {
                 }
             });
 
+            console.debug("init divil");
             //init computed divil data
             this.structuredData = divilApi.initDivil(this.xmlDiff, this.v1, this.v2);
 
             // get units
             console.debug(this.decisionArr);
 
+            console.debug("combine model attr with changes");
             this.combineModelAttrWithChanges();
         },
 
