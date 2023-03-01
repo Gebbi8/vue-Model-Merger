@@ -246,6 +246,7 @@ export default {
                         this.newDocument = this.file2;
                         this.oldDocument = this.file1;
 
+                        console.debug("check");
                         this.createInterface();
 
                     })
@@ -265,6 +266,8 @@ export default {
              * With this view we split the network into each reaction.
              * Reactions with changes can than be viewed.
              */
+
+             console.debug("check createInterface");
 
              console.debug(this.json, this.v1, this.newDocument, this.xmlDiff);
 
