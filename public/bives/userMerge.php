@@ -16,23 +16,18 @@
     //$storage = '/tmp/mergestorage';
     $f1 = $_FILES['file1']['tmp_name'];
     $f1String = file_get_contents($f1);
-    print_r($f1);
-    echo "\n        get contents:   ";
-    echo file_get_contents($f1);
-   /*  $openFile = fopen($f1, "r");
-	$readFile1 = fread($openFile, filesize($f1));
-	fclose($openFile); */
+    //print_r($f1);
+    //echo "\n        get contents:   ";
+    //echo file_get_contents($f1);
 
-    $f2 = $_FILES['file2'];
+
+    $f2 = $_FILES['file2']['tmp_name'];
     $f2String = file_get_contents($f2);
-    /* $openFile = fopen($f2, "r");
-	$readFile2 = fread($openFile, filesize($f2));
-	fclose($openFile); */
-    //$job = $_GET['jobID'];
+
     $c = $_POST['commands'];
-    //echo "commands: " . $commands;
+
     $commands = explode(',', $c);
-    //$getFile = $_GET['getFile'];
+
 
     $saveMerge = true;
 
@@ -42,11 +37,12 @@
 		'commands'=> array($commands[0], $commands[1])
 	));
 
-    echo "0.3 ";
+    
 
     if (isset($f1) && !empty($f1) && isset($f2) && !empty($f2) && isset($commands)) {
 	    echo callBives($bivesJob, $BIVES);
     } else {
+        echo "0.4:   ";
         echo "FAILED \n
               f1 set: " . isset($f1) . ", not empty: " . !empty($f1) .
               "\n
