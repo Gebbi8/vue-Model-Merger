@@ -359,7 +359,7 @@ export default {
                 }
             });
 
-            console.debug("init divil");
+            console.info(this.xmlDiff);
             //init computed divil data
             this.structuredData = divilApi.initDivil(this.xmlDiff, this.v1, this.v2);
 
