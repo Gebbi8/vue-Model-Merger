@@ -186,7 +186,7 @@ export default {
             oldDocument: null,
             newDocument: null, //should also be given to subcomponent to avoid parsing it twice!
             xmlDiff: null,
-            dev: 2, //flag for development, 1: local files, 2: form files
+            dev: 1, //flag for development, 1: local files, 2: form files
         };
     },
     methods: {
@@ -382,8 +382,12 @@ export default {
                     let parser2 = new DOMParser();
                     this.oldDocument = parser2.parseFromString(this.v1, "text/xml");
 
+                    console.debug(responses);
+
                     this.json = responses[3].value.data;
                     console.debug(this.json);
+
+                    this.createInterface();
 
                 })
                 .catch(error => {
@@ -394,7 +398,7 @@ export default {
             console.log("Dev Mode is active!");
             console.log("reactionsArr: ", this.reactionsArr);
 
-            this.createInterface();
+           
         },
         filterChangeAttr: function (el, attr) {
             console.info(el, attr);
@@ -1175,13 +1179,13 @@ export default {
         //check for dev modee
         if (this.dev == 1) {
 
-            const promiseDiff = await axios.get('/dev/fake-dupreez/supershort/xmlDiff.xml');
+            const promiseDiff = await axios.get('/dev/fake-dupreez/6-7f-xmlDiff.xml');
 
-            const promiseV1 = await axios.get('/dev/fake-dupreez/supershort/v1.xml');
-            const promiseV2 = await axios.get('/dev/fake-dupreez/supershort/v2.xml');
-            const promiseJson = await axios.get('/dev/fake-dupreez/supershort/sbgnJson.json');
+            const promiseV1 = await axios.get('/dev/fake-dupreez/dupreez6.xml');
+            const promiseV2 = await axios.get('/dev/fake-dupreez/dupreez7-f.xml');
+            const promiseJson = await axios.get('/dev/fake-dupreez/6-7f-sbgnJson.json');
 
-            this.createInterface(promiseV1, promiseV2, promiseDiff, promiseJson);
+            this.createInterfaceLocally(promiseV1, promiseV2, promiseDiff, promiseJson);
         }
 
     },
