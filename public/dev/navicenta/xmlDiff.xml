@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bives type="fullDiff" id="bivesPatch">
+  <!--BiVeS compiled with: [BiVeS FrameWork v1.13.5] [BiVeS Core v1.9.7] [BiVeS SBML v1.9.7] [BiVeS CellML v1.8.4] -->
+  <update />
+  <delete />
+  <insert>
+    <node id="1" newParent="/sbml[1]/model[1]/listOfSpecies[1]" newChildNo="49" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[49]" newTag="species" />
+    <attribute name="compartment" id="2" triggeredBy="1" newValue="c8" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[49]" />
+    <attribute name="id" id="3" triggeredBy="1" newValue="s716" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[49]" />
+    <attribute name="initialAmount" id="4" triggeredBy="1" newValue="0" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[49]" />
+    <attribute name="metaid" id="5" triggeredBy="1" newValue="s716" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[49]" />
+    <attribute name="name" id="6" triggeredBy="1" newValue="IGHG4" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[49]" />
+    <attribute name="sboTerm" id="7" triggeredBy="1" newValue="SBO:0000252" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[49]" />
+    <node id="8" triggeredBy="1" newParent="/sbml[1]/model[1]/listOfSpecies[1]/species[49]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[49]/annotation[1]" newTag="annotation" />
+    <node id="9" newParent="/sbml[1]/model[1]/listOfSpecies[1]" newChildNo="50" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[50]" newTag="species" />
+    <attribute name="compartment" id="10" triggeredBy="9" newValue="default" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[50]" />
+    <attribute name="id" id="11" triggeredBy="9" newValue="s717" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[50]" />
+    <attribute name="initialAmount" id="12" triggeredBy="9" newValue="0" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[50]" />
+    <attribute name="metaid" id="13" triggeredBy="9" newValue="s717" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[50]" />
+    <attribute name="name" id="14" triggeredBy="9" newValue="Complement cascade" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[50]" />
+    <attribute name="sboTerm" id="15" triggeredBy="9" newValue="SBO:0000358" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[50]" />
+    <node id="16" triggeredBy="9" newParent="/sbml[1]/model[1]/listOfSpecies[1]/species[50]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[50]/annotation[1]" newTag="annotation" />
+    <node id="17" newParent="/sbml[1]/model[1]/listOfSpecies[1]" newChildNo="51" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[51]" newTag="species" />
+    <attribute name="compartment" id="18" triggeredBy="17" newValue="default" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[51]" />
+    <attribute name="id" id="19" triggeredBy="17" newValue="s718" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[51]" />
+    <attribute name="initialAmount" id="20" triggeredBy="17" newValue="0" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[51]" />
+    <attribute name="metaid" id="21" triggeredBy="17" newValue="s718" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[51]" />
+    <attribute name="name" id="22" triggeredBy="17" newValue="chemotaxis" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[51]" />
+    <attribute name="sboTerm" id="23" triggeredBy="17" newValue="SBO:0000358" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[51]" />
+    <node id="24" triggeredBy="17" newParent="/sbml[1]/model[1]/listOfSpecies[1]/species[51]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[51]/annotation[1]" newTag="annotation" />
+    <node id="25" newParent="/sbml[1]/model[1]/listOfSpecies[1]" newChildNo="52" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[52]" newTag="species" />
+    <attribute name="compartment" id="26" triggeredBy="25" newValue="default" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[52]" />
+    <attribute name="id" id="27" triggeredBy="25" newValue="s719" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[52]" />
+    <attribute name="initialAmount" id="28" triggeredBy="25" newValue="0" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[52]" />
+    <attribute name="metaid" id="29" triggeredBy="25" newValue="s719" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[52]" />
+    <attribute name="name" id="30" triggeredBy="25" newValue="inflammatory response" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[52]" />
+    <attribute name="sboTerm" id="31" triggeredBy="25" newValue="SBO:0000358" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[52]" />
+    <node id="32" triggeredBy="25" newParent="/sbml[1]/model[1]/listOfSpecies[1]/species[52]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[52]/annotation[1]" newTag="annotation" />
+    <node id="33" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="42" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]" newTag="reaction" />
+    <attribute name="id" id="34" triggeredBy="33" newValue="re112" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]" />
+    <attribute name="metaid" id="35" triggeredBy="33" newValue="re112" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]" />
+    <attribute name="reversible" id="36" triggeredBy="33" newValue="false" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]" />
+    <attribute name="sboTerm" id="37" triggeredBy="33" newValue="SBO:0000397" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]" />
+    <node id="38" triggeredBy="33" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/annotation[1]" newTag="annotation" />
+    <node id="39" triggeredBy="38" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/annotation[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/annotation[1]/RDF[1]" newTag="RDF" />
+    <node id="40" triggeredBy="39" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/annotation[1]/RDF[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/annotation[1]/RDF[1]/Description[1]" newTag="Description" />
+    <attribute name="about" id="41" triggeredBy="40" newValue="#re112" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/annotation[1]/RDF[1]/Description[1]" />
+    <node id="42" triggeredBy="40" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/annotation[1]/RDF[1]/Description[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]" newTag="isDescribedBy" />
+    <node id="43" triggeredBy="42" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]" newTag="Bag" />
+    <node id="44" triggeredBy="43" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]/li[1]" newTag="li" />
+    <attribute name="resource" id="45" triggeredBy="44" newValue="urn:miriam:doi:10.1111/j.1365-2222.2009.03207.x" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]/li[1]" />
+    <node id="46" triggeredBy="33" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/listOfReactants[1]" newTag="listOfReactants" />
+    <node id="47" triggeredBy="46" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/listOfReactants[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/listOfReactants[1]/speciesReference[1]" newTag="speciesReference" />
+    <attribute name="metaid" id="48" triggeredBy="47" newValue="CDMT00102" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="sboTerm" id="49" triggeredBy="47" newValue="SBO:0000010" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="species" id="50" triggeredBy="47" newValue="s78" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/listOfReactants[1]/speciesReference[1]" />
+    <node id="51" triggeredBy="33" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]" newChildNo="3" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/listOfProducts[1]" newTag="listOfProducts" />
+    <node id="52" triggeredBy="51" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/listOfProducts[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/listOfProducts[1]/speciesReference[1]" newTag="speciesReference" />
+    <attribute name="metaid" id="53" triggeredBy="52" newValue="CDMT00103" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="sboTerm" id="54" triggeredBy="52" newValue="SBO:0000011" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="species" id="55" triggeredBy="52" newValue="s716" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[42]/listOfProducts[1]/speciesReference[1]" />
+    <node id="56" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="43" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]" newTag="reaction" />
+    <attribute name="id" id="57" triggeredBy="56" newValue="re113" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]" />
+    <attribute name="metaid" id="58" triggeredBy="56" newValue="re113" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]" />
+    <attribute name="reversible" id="59" triggeredBy="56" newValue="false" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]" />
+    <attribute name="sboTerm" id="60" triggeredBy="56" newValue="SBO:0000397" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]" />
+    <node id="61" triggeredBy="56" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/annotation[1]" newTag="annotation" />
+    <node id="62" triggeredBy="61" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/annotation[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/annotation[1]/RDF[1]" newTag="RDF" />
+    <node id="63" triggeredBy="62" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/annotation[1]/RDF[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/annotation[1]/RDF[1]/Description[1]" newTag="Description" />
+    <attribute name="about" id="64" triggeredBy="63" newValue="#re113" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/annotation[1]/RDF[1]/Description[1]" />
+    <node id="65" triggeredBy="63" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/annotation[1]/RDF[1]/Description[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]" newTag="isDescribedBy" />
+    <node id="66" triggeredBy="65" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]" newTag="Bag" />
+    <node id="67" triggeredBy="66" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]/li[1]" newTag="li" />
+    <attribute name="resource" id="68" triggeredBy="67" newValue="urn:miriam:doi:10.1111/j.1365-2222.2009.03207.x" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]/li[1]" />
+    <node id="69" triggeredBy="56" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/listOfReactants[1]" newTag="listOfReactants" />
+    <node id="70" triggeredBy="69" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/listOfReactants[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/listOfReactants[1]/speciesReference[1]" newTag="speciesReference" />
+    <attribute name="metaid" id="71" triggeredBy="70" newValue="CDMT00104" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="sboTerm" id="72" triggeredBy="70" newValue="SBO:0000010" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="species" id="73" triggeredBy="70" newValue="s705" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/listOfReactants[1]/speciesReference[1]" />
+    <node id="74" triggeredBy="56" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]" newChildNo="3" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/listOfProducts[1]" newTag="listOfProducts" />
+    <node id="75" triggeredBy="74" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/listOfProducts[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/listOfProducts[1]/speciesReference[1]" newTag="speciesReference" />
+    <attribute name="metaid" id="76" triggeredBy="75" newValue="CDMT00105" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="sboTerm" id="77" triggeredBy="75" newValue="SBO:0000011" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="species" id="78" triggeredBy="75" newValue="s716" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[43]/listOfProducts[1]/speciesReference[1]" />
+    <node id="79" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="44" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]" newTag="reaction" />
+    <attribute name="id" id="80" triggeredBy="79" newValue="re114" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]" />
+    <attribute name="metaid" id="81" triggeredBy="79" newValue="re114" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]" />
+    <attribute name="reversible" id="82" triggeredBy="79" newValue="false" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]" />
+    <attribute name="sboTerm" id="83" triggeredBy="79" newValue="SBO:0000397" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]" />
+    <node id="84" triggeredBy="79" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/annotation[1]" newTag="annotation" />
+    <node id="85" triggeredBy="84" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/annotation[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/annotation[1]/RDF[1]" newTag="RDF" />
+    <node id="86" triggeredBy="85" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/annotation[1]/RDF[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/annotation[1]/RDF[1]/Description[1]" newTag="Description" />
+    <attribute name="about" id="87" triggeredBy="86" newValue="#re114" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/annotation[1]/RDF[1]/Description[1]" />
+    <node id="88" triggeredBy="86" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/annotation[1]/RDF[1]/Description[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]" newTag="isDescribedBy" />
+    <node id="89" triggeredBy="88" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]" newTag="Bag" />
+    <node id="90" triggeredBy="89" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]/li[1]" newTag="li" />
+    <attribute name="resource" id="91" triggeredBy="90" newValue="urn:miriam:doi:10.1111/j.1365-2222.2009.03207.x" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]/li[1]" />
+    <node id="92" triggeredBy="79" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/listOfReactants[1]" newTag="listOfReactants" />
+    <node id="93" triggeredBy="92" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/listOfReactants[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/listOfReactants[1]/speciesReference[1]" newTag="speciesReference" />
+    <attribute name="metaid" id="94" triggeredBy="93" newValue="CDMT00106" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="sboTerm" id="95" triggeredBy="93" newValue="SBO:0000010" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="species" id="96" triggeredBy="93" newValue="s716" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/listOfReactants[1]/speciesReference[1]" />
+    <node id="97" triggeredBy="79" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]" newChildNo="3" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/listOfProducts[1]" newTag="listOfProducts" />
+    <node id="98" triggeredBy="97" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/listOfProducts[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/listOfProducts[1]/speciesReference[1]" newTag="speciesReference" />
+    <attribute name="metaid" id="99" triggeredBy="98" newValue="CDMT00107" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="sboTerm" id="100" triggeredBy="98" newValue="SBO:0000011" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="species" id="101" triggeredBy="98" newValue="s717" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[44]/listOfProducts[1]/speciesReference[1]" />
+    <node id="102" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="45" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]" newTag="reaction" />
+    <attribute name="id" id="103" triggeredBy="102" newValue="re115" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]" />
+    <attribute name="metaid" id="104" triggeredBy="102" newValue="re115" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]" />
+    <attribute name="reversible" id="105" triggeredBy="102" newValue="false" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]" />
+    <attribute name="sboTerm" id="106" triggeredBy="102" newValue="SBO:0000397" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]" />
+    <node id="107" triggeredBy="102" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/annotation[1]" newTag="annotation" />
+    <node id="108" triggeredBy="107" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/annotation[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/annotation[1]/RDF[1]" newTag="RDF" />
+    <node id="109" triggeredBy="108" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/annotation[1]/RDF[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/annotation[1]/RDF[1]/Description[1]" newTag="Description" />
+    <attribute name="about" id="110" triggeredBy="109" newValue="#re115" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/annotation[1]/RDF[1]/Description[1]" />
+    <node id="111" triggeredBy="109" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/annotation[1]/RDF[1]/Description[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]" newTag="isDescribedBy" />
+    <node id="112" triggeredBy="111" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]" newTag="Bag" />
+    <node id="113" triggeredBy="112" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]/li[1]" newTag="li" />
+    <attribute name="resource" id="114" triggeredBy="113" newValue="urn:miriam:doi:10.1111/j.1365-2222.2009.03207.x" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]/li[1]" />
+    <node id="115" triggeredBy="102" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/listOfReactants[1]" newTag="listOfReactants" />
+    <node id="116" triggeredBy="115" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/listOfReactants[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/listOfReactants[1]/speciesReference[1]" newTag="speciesReference" />
+    <attribute name="metaid" id="117" triggeredBy="116" newValue="CDMT00108" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="sboTerm" id="118" triggeredBy="116" newValue="SBO:0000010" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="species" id="119" triggeredBy="116" newValue="s717" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/listOfReactants[1]/speciesReference[1]" />
+    <node id="120" triggeredBy="102" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]" newChildNo="3" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/listOfProducts[1]" newTag="listOfProducts" />
+    <node id="121" triggeredBy="120" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/listOfProducts[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/listOfProducts[1]/speciesReference[1]" newTag="speciesReference" />
+    <attribute name="metaid" id="122" triggeredBy="121" newValue="CDMT00109" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="sboTerm" id="123" triggeredBy="121" newValue="SBO:0000011" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="species" id="124" triggeredBy="121" newValue="s718" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[45]/listOfProducts[1]/speciesReference[1]" />
+    <node id="125" newParent="/sbml[1]/model[1]/listOfReactions[1]" newChildNo="46" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]" newTag="reaction" />
+    <attribute name="id" id="126" triggeredBy="125" newValue="re116" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]" />
+    <attribute name="metaid" id="127" triggeredBy="125" newValue="re116" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]" />
+    <attribute name="reversible" id="128" triggeredBy="125" newValue="false" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]" />
+    <attribute name="sboTerm" id="129" triggeredBy="125" newValue="SBO:0000397" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]" />
+    <node id="130" triggeredBy="125" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/annotation[1]" newTag="annotation" />
+    <node id="131" triggeredBy="130" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/annotation[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/annotation[1]/RDF[1]" newTag="RDF" />
+    <node id="132" triggeredBy="131" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/annotation[1]/RDF[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/annotation[1]/RDF[1]/Description[1]" newTag="Description" />
+    <attribute name="about" id="133" triggeredBy="132" newValue="#re116" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/annotation[1]/RDF[1]/Description[1]" />
+    <node id="134" triggeredBy="132" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/annotation[1]/RDF[1]/Description[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]" newTag="isDescribedBy" />
+    <node id="135" triggeredBy="134" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]" newTag="Bag" />
+    <node id="136" triggeredBy="135" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]/li[1]" newTag="li" />
+    <attribute name="resource" id="137" triggeredBy="136" newValue="urn:miriam:doi:10.1111/j.1365-2222.2009.03207.x" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]/li[1]" />
+    <node id="138" triggeredBy="125" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/listOfReactants[1]" newTag="listOfReactants" />
+    <node id="139" triggeredBy="138" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/listOfReactants[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/listOfReactants[1]/speciesReference[1]" newTag="speciesReference" />
+    <attribute name="metaid" id="140" triggeredBy="139" newValue="CDMT00110" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="sboTerm" id="141" triggeredBy="139" newValue="SBO:0000010" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="species" id="142" triggeredBy="139" newValue="s717" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/listOfReactants[1]/speciesReference[1]" />
+    <node id="143" triggeredBy="125" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]" newChildNo="3" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/listOfProducts[1]" newTag="listOfProducts" />
+    <node id="144" triggeredBy="143" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/listOfProducts[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/listOfProducts[1]/speciesReference[1]" newTag="speciesReference" />
+    <attribute name="metaid" id="145" triggeredBy="144" newValue="CDMT00111" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="sboTerm" id="146" triggeredBy="144" newValue="SBO:0000011" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="species" id="147" triggeredBy="144" newValue="s719" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[46]/listOfProducts[1]/speciesReference[1]" />
+  </insert>
+  <move />
+</bives>
