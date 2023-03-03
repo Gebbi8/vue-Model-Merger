@@ -777,7 +777,7 @@ export default {
         },
 
         changedNode: function (c, modelData, list) {
-            console.info(c.id, c);
+            //console.info(c.id, c);
 
             if (c.type == "i") {
 
