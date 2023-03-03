@@ -273,8 +273,9 @@ export default {
              */
 
              console.debug("check createInterface");
+             console.debug("just a test for git submodule behaivor");
 
-             console.debug(this.json, this.oldDocument, this.newDocument, this.xmlDiff);
+             console.info(this.json, this.oldDocument, this.newDocument, this.xmlDiff);
 
             this.json.nodes.forEach((node) => {
 
