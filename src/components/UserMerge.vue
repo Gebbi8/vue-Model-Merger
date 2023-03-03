@@ -598,7 +598,7 @@ export default {
                     "type": c.type
                 };
                 this.decisionArrCount++;
-                console.debug(this.decisionArr);
+                //console.debug(this.decisionArr);
             })
 
             //connect changes to rules, go through the possible lists in sbml reuse as much code as possible
