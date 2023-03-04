@@ -250,8 +250,8 @@ export default {
                         let parser2 = new DOMParser();
                         this.oldDocument = parser2.parseFromString(this.v1, "text/xml");
                         
-
-                        console.debug("check");
+                        
+                        console.debug("check", this.v1, this.v2, tis.newDocument, this.oldDocument);
                         this.createInterface();
 
                     })
