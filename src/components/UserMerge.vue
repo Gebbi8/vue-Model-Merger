@@ -243,13 +243,13 @@ export default {
 
                         //this.newDocument = this.file2;
                         //let parser1 = new DOMParser();
-                        this.newDocument = this.file2.text().value;
+                        this.newDocument = responses[2].text().value;
                         
                         //let parser2 = new DOMParser();
-                        this.oldDocument = this.file1.text().value;
+                        this.oldDocument = responses[1].text().value;
                         
                         
-                        console.debug("check", this.file1, this.file2, this.newDocument, this.oldDocument);
+                        console.debug("check",responses, this.newDocument, this.oldDocument);
                         this.createInterface();
 
                     })
