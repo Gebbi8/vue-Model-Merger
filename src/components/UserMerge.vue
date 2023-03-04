@@ -233,25 +233,23 @@ export default {
                     })
                 //////////
 
-                Promise.allSettled([bivesData])
+                Promise.allSettled([bivesData, this.file1, this.file2])
                     .then((responses) => {
 
                         console.debug("responses:", responses);
                         this.json = JSON.parse(responses[0].value.data.reactionsSbgnJson);
                         this.xmlDiff = responses[0].value.data.xmlDiff;
 
-                        this.v1 = this.file1;
-                        this.v2 = this.file2;
 
                         //this.newDocument = this.file2;
                         //let parser1 = new DOMParser();
-                        this.newDocument = this.v2.text().value;
+                        this.newDocument = this.file2.text().value;
                         
                         //let parser2 = new DOMParser();
-                        this.oldDocument = this.v1.text().value;
+                        this.oldDocument = this.file1.text().value;
                         
                         
-                        console.debug("check", this.v1, this.v2, this.newDocument, this.oldDocument);
+                        console.debug("check", this.file1, this.file2, this.newDocument, this.oldDocument);
                         this.createInterface();
 
                     })
