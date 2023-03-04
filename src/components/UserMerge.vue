@@ -251,7 +251,7 @@ export default {
                         this.oldDocument = parser2.parseFromString(this.v1, "text/xml");
                         
                         
-                        console.debug("check", this.v1, this.v2, tis.newDocument, this.oldDocument);
+                        console.debug("check", this.v1, this.v2, this.newDocument, this.oldDocument);
                         this.createInterface();
 
                     })
@@ -384,6 +384,8 @@ export default {
                     this.oldDocument = parser2.parseFromString(this.v1, "text/xml");
 
                     console.debug(responses);
+
+                    console.debug("check", this.v1, this.v2, this.newDocument, this.oldDocument);
 
                     this.json = responses[3].value.data;
                     console.debug(this.json);
