@@ -244,11 +244,11 @@ export default {
                         this.v2 = this.file2;
 
                         //this.newDocument = this.file2;
-                        let parser1 = new DOMParser();
-                        this.newDocument = parser1.parseFromString(this.v2, "text/xml");
+                        //let parser1 = new DOMParser();
+                        this.newDocument = this.v2.text().value;
                         
-                        let parser2 = new DOMParser();
-                        this.oldDocument = parser2.parseFromString(this.v1, "text/xml");
+                        //let parser2 = new DOMParser();
+                        this.oldDocument = this.v1.text().value;
                         
                         
                         console.debug("check", this.v1, this.v2, this.newDocument, this.oldDocument);
