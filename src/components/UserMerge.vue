@@ -274,6 +274,10 @@ export default {
              * Reactions with changes can than be viewed.
              */
 
+            //reset data
+            this.decisionArr = {};
+            this.decisionArrCount = 0;
+
              console.debug("check createInterface");
              console.debug("just a test for git submodule behaivor");
 
