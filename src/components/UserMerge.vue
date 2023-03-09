@@ -171,8 +171,8 @@ export default {
             file2: null,
             hide: true,
             modelArr: [],
-            unitsArr: [],
-            listsArr: [],
+/*             unitsArr: [],
+            listsArr: [], */
             decisionArr: {}, //testArr
             decisionArrCount: 0,
             all: -1,
@@ -192,37 +192,16 @@ export default {
     methods: {
         async checkForm() {
             if (this.file1 != null && this.file2 != null) {
-                //get all files
-                //const promiseV1 = await axios.get(this.file1);
-                //const promiseV2 = await axios.get(this.file2);
-                //const promiseDiff = await axios.get('/dev/fake-dupreez/supershort/xmlDiff.xml');
-                //const promiseJson = await axios.get('/dev/fake-dupreez/supershort/xmlDiff.xml');
 
-                //////////////
-                //const axios = require("axios");
-                /*
-                    Initialize the form data
-                    */
                 let formData = new FormData();
 
-                /*
-                    Iteate over any file sent over appending the files
-                    to the form data.
-                    */
                 let file = this.file1;
                 formData.append("file1", file);
                 file = this.file2;
                 formData.append("file2", file);
                 let bivesJob = "reactionsSbgnJson,xmlDiff";
-                //bivesJob = JSON.stringify(bivesJob);
-                //for(let i=0; i < bivesJob.length; i++){
 
                 formData.append("commands", bivesJob);
-                //}
-
-                /*
-                    Make the request to the POST /multiple-files URL
-                */
 
                 console.debug(formData);
                 const bivesData = await axios
@@ -231,7 +210,7 @@ export default {
                             "Content-Type": "multipart/form-data",
                         },
                     })
-                //////////
+                
 
                 Promise.allSettled([bivesData, this.file1.text(), this.file2.text()])
                     .then((responses) => {
@@ -276,8 +255,7 @@ export default {
 
             //reset data
             this.modelArr = [];
-/*             this.unitsArr = [];
-            this.listsArr = []; */
+
             this.decisionArr = {};
             this.decisionArrCount = 0;
             
