@@ -486,12 +486,14 @@ export default {
             // gets Attributes on SBML tag
             let attr = [];
             let modelAttr = {};
+            console.info("this");
             attr = this.getAllNodeAttr(this.newDocument.firstChild);
             modelAttr['sbmlAttr'] = {
                 'attr': attr
             };
 
             //get all Attributes of model
+            console.info("or this");
             attr = this.getAllNodeAttr(this.newDocument.firstChild.children.item('model'));
             modelAttr['modelAttr'] = {
                 'attr': attr
@@ -673,6 +675,7 @@ export default {
         },
 
         getAllNodeAttr: function (node) {
+            console.debug(node);
             let attrMap = node.attributes;
             let p = {};
             for (let i = 0; i < attrMap.length; i++) {
