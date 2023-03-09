@@ -275,8 +275,12 @@ export default {
              */
 
             //reset data
+            this.modelArr = [];
+/*             this.unitsArr = [];
+            this.listsArr = []; */
             this.decisionArr = {};
             this.decisionArrCount = 0;
+            
 
              console.debug("check createInterface");
              console.debug("just a test for git submodule behaivor");

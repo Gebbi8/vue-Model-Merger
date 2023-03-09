@@ -45,7 +45,7 @@
                 </div>
                 <div v-else class="delete-color">
                     <div v-if="name === 'math'"><b> math: </b> {{attr.oldValue}}</div>
-                    <span v-else> <b>{{ name }}----: </b> {{attr.oldValue}}</span>
+                    <span v-else> <b>{{ name }}: </b> {{attr.oldValue}}</span>
                     <div v-if="attr.changeID" class="container">
                         <decision-btn :changeID="attr.changeID" :d="decisionArr[attr.changeID]['decision']" @decision="this.updateDecision" />
                     </div>
