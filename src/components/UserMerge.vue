@@ -186,7 +186,7 @@ export default {
             oldDocument: null,
             newDocument: null, //should also be given to subcomponent to avoid parsing it twice!
             xmlDiff: null,
-            dev: 1, //flag for development, 1: local files, 2: form files
+            dev: 2, //flag for development, 1: local files, 2: form files
         };
     },
     methods: {
