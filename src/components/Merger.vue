@@ -135,7 +135,7 @@ export default {
     let path = this.checkAncestorsForMove(change.getAttribute("oldPath"));
 
     path = useGetLocalXPath(path);
-        //check for /math and/or /kineticLaw
+        //check for /math and/or /kineticLaw ??
 
     //Attribute
     if(change.localName == "attribute"){
@@ -158,13 +158,6 @@ export default {
     if(change.localName == "node"){
       let oldPath = change.getAttribute("oldPath");
       
-      /* --- skips math changes
-         --- handling mathematical changes atomicly will most likely make no sense
-         --- also, it breaks the insertAdjacentElement method
-      --- */
-
-      //if(oldPath.includes("/math")) return; 
-     
       let appendPath = change.getAttribute("oldParent");
       appendPath = this.checkAncestorsForMove(appendPath);
 
@@ -186,7 +179,7 @@ export default {
       }
       
       this.newDoc.evaluate(appendPath, this.newDoc, null,XPathResult.ANY_TYPE, null).iterateNext().insertAdjacentElement('beforeend', node.cloneNode(true));
-      if(oldPath.includes("math")) alert("!");
+      //if(oldPath.includes("math")) alert("!");
       return;
     }
     console.error("===> Delete of ", change.localName, " not handled!");
@@ -198,18 +191,6 @@ export default {
     let change = this.getXmlLineById(id);
     //let path = change.getAttribute("newPath");
 
-    /* --- skips math changes
-        --- handling mathematical changes atomicly will most likely make no sense
-        --- also, it breaks the insertAdjacentElement method, maybe because it would have to handle pure tag nodes
-    --- */
-
-
-    if(change.attributes.newPath.value.includes("/math")) {
-      
-      //if(change.localName == "node")
-      	
-      //return; 
-    } 
 
     console.debug(change);
      
@@ -220,12 +201,12 @@ export default {
       console.debug(path);
       //alert("?");
       this.newDoc.evaluate(path, this.newDoc, null, XPathResult.ANY_TYPE, null).iterateNext().remove();
-      console.debug("check");
+      console.debug("removed node or text");
       return;
     }
 
     if(change.localName == "attribute"){
-      console.info(path);
+      console.debug("removed attribute");
       this.newDoc.evaluate(path,this.newDoc, null, XPathResult.ANY_TYPE, null).iterateNext().removeAttribute(change.getAttribute("name"));
       return;
     }
