@@ -3,30 +3,19 @@
     <div class="custom-color-1" id="head">
       <div class="container">
         <div class="row ">
-          <div id="logoContainer" class="col-2  d-flex">
+          <div id="logoContainer" class="col-8  d-flex">
             <img id="fullLogo" src="/src/assets/full-logo.svg" />
           </div>
-          <div class="col-10 align-items-center d-flex justify-content-end">
-            <button type="button" class="btn btn-light btn" v-on:click="btnSwitchView">
-              Automatic | Semi-Automatic
-            </button>
-            <div class="btn-group btn-group-lg d-flex" role="group" id="mode-toggle" aria-label="Toggle group">
-              <input type="radio" class="btn-check" name="options-outlined" id="success-outlined" autocomplete="off" checked>
-              <label class="btn btn-outline-primary" id="auto-mode" for="success-outlined">Checked success radio</label>
 
-              <input type="radio" class="btn-check" name="options-outlined" id="danger-outlined" autocomplete="off">
-              <label class="btn btn-outline-primary" id="semi-mode" for="danger-outlined">Danger radio</label>
-            </div>
-          </div>
-<!--           <div class="col-4 d-flex align-items-center justify-content-end">
+          <div class="col-4 d-flex align-items-center justify-content-end">
             <button type="button" class="btn btn-light btn-sm" v-on:click="btnSwitchView">
               Switch Mode
             </button>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>
-<!--     <div class="custom-color-2" id="intro">
+    <div class="custom-color-2" id="intro">
       <div class="container">
         <div class="row justify-content-center">
           <p class="col-8">
@@ -41,7 +30,7 @@
           </p>
         </div>
       </div>
-    </div> -->
+    </div>
     <div class="custom-color-2" id="center">
       <div class="container">
         <user-merge v-if="!simple" />
@@ -115,31 +104,13 @@ export default {
 </script>
 
 <style>
-
-
-
-
 #head>button {
   margin-bottom: 0;
 }
 </style>
 
 <style scoped>
-#auto-mode:checked + .btn-check:checked + .btn-outline-primary{
-  background-color: #76d6af !important;
-}
-#auto-mode{
-  background-color: black !important;
-}
-#semi-mode + .btn-check:checked + .btn-outline-primary{
-  background-color: white !important;
-}
-#semi-mode + .btn-check:checked + .btn-outline-primary{
-  background-color: #d66a56 !important;
-}
-/* .btn-check:checked + .btn-outline-primary
- */
- .custom-color-1 {
+.custom-color-1 {
   background-color: #365b9e;
   color: #feffff;
 }
