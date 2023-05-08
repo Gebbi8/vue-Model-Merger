@@ -521,6 +521,12 @@ export default {
             let rules = this.getRules(this.newDocument, rulesListPath);
             if (rules) modelData["listOfRules"] = rules;
 
+             //get rules
+            let functionDefsListPath = useGetLocalXPath("/sbml[1]/model[1]/listOfRules[1]");
+            let functionDefs = this.getFunctions(this.newDocument, functionDefsListPath);
+            if (functionDefs) modelData["listOfRules"] = functionDefs;
+
+
             //get compartments
             let compartmentsListPath = useGetLocalXPath("/sbml[1]/model[1]/listOfCompartments[1]");
             let compartments = this.getCompartments(this.newDocument, compartmentsListPath);
@@ -533,6 +539,7 @@ export default {
             let sbmlChanges = [];
             let modelChanges = [];
             let compartmentsChanges = [];
+            let functionDefinitionsChanges = [];
 
             changes.forEach((c) => {
                 let path;
@@ -579,6 +586,9 @@ export default {
                         break;
                     case "listOfCompartments":
                         compartmentsChanges.push(c);
+                        break;
+                    case "listOfFunctionDefinitions":
+                        functionDefinitionsChanges.push(c);
                         break;
                     default:
                         alert("no change list for: " + target);
@@ -657,6 +667,17 @@ export default {
                 }
             })
 
+            functionDefinitionsChanges.forEach((c) => {
+                console.log(c);
+                if (c.target == "attribute") {
+                    modelData = this.addAttributeChanges(c, modelData, "listOfFunctionDefinitions");
+                }
+                if (c.target == "node") {
+                    modelData = this.changedNode(c, modelData, "listOfFunctionDefinitions");
+                }
+                
+            })
+
             this.modelArr = modelData;
             console.debug(this.modelArr);
 
@@ -718,8 +739,8 @@ export default {
                     };
 
                 } else {
-                    console.debug(c, c.type === "d");
-                    alert("attribute updated");
+                    console.debug(c);
+                    alert("attribute updated, see console");
                 }
 
             } else if (c.type === "i") { //elements are already contained in newDoc -> mark inserted elements and add changeID
@@ -739,8 +760,8 @@ export default {
                     };
 
                 } else {
-                    console.debug(c, c.type === "d");
-                    alert("attribute inserted");
+                    console.debug(c);
+                    alert("attribute inserted, see console");
                 }
 
             } else if (c.type === "d") {
@@ -762,7 +783,7 @@ export default {
                     };
                 } else {
                     console.debug(c, c.type === "d");
-                    alert("attribute deleted");
+                    alert("attribute deleted, see console");
                 }
             }
 
@@ -799,6 +820,9 @@ export default {
                 else if (list === "listOfUnitDefinitions") n = this.getSingleUnit(this.oldDocument, c.oldPath);
                 else if (list === "listOfRules") {
                     n = this.getSingleRule(this.oldDocument, c.oldPath);
+                }
+                else if (list === "listOfFunctionDefinitions") {
+                    n = this.getSingleFunctionDefinition(this.oldDocument, c.oldPath);
                 } else {
                     alert("handle node deletetion pls! " + c.oldTag);
                 }
@@ -936,6 +960,40 @@ export default {
 
         },
 
+        getFunctions: function(doc, path){
+            let n = getNode(doc, path);
+            if (n == null) return null;
+            let functions = n.children;
+            let functionsList = [];
+            for (let i = 0; i < functions.length; i++) {
+
+                let func = {};
+                if (changeType) func["change"] = changeType;
+
+                let type = functions[i].localName;
+
+                //compute attribute list
+
+                func["attr"] = {};
+                let attr = functions[i].attributes;
+
+                for (let j = 0; j < attr.length; j++) {
+                    func["attr"][attr[j].localName] = attr[j].value;
+                }
+
+                let childs = functions[i].children;
+                for (let j = 0; j < childs.length; j++) {
+                    if (childs[j].localName == "math") {
+                        func["attr"]["math"] = childs[j].outerHTML;
+                    }
+                }
+
+                functionsList[i] = func;
+
+            }
+            return functionsList;
+        },
+
         getCompartments: function (doc, path) { // produces array of 
             let n = getNode(doc, path);
             if(n == null) return null;
@@ -1024,6 +1082,24 @@ export default {
             }
 
             return parameter;
+        },
+
+        getSingleFunctionDefinition: function (doc, path) { //same structure as rules?
+            path = useGetLocalXPath(path);
+            let functionNode = getNode(doc, path);
+
+            let func = {};
+
+            let attr = functionNode.attributes;
+            for (let j = 0; j < attr.length; j++) {
+                func[attr[j].localName] = attr[j].value;
+            }
+
+            console.debug(ruleNode.children[0]);
+
+            func["math"] = functionNode.children[0].outerHTML;
+
+            return func;
         },
 
         getSingleRule: function (doc, path) { //same structure as unit but not for math 
