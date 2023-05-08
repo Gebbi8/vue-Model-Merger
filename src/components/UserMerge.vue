@@ -591,7 +591,7 @@ export default {
                         functionDefinitionsChanges.push(c);
                         break;
                     default:
-                        alert("no change list for: " + target);
+                        console.error("no change list for: " + target);
                 }
 
                 //fill decision array
@@ -740,7 +740,7 @@ export default {
 
                 } else {
                     console.debug(c);
-                    alert("attribute updated, see console");
+                    console.error("attribute updated, see console");
                 }
 
             } else if (c.type === "i") { //elements are already contained in newDoc -> mark inserted elements and add changeID
@@ -761,7 +761,7 @@ export default {
 
                 } else {
                     console.debug(c);
-                    alert("attribute inserted, see console");
+                    console.error("attribute inserted, see console");
                 }
 
             } else if (c.type === "d") {
@@ -783,7 +783,7 @@ export default {
                     };
                 } else {
                     console.debug(c, c.type === "d");
-                    alert("attribute deleted, see console");
+                    console.error("attribute deleted, see console");
                 }
             }
 
@@ -824,7 +824,7 @@ export default {
                 else if (list === "listOfFunctionDefinitions") {
                     n = this.getSingleFunctionDefinition(this.oldDocument, c.oldPath);
                 } else {
-                    alert("handle node deletetion pls! " + c.oldTag);
+                    console.error("handle node deletetion pls! " + c.oldTag);
                 }
 
                 //check whether list exists
