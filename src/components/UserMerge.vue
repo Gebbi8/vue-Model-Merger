@@ -554,8 +554,8 @@ export default {
                 else path = c.oldPath;
 
                 console.debug(path);
-
-                if (path != undefined && !path.includes('/notes')) {
+                //TODO: handle notes und annotations
+                if (path != undefined && !path.includes('/notes') && path != '/sbml[1]/model[1]/annotation[1]') {
                     target = this.getList(path);
                 }
 
