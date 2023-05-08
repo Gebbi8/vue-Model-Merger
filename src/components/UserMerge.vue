@@ -1232,6 +1232,7 @@ export default {
         },
 
         getList: function (path) { //list from path
+            console.log(path);
             let regex = new RegExp('listOf[^\[]*', 'g');
             let r = regex.exec(path);
             return r[0];
