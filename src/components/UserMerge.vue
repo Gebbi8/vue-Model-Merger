@@ -819,6 +819,7 @@ export default {
         getUnits: function (doc, path) { //produces Array out of information from Unit list of a doc
             // name: , attr: [name: , oldV: , newV: ], math: [oldU, newU]
             let n = getNode(doc, path);
+            if(n == null) return null;
             let units = n.children;
             let unitList = [];
 
@@ -885,7 +886,7 @@ export default {
         getRules: function (doc, path, changeType) {
 
             let n = getNode(doc, path);
-            if (n == null) return;
+            if (n == null) return null;
             let rules = n.children;
             let rulesList = [];
             for (let i = 0; i < rules.length; i++) {
@@ -937,6 +938,7 @@ export default {
 
         getCompartments: function (doc, path) { // produces array of 
             let n = getNode(doc, path);
+            if(n == null) return null;
             let compartments = n.children;
             let compartmentList = [];
 
