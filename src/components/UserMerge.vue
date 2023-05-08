@@ -553,9 +553,9 @@ export default {
                 else if (c.oldPath === "/sbml[1]") target = "sbmlAttr";
                 else path = c.oldPath;
 
-                //console.debug(path);
+                console.debug(path);
 
-                if (path != undefined) {
+                if (path != undefined && !path.includes('/notes')) {
                     target = this.getList(path);
                 }
 
@@ -1232,7 +1232,6 @@ export default {
         },
 
         getList: function (path) { //list from path
-            console.log(path);
             let regex = new RegExp('listOf[^\[]*', 'g');
             let r = regex.exec(path);
             return r[0];
