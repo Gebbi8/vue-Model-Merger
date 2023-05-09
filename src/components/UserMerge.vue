@@ -30,7 +30,7 @@
         <input type="radio" class="btn-check col-2" name="options" id="modalTab" autocomplete="off">
         <label @click="view = 'model'" class="btn btn-outline-primary col-1" for="modalTab">Model</label>
 
-        <input type="radio" class="btn-check col-2" name="options" id="unitsTab" autocomplete="off" checked>
+        <input type="radio" class="btn-check col-2" name="options" id="unitsTab" autocomplete="off">
         <label @click="view = 'units'" class="btn btn-outline-primary col-1" for="unitsTab">Units</label>
 
         <input type="radio" class="btn-check col-2" name="options" id="parametersTab" autocomplete="off">
@@ -38,6 +38,9 @@
 
         <input type="radio" class="btn-check col-2" name="options" id="rulesTab" autocomplete="off">
         <label @click="view = 'rules'" class="btn btn-outline-primary col-1" for="rulesTab">Rules</label>
+
+        <input type="radio" class="btn-check col-2" name="options" id="functionsTab" autocomplete="off" checked>
+        <label @click="view = 'functions'" class="btn btn-outline-primary col-1" for="functionsTab">Functions</label>
 
         <input type="radio" class="btn-check col-2" name="options" id="compartmentsTab" autocomplete="off">
         <label @click="view = 'compartments';" class="btn btn-outline-primary col-1" for="compartmentsTab">Compartments</label>
@@ -103,6 +106,15 @@
             </li>
         </ul>
     </div>
+    <div v-else-if="view == 'functions'">
+        <ul>
+            <li v-for="(el, index) in modelArr['listOfFunctionDefinitions']" :key="index" class="list-group-item">
+                <div class="container">
+                    <lists-template :el="el" :decisionArr="this.decisionArr" @decision="this.updateDecision" />
+                </div>
+            </li>
+        </ul>
+    </div>
 
     <div v-else-if="view == 'compartments'">
         <ul>
@@ -145,7 +157,6 @@ import Merger from "./Merger.vue";
 import LocalFiles from "./LocalFiles.vue";
 import axios from 'axios';
 import * as divilApi from "../../DiVil/javascriptAndCss/init";
-//import * as mathJax from "../../3rdPartyJS/MathJax-2.7.7/MathJax";
 
 import {
     useGetLocalXPath,
@@ -164,7 +175,7 @@ export default {
     data() {
         return {
             json: null,
-            view: "units",
+            view: "functions",
             v1: null,
             v2: null,
             file1: null,
@@ -373,7 +384,7 @@ export default {
 
                     console.debug(responses);
 
-                    console.debug("check", this.v1, this.v2, this.newDocument, this.oldDocument);
+                    console.debug("check", this.v1, this.v2, this.oldDocument, this.newDocument);
 
                     this.json = responses[3].value.data;
                     console.debug(this.json);
@@ -432,15 +443,6 @@ export default {
                 } else if (type != null && (line.includes("/listOfSpecies") || line.includes("/listOfReactions"))) { //species and reaction changes are shown with DiVil, but we still need to add the changes to the decision array
 
                     let id = this.getLineAttr(line, 'id');
-                    /*                    let path;
-                                       if(type == 'u' || type == 'i') path = this.getLineAttr(line, 'newPath');
-                                       else path = this.getLineAttr(line, 'oldPath');
-
-                                       if(path.includes('math')){
-                                           path = path.substring(0, path.indexOf("/math"));
-                                           console.debug(speciesAndReactionMath);
-                                           if(speciesAndReactionMath[path + TYPE]) return;
-                                       } */
 
                     this.decisionArr[id] = {
                         "type": type,
@@ -521,10 +523,10 @@ export default {
             let rules = this.getRules(this.newDocument, rulesListPath);
             if (rules) modelData["listOfRules"] = rules;
 
-             //get rules
-            let functionDefsListPath = useGetLocalXPath("/sbml[1]/model[1]/listOfRules[1]");
+             //get functions
+            let functionDefsListPath = useGetLocalXPath("/sbml[1]/model[1]/listOfFunctionDefinitions[1]");
             let functionDefs = this.getFunctions(this.newDocument, functionDefsListPath);
-            if (functionDefs) modelData["listOfRules"] = functionDefs;
+            if (functionDefs) modelData["listOfFunctionDefinitions"] = functionDefs;
 
 
             //get compartments
@@ -540,6 +542,8 @@ export default {
             let modelChanges = [];
             let compartmentsChanges = [];
             let functionDefinitionsChanges = [];
+
+            console.log(modelData);
 
             changes.forEach((c) => {
                 let path;
@@ -674,7 +678,7 @@ export default {
                 }
                 if (c.target == "node") {
                     modelData = this.changedNode(c, modelData, "listOfFunctionDefinitions");
-                }
+                } else console.error(c);
                 
             })
 
@@ -961,7 +965,15 @@ export default {
         },
 
         getFunctions: function(doc, path){
+            console.log(doc);
+            console.log(path);
+            alert("1");
+
             let n = getNode(doc, path);
+            console.log(n);
+
+            alert("2");
+
             if (n == null) return null;
             let functions = n.children;
             let functionsList = [];
@@ -1251,18 +1263,23 @@ export default {
         //check for dev modee
         if (this.dev == 1) {
 
-            const promiseDiff = await axios.get('/dev/fake-dupreez/6-7f-xmlDiff.xml');
+/*             const promiseDiff = await axios.get('/dev/fake-dupreez/6-7f-xmlDiff.xml');
 
             const promiseV1 = await axios.get('/dev/fake-dupreez/dupreez6.xml');
             const promiseV2 = await axios.get('/dev/fake-dupreez/dupreez7-f.xml');
-            const promiseJson = await axios.get('/dev/fake-dupreez/6-7f-sbgnJson.json');
+            const promiseJson = await axios.get('/dev/fake-dupreez/6-7f-sbgnJson.json'); */
+            const promiseDiff = await axios.get('/dev/Salazar2009/xmlDiff.xml');
+
+            const promiseV1 = await axios.get('/dev/Salazar2009/Salazar.xml.origin');
+            const promiseV2 = await axios.get('/dev/Salazar2009/Salazar.xml');
+            const promiseJson = await axios.get('/dev/Salazar2009/sbgnJson.json');
 
             this.createInterfaceLocally(promiseV1, promiseV2, promiseDiff, promiseJson);
         }
 
     },
     updated() {
-        if (this.view === "units" || this.view === "rules") {
+        if (this.view === "units" || this.view === "rules" || this.view === "functions") {
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     },
