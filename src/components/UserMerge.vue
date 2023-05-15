@@ -767,17 +767,19 @@ export default {
 
             } else if (c.type === "i") { //elements are already contained in newDoc -> mark inserted elements and add changeID
                 if (list === "sbmlAttr" || list === "modelAttr") modelData[list].attr[el.name] = {
+                    "type": 'i',
                     "changeID": el.changeID,
                     "newValue": el.newValue
                 };
                 //elements are already contained in newDoc -> mark inserted elements
-                else if (list === "listOfParameters" || list === "listOfCompartments" || list === "listOfUnitDefinitions") { //parameterupdate
+                else if (list === "listOfParameters" || list === "listOfCompartments" || list === "listOfUnitDefinitions" || list === "listOfRules" || list === "listOfFunctionDefinitions") {
 
                     let target = this.getChangeTarget(c.newPath);
 
                     let targetAttr = c.name;
                     modelData[list][target.childNo][targetAttr] = {
                         "type": "i",
+                        "changeID": c.id,
                         "newValue": c.newValue
                     };
 
@@ -788,18 +790,19 @@ export default {
 
             } else if (c.type === "d") {
                 if (list === "sbmlAttr" || list === "modelAttr") modelData[list].attr[el.name] = {
+                    "type": 'd',
                     "changeID": el.changeID,
                     "oldValue": el.oldValue
                 };
                 //insert attribute at right element, mark attribute as deleted
-                else if (list === "listOfParameters" || list === "listOfCompartments" || list === "listOfUnitDefinitions") {
+                else if (list === "listOfParameters" || list === "listOfCompartments" || list === "listOfUnitDefinitions" || list === "listOfRules" || list === "listOfFunctionDefinitions") {
                     console.debug(c, el, list);
                     //fthisalert("japp");
                     let target = this.getChangeTarget(c.oldPath);
 
                     let targetAttr = c.name;
                     modelData[list][target.childNo][targetAttr] = {
-                        "type": "i",
+                        "type": "d",
                         "changeID": c.id,
                         "newValue": c.oldValue
                     };
@@ -956,7 +959,6 @@ export default {
 
             return unitList;
 
-            ///////////////////////<-------------------------------------------------
         },
 
         getUnitMathML: function (definitions) {
@@ -1014,17 +1016,17 @@ export default {
                 rule["type"] = type;
                 //rule["changeID"] = type;
 
-                rule["attr"] = {};
+                //rule["attr"] = {};
                 let attr = rules[i].attributes;
 
                 for (let j = 0; j < attr.length; j++) {
-                    rule["attr"][attr[j].localName] = attr[j].value;
+                    rule[attr[j].localName] = attr[j].value;
                 }
 
                 let childs = rules[i].children;
                 for (let j = 0; j < childs.length; j++) {
                     if (childs[j].localName == "math") {
-                        rule["attr"]["math"] = childs[j].outerHTML;
+                        rule["math"] = childs[j].outerHTML;
                     }
                 }
 
@@ -1064,7 +1066,7 @@ export default {
 
                 //compute attribute list
 
-                func["attr"] = {};
+                //func["attr"] = {};
                 let attr = functions[i].attributes;
 
                 for (let j = 0; j < attr.length; j++) {

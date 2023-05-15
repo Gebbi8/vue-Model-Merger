@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bives type="fullDiff" id="bivesPatch">
+  \x3C!--BiVeS compiled with: [BiVeS FrameWork v1.13.7] [BiVeS Core v1.9.8] [BiVeS SBML v1.9.9] [BiVeS CellML v1.8.6] -->
+  <update>
+    <attribute name="version" id="2" oldValue="1" newValue="4" oldPath="/sbml[1]" newPath="/sbml[1]" />
+    <attribute name="name" id="4" oldValue="Locke2005ks_tanh_floweringM3" newValue="Salazar2009_PhotoperiodicRegulation" oldPath="/sbml[1]/model[1]" newPath="/sbml[1]/model[1]" />
+  </update>
+  <delete>
+    <node id="6" oldParent="/sbml[1]/model[1]/notes[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/notes[1]/html[1]" oldTag="html" />
+    <node id="7" triggeredBy="6" oldParent="/sbml[1]/model[1]/notes[1]/html[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/notes[1]/html[1]/body[1]" oldTag="body" />
+    <node id="8" triggeredBy="7" oldParent="/sbml[1]/model[1]/notes[1]/html[1]/body[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/notes[1]/html[1]/body[1]/p[1]" oldTag="p" />
+    <text id="9" triggeredBy="8" oldParent="/sbml[1]/model[1]/notes[1]/html[1]/body[1]/p[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/notes[1]/html[1]/body[1]/p[1]/text()[1]" oldText="SBML model of the Model 3 of Arabidopsis flowering model (Domingo et al., Cell 2009) - the photoperiodic pathway (CO attached to the interlocked feedback loop network (redeveloped SBML file of Kevin S)" />
+    <node id="10" triggeredBy="7" oldParent="/sbml[1]/model[1]/notes[1]/html[1]/body[1]" oldChildNo="2" oldPath="/sbml[1]/model[1]/notes[1]/html[1]/body[1]/p[2]" oldTag="p" />
+    <node id="11" triggeredBy="7" oldParent="/sbml[1]/model[1]/notes[1]/html[1]/body[1]" oldChildNo="3" oldPath="/sbml[1]/model[1]/notes[1]/html[1]/body[1]/p[3]" oldTag="p" />
+    <text id="12" triggeredBy="11" oldParent="/sbml[1]/model[1]/notes[1]/html[1]/body[1]/p[3]" oldChildNo="1" oldPath="/sbml[1]/model[1]/notes[1]/html[1]/body[1]/p[3]/text()[1]" oldText="As per BIOMD0000000055.xml but with revised light function." />
+    <text id="15" oldParent="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[1]/text()[1]" oldText="time" />
+    <text id="16" oldParent="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/ci[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/ci[1]/text()[1]" oldText="time" />
+    <text id="17" oldParent="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[1]/text()[1]" oldText="time" />
+    <text id="18" oldParent="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/ci[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/ci[1]/text()[1]" oldText="time" />
+    <text id="19" oldParent="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[1]/text()[1]" oldText="time" />
+    <text id="20" oldParent="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/ci[1]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/ci[1]/text()[1]" oldText="time" />
+    <node id="121" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]/kineticLaw[1]/math[1]/apply[1]/apply[1]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]/kineticLaw[1]/math[1]/apply[1]/apply[1]/ci[2]" oldTag="ci" />
+    <text id="122" triggeredBy="121" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]/kineticLaw[1]/math[1]/apply[1]/apply[1]/ci[2]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]/kineticLaw[1]/math[1]/apply[1]/apply[1]/ci[2]/text()[1]" oldText="time" />
+    <node id="167" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[13]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[13]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[2]" oldTag="ci" />
+    <text id="168" triggeredBy="167" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[13]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[2]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[13]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[2]/text()[1]" oldText="time" />
+    <node id="176" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[15]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[15]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[2]" oldTag="ci" />
+    <text id="177" triggeredBy="176" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[15]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[2]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[15]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[2]/text()[1]" oldText="time" />
+    <node id="209" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[2]" oldTag="ci" />
+    <text id="210" triggeredBy="209" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[2]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[2]/text()[1]" oldText="time" />
+    <node id="211" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/ci[2]" oldTag="ci" />
+    <text id="212" triggeredBy="211" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/ci[2]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/ci[2]/text()[1]" oldText="time" />
+    <node id="237" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[30]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[30]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/ci[2]" oldTag="ci" />
+    <text id="238" triggeredBy="237" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[30]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/ci[2]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[30]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/ci[2]/text()[1]" oldText="time" />
+    <node id="245" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[32]/kineticLaw[1]/math[1]/apply[1]/apply[1]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[32]/kineticLaw[1]/math[1]/apply[1]/apply[1]/ci[2]" oldTag="ci" />
+    <text id="246" triggeredBy="245" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[32]/kineticLaw[1]/math[1]/apply[1]/apply[1]/ci[2]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[32]/kineticLaw[1]/math[1]/apply[1]/apply[1]/ci[2]/text()[1]" oldText="time" />
+    <node id="254" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[34]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]" oldChildNo="2" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[34]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/ci[2]" oldTag="ci" />
+    <text id="255" triggeredBy="254" oldParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[34]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/ci[2]" oldChildNo="1" oldPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[34]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/ci[2]/text()[1]" oldText="time" />
+  </delete>
+  <insert>
+    <attribute name="metaid" id="1" newValue="_184003" newPath="/sbml[1]" />
+    <attribute name="metaid" id="3" newValue="_145444" newPath="/sbml[1]/model[1]" />
+    <attribute name="id" id="5" newValue="Salazar2009_PhotoperiodicRegulation" newPath="/sbml[1]/model[1]" />
+    <attribute name="metaid" id="14" newValue="_145549" newPath="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]" />
+    <attribute name="metaid" id="22" newValue="_145445" newPath="/sbml[1]/model[1]/listOfCompartments[1]/compartment[1]" />
+    <attribute name="metaid" id="24" newValue="_145447" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[1]" />
+    <attribute name="metaid" id="25" newValue="_145449" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[2]" />
+    <attribute name="metaid" id="26" newValue="_145450" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[3]" />
+    <attribute name="metaid" id="27" newValue="_145452" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[4]" />
+    <attribute name="metaid" id="28" newValue="_145453" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[5]" />
+    <attribute name="metaid" id="29" newValue="_145455" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[6]" />
+    <attribute name="metaid" id="30" newValue="_145456" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[7]" />
+    <attribute name="metaid" id="31" newValue="_145458" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[8]" />
+    <attribute name="metaid" id="32" newValue="_145459" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[9]" />
+    <attribute name="metaid" id="33" newValue="_145461" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[10]" />
+    <attribute name="metaid" id="34" newValue="_145462" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[11]" />
+    <attribute name="metaid" id="35" newValue="_145464" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[12]" />
+    <attribute name="metaid" id="36" newValue="_145465" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[13]" />
+    <attribute name="metaid" id="37" newValue="_145467" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[14]" />
+    <attribute name="metaid" id="38" newValue="_145468" newPath="/sbml[1]/model[1]/listOfSpecies[1]/species[15]" />
+    <attribute name="metaid" id="40" newValue="_145550" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[1]" />
+    <attribute name="metaid" id="41" newValue="_145551" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[2]" />
+    <attribute name="metaid" id="42" newValue="_145552" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[3]" />
+    <attribute name="metaid" id="43" newValue="_145553" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[4]" />
+    <attribute name="metaid" id="44" newValue="_145555" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[5]" />
+    <attribute name="metaid" id="45" newValue="_145556" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[6]" />
+    <attribute name="metaid" id="46" newValue="_145558" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[7]" />
+    <attribute name="metaid" id="47" newValue="_145559" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[8]" />
+    <attribute name="metaid" id="48" newValue="_145561" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[9]" />
+    <attribute name="metaid" id="49" newValue="_145562" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[10]" />
+    <attribute name="metaid" id="50" newValue="_145564" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[11]" />
+    <attribute name="metaid" id="51" newValue="_145565" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[12]" />
+    <attribute name="metaid" id="52" newValue="_145567" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[13]" />
+    <attribute name="metaid" id="53" newValue="_145568" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[14]" />
+    <attribute name="metaid" id="54" newValue="_145570" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[15]" />
+    <attribute name="metaid" id="55" newValue="_145571" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[16]" />
+    <attribute name="metaid" id="56" newValue="_145573" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[17]" />
+    <attribute name="metaid" id="57" newValue="_145574" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[18]" />
+    <attribute name="metaid" id="58" newValue="_145576" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[19]" />
+    <attribute name="metaid" id="59" newValue="_145577" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[20]" />
+    <attribute name="metaid" id="60" newValue="_145579" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[21]" />
+    <attribute name="metaid" id="61" newValue="_145580" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[22]" />
+    <attribute name="metaid" id="62" newValue="_145582" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[23]" />
+    <attribute name="metaid" id="63" newValue="_145583" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[24]" />
+    <attribute name="metaid" id="64" newValue="_145585" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[25]" />
+    <attribute name="metaid" id="65" newValue="_145586" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[26]" />
+    <attribute name="metaid" id="66" newValue="_145588" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[27]" />
+    <attribute name="metaid" id="67" newValue="_145589" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[28]" />
+    <attribute name="metaid" id="68" newValue="_145591" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[29]" />
+    <attribute name="metaid" id="69" newValue="_145592" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[30]" />
+    <attribute name="metaid" id="70" newValue="_145594" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[31]" />
+    <attribute name="metaid" id="71" newValue="_145595" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[32]" />
+    <attribute name="metaid" id="72" newValue="_145597" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[33]" />
+    <attribute name="metaid" id="73" newValue="_145598" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[34]" />
+    <attribute name="metaid" id="74" newValue="_145600" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[35]" />
+    <attribute name="metaid" id="75" newValue="_145601" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[36]" />
+    <attribute name="metaid" id="76" newValue="_145603" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[37]" />
+    <attribute name="metaid" id="77" newValue="_145604" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[38]" />
+    <attribute name="metaid" id="78" newValue="_145606" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[39]" />
+    <attribute name="metaid" id="79" newValue="_145607" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[40]" />
+    <attribute name="metaid" id="80" newValue="_145609" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[41]" />
+    <attribute name="metaid" id="81" newValue="_145610" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[42]" />
+    <attribute name="metaid" id="82" newValue="_145612" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[43]" />
+    <attribute name="metaid" id="83" newValue="_145613" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[44]" />
+    <attribute name="metaid" id="84" newValue="_145615" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[45]" />
+    <attribute name="metaid" id="85" newValue="_145616" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[46]" />
+    <attribute name="metaid" id="86" newValue="_145618" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[47]" />
+    <attribute name="metaid" id="87" newValue="_145619" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[48]" />
+    <attribute name="metaid" id="88" newValue="_145621" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[49]" />
+    <attribute name="metaid" id="89" newValue="_145622" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[50]" />
+    <attribute name="metaid" id="90" newValue="_145624" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[51]" />
+    <attribute name="metaid" id="91" newValue="_145625" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[52]" />
+    <attribute name="metaid" id="92" newValue="_145627" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[53]" />
+    <attribute name="metaid" id="93" newValue="_145628" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[54]" />
+    <attribute name="metaid" id="94" newValue="_145630" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[55]" />
+    <attribute name="metaid" id="95" newValue="_145631" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[56]" />
+    <attribute name="metaid" id="96" newValue="_145633" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[57]" />
+    <attribute name="metaid" id="97" newValue="_145634" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[58]" />
+    <attribute name="metaid" id="98" newValue="_145636" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[59]" />
+    <attribute name="metaid" id="99" newValue="_145637" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[60]" />
+    <attribute name="metaid" id="100" newValue="_145639" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[61]" />
+    <attribute name="metaid" id="101" newValue="_145640" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[62]" />
+    <attribute name="metaid" id="102" newValue="_145642" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[63]" />
+    <attribute name="metaid" id="103" newValue="_145643" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[64]" />
+    <attribute name="metaid" id="104" newValue="_145645" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[65]" />
+    <attribute name="metaid" id="105" newValue="_145646" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[66]" />
+    <attribute name="metaid" id="106" newValue="_145648" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[67]" />
+    <attribute name="metaid" id="107" newValue="_145649" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[68]" />
+    <attribute name="metaid" id="108" newValue="_145651" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[69]" />
+    <attribute name="metaid" id="109" newValue="_145652" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[70]" />
+    <attribute name="metaid" id="110" newValue="_145654" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[71]" />
+    <attribute name="metaid" id="111" newValue="_145655" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[72]" />
+    <attribute name="metaid" id="112" newValue="_145657" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[73]" />
+    <attribute name="metaid" id="113" newValue="_145658" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[74]" />
+    <attribute name="metaid" id="114" newValue="_145660" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[75]" />
+    <attribute name="metaid" id="115" newValue="_145661" newPath="/sbml[1]/model[1]/listOfParameters[1]/parameter[76]" />
+    <attribute name="metaid" id="117" newValue="_145469" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]" />
+    <attribute name="metaid" id="118" newValue="_184015" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="metaid" id="119" newValue="_184027" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]/listOfModifiers[1]/modifierSpeciesReference[1]" />
+    <attribute name="metaid" id="120" newValue="_184039" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]/kineticLaw[1]" />
+    <attribute name="metaid" id="123" newValue="_145470" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[2]" />
+    <attribute name="metaid" id="124" newValue="_184051" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[2]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="metaid" id="125" newValue="_184063" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[2]/listOfModifiers[1]/modifierSpeciesReference[1]" />
+    <attribute name="metaid" id="126" newValue="_184075" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[2]/kineticLaw[1]" />
+    <attribute name="metaid" id="127" newValue="_145471" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[3]" />
+    <attribute name="metaid" id="128" newValue="_184087" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[3]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="129" newValue="_184099" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[3]/kineticLaw[1]" />
+    <attribute name="metaid" id="130" newValue="_145473" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[4]" />
+    <attribute name="metaid" id="131" newValue="_184111" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[4]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="metaid" id="132" newValue="_184123" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[4]/listOfModifiers[1]/modifierSpeciesReference[1]" />
+    <attribute name="metaid" id="133" newValue="_184135" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[4]/kineticLaw[1]" />
+    <attribute name="metaid" id="134" newValue="_145474" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[5]" />
+    <attribute name="metaid" id="135" newValue="_184148" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[5]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="136" newValue="_184160" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[5]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="metaid" id="137" newValue="_184172" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[5]/kineticLaw[1]" />
+    <attribute name="metaid" id="138" newValue="_145476" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[6]" />
+    <attribute name="metaid" id="139" newValue="_184184" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[6]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="140" newValue="_184196" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[6]/kineticLaw[1]" />
+    <attribute name="metaid" id="141" newValue="_145477" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[7]" />
+    <attribute name="metaid" id="142" newValue="_184208" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[7]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="143" newValue="_184220" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[7]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="metaid" id="144" newValue="_184232" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[7]/kineticLaw[1]" />
+    <attribute name="metaid" id="145" newValue="_145479" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]" />
+    <attribute name="metaid" id="146" newValue="_184244" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="147" newValue="_184257" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[8]/kineticLaw[1]" />
+    <attribute name="metaid" id="148" newValue="_145480" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[9]" />
+    <attribute name="metaid" id="149" newValue="_184269" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[9]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="metaid" id="150" newValue="_184281" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[9]/listOfModifiers[1]/modifierSpeciesReference[1]" />
+    <attribute name="metaid" id="151" newValue="_184293" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[9]/listOfModifiers[1]/modifierSpeciesReference[2]" />
+    <attribute name="metaid" id="152" newValue="_184305" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[9]/kineticLaw[1]" />
+    <attribute name="metaid" id="153" newValue="_145482" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[10]" />
+    <attribute name="metaid" id="154" newValue="_184317" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[10]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="155" newValue="_184329" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[10]/kineticLaw[1]" />
+    <attribute name="metaid" id="156" newValue="_145483" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[11]" />
+    <attribute name="metaid" id="157" newValue="_184341" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[11]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="metaid" id="158" newValue="_184353" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[11]/listOfModifiers[1]/modifierSpeciesReference[1]" />
+    <attribute name="metaid" id="159" newValue="_184366" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[11]/kineticLaw[1]" />
+    <attribute name="metaid" id="160" newValue="_145485" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]" />
+    <attribute name="metaid" id="161" newValue="_184378" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="162" newValue="_184391" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="metaid" id="163" newValue="_184403" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[12]/kineticLaw[1]" />
+    <attribute name="metaid" id="164" newValue="_145486" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[13]" />
+    <attribute name="metaid" id="165" newValue="_184415" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[13]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="166" newValue="_184428" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[13]/kineticLaw[1]" />
+    <attribute name="metaid" id="169" newValue="_145488" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[14]" />
+    <attribute name="metaid" id="170" newValue="_184440" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[14]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="171" newValue="_184452" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[14]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="metaid" id="172" newValue="_184464" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[14]/kineticLaw[1]" />
+    <attribute name="metaid" id="173" newValue="_145489" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[15]" />
+    <attribute name="metaid" id="174" newValue="_184476" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[15]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="175" newValue="_184488" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[15]/kineticLaw[1]" />
+    <attribute name="metaid" id="178" newValue="_145491" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[16]" />
+    <attribute name="metaid" id="179" newValue="_184500" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[16]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="metaid" id="180" newValue="_184512" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[16]/listOfModifiers[1]/modifierSpeciesReference[1]" />
+    <attribute name="metaid" id="181" newValue="_184524" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[16]/kineticLaw[1]" />
+    <attribute name="metaid" id="182" newValue="_145492" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]" />
+    <attribute name="metaid" id="183" newValue="_184536" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="184" newValue="_184548" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[17]/kineticLaw[1]" />
+    <attribute name="metaid" id="185" newValue="_145494" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[18]" />
+    <attribute name="metaid" id="186" newValue="_184560" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[18]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="metaid" id="187" newValue="_184572" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[18]/listOfModifiers[1]/modifierSpeciesReference[1]" />
+    <attribute name="metaid" id="188" newValue="_184584" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[18]/kineticLaw[1]" />
+    <attribute name="metaid" id="189" newValue="_145495" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[19]" />
+    <attribute name="metaid" id="190" newValue="_184596" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[19]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="191" newValue="_184608" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[19]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="metaid" id="192" newValue="_184620" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[19]/kineticLaw[1]" />
+    <attribute name="metaid" id="193" newValue="_145497" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[20]" />
+    <attribute name="metaid" id="194" newValue="_184632" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[20]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="195" newValue="_184644" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[20]/kineticLaw[1]" />
+    <attribute name="metaid" id="196" newValue="_145498" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[21]" />
+    <attribute name="metaid" id="197" newValue="_184656" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[21]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="198" newValue="_184669" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[21]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="metaid" id="199" newValue="_184681" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[21]/kineticLaw[1]" />
+    <attribute name="metaid" id="200" newValue="_145500" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[22]" />
+    <attribute name="metaid" id="201" newValue="_184693" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[22]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="202" newValue="_184705" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[22]/kineticLaw[1]" />
+    <attribute name="metaid" id="203" newValue="_145501" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]" />
+    <attribute name="metaid" id="204" newValue="_184717" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="metaid" id="205" newValue="_184730" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/listOfModifiers[1]/modifierSpeciesReference[1]" />
+    <attribute name="metaid" id="206" newValue="_184742" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/listOfModifiers[1]/modifierSpeciesReference[2]" />
+    <attribute name="metaid" id="207" newValue="_184754" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/listOfModifiers[1]/modifierSpeciesReference[3]" />
+    <attribute name="metaid" id="208" newValue="_184766" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]" />
+    <attribute name="metaid" id="213" newValue="_145503" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[24]" />
+    <attribute name="metaid" id="214" newValue="_184778" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[24]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="215" newValue="_184790" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[24]/kineticLaw[1]" />
+    <attribute name="metaid" id="216" newValue="_145504" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[25]" />
+    <attribute name="metaid" id="217" newValue="_184802" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[25]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="metaid" id="218" newValue="_184815" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[25]/listOfModifiers[1]/modifierSpeciesReference[1]" />
+    <attribute name="metaid" id="219" newValue="_184827" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[25]/kineticLaw[1]" />
+    <attribute name="metaid" id="220" newValue="_145506" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[26]" />
+    <attribute name="metaid" id="221" newValue="_184839" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[26]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="222" newValue="_184851" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[26]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="metaid" id="223" newValue="_184863" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[26]/kineticLaw[1]" />
+    <attribute name="metaid" id="224" newValue="_145507" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[27]" />
+    <attribute name="metaid" id="225" newValue="_184875" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[27]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="226" newValue="_184887" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[27]/kineticLaw[1]" />
+    <attribute name="metaid" id="227" newValue="_145509" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[28]" />
+    <attribute name="metaid" id="228" newValue="_184899" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[28]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="229" newValue="_184911" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[28]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="metaid" id="230" newValue="_184923" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[28]/kineticLaw[1]" />
+    <attribute name="metaid" id="231" newValue="_145510" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[29]" />
+    <attribute name="metaid" id="232" newValue="_184935" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[29]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="233" newValue="_184947" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[29]/kineticLaw[1]" />
+    <attribute name="metaid" id="234" newValue="_145512" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[30]" />
+    <attribute name="metaid" id="235" newValue="_184959" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[30]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="metaid" id="236" newValue="_184971" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[30]/kineticLaw[1]" />
+    <attribute name="metaid" id="239" newValue="_145513" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[31]" />
+    <attribute name="metaid" id="240" newValue="_184984" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[31]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="241" newValue="_184996" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[31]/kineticLaw[1]" />
+    <attribute name="metaid" id="242" newValue="_145515" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[32]" />
+    <attribute name="metaid" id="243" newValue="_185008" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[32]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="244" newValue="_185020" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[32]/kineticLaw[1]" />
+    <attribute name="metaid" id="247" newValue="_145516" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[33]" />
+    <attribute name="metaid" id="248" newValue="_185032" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[33]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="metaid" id="249" newValue="_185044" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[33]/listOfModifiers[1]/modifierSpeciesReference[1]" />
+    <attribute name="metaid" id="250" newValue="_185056" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[33]/kineticLaw[1]" />
+    <attribute name="metaid" id="251" newValue="_145518" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[34]" />
+    <attribute name="metaid" id="252" newValue="_185068" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[34]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="253" newValue="_185080" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[34]/kineticLaw[1]" />
+    <attribute name="metaid" id="256" newValue="_145519" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[35]" />
+    <attribute name="metaid" id="257" newValue="_185092" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[35]/listOfProducts[1]/speciesReference[1]" />
+    <attribute name="metaid" id="258" newValue="_185104" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[35]/listOfModifiers[1]/modifierSpeciesReference[1]" />
+    <attribute name="metaid" id="259" newValue="_185116" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[35]/kineticLaw[1]" />
+    <attribute name="metaid" id="260" newValue="_145521" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[36]" />
+    <attribute name="metaid" id="261" newValue="_185128" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[36]/listOfReactants[1]/speciesReference[1]" />
+    <attribute name="metaid" id="262" newValue="_185140" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[36]/kineticLaw[1]" />
+    <node id="263" newParent="/sbml[1]/model[1]/notes[1]" newChildNo="1" newPath="/sbml[1]/model[1]/notes[1]/body[1]" newTag="body" />
+    <node id="264" triggeredBy="263" newParent="/sbml[1]/model[1]/notes[1]/body[1]" newChildNo="1" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[1]" newTag="p" />
+    <text id="265" triggeredBy="264" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[1]" newChildNo="1" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/text()[1]" newText="This a model from the article:" />
+    <node id="266" triggeredBy="264" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[1]" newChildNo="2" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/br[1]" newTag="br" />
+    <node id="267" triggeredBy="264" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[1]" newChildNo="3" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/strong[1]" newTag="strong" />
+    <text id="268" triggeredBy="267" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/strong[1]" newChildNo="1" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/strong[1]/text()[1]" newText="Prediction of photoperiodic regulators from quantitative gene circuit models." />
+    <node id="269" triggeredBy="264" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[1]" newChildNo="4" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/br[2]" newTag="br" />
+    <text id="270" triggeredBy="264" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[1]" newChildNo="5" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/text()[2]" newText="Salazar JD, Saithong T, Brown PE, Foreman J, Locke JC, Halliday KJ, Carré IA, Rand DA, Millar AJ" />
+    <node id="271" triggeredBy="264" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[1]" newChildNo="6" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/em[1]" newTag="em" />
+    <text id="272" triggeredBy="271" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/em[1]" newChildNo="1" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/em[1]/text()[1]" newText="Cell" />
+    <text id="273" triggeredBy="264" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[1]" newChildNo="7" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/text()[3]" newText="2009 Dec; 139(6): 1170-9" />
+    <node id="274" triggeredBy="264" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[1]" newChildNo="8" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/a[1]" newTag="a" />
+    <attribute name="href" id="275" triggeredBy="274" newValue="http://www.ncbi.nlm.nih.gov/pubmed/20005809" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/a[1]" />
+    <text id="276" triggeredBy="274" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/a[1]" newChildNo="1" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/a[1]/text()[1]" newText="20005809" />
+    <text id="277" triggeredBy="264" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[1]" newChildNo="9" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/text()[4]" newText="," />
+    <node id="278" triggeredBy="264" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[1]" newChildNo="10" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/br[3]" newTag="br" />
+    <node id="279" triggeredBy="264" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[1]" newChildNo="11" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/strong[2]" newTag="strong" />
+    <text id="280" triggeredBy="279" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/strong[2]" newChildNo="1" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/strong[2]/text()[1]" newText="Abstract:" />
+    <node id="281" triggeredBy="264" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[1]" newChildNo="12" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/br[4]" newTag="br" />
+    <text id="282" triggeredBy="264" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[1]" newChildNo="13" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[1]/text()[5]" newText="Photoperiod sensors allow physiological adaptation to the changing seasons. The prevalent hypothesis is that day length perception is mediated through coupling of an endogenous rhythm with an external light signal. Sufficient molecular data are available to test this quantitatively in plants, though not yet in mammals. In Arabidopsis, the clock-regulated genes CONSTANS (CO) and FLAVIN, KELCH, F-BOX (FKF1) and their light-sensitive proteins are thought to form an external coincidence sensor. Here, we model the integration of light and timing information by CO, its target gene FLOWERING LOCUS T (FT), and the circadian clock. Among other predictions, our models show that FKF1 activates FT. We demonstrate experimentally that this effect is independent of the known activation of CO by FKF1, thus we locate a major, novel controller of photoperiodism. External coincidence is part of a complex photoperiod sensor: modeling makes this complexity explicit and may thus contribute to crop improvement." />
+    <node id="283" triggeredBy="263" newParent="/sbml[1]/model[1]/notes[1]/body[1]" newChildNo="2" newPath="/sbml[1]/model[1]/notes[1]/body[1]/br[1]" newTag="br" />
+    <node id="284" triggeredBy="263" newParent="/sbml[1]/model[1]/notes[1]/body[1]" newChildNo="3" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[2]" newTag="p" />
+    <node id="285" triggeredBy="284" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[2]" newChildNo="1" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[2]/b[1]" newTag="b" />
+    <text id="286" triggeredBy="285" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[2]/b[1]" newChildNo="1" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[2]/b[1]/text()[1]" newText="Note:" />
+    <node id="287" triggeredBy="263" newParent="/sbml[1]/model[1]/notes[1]/body[1]" newChildNo="4" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[3]" newTag="p" />
+    <text id="288" triggeredBy="287" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[3]" newChildNo="1" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[3]/text()[1]" newText="There are four models described in the paper. This model corresponds to model 3 (which is a combination of model 1 and model 2). The SBML file is redeveloped from Kevin S" />
+    <node id="289" triggeredBy="263" newParent="/sbml[1]/model[1]/notes[1]/body[1]" newChildNo="5" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[4]" newTag="p" />
+    <node id="290" triggeredBy="263" newParent="/sbml[1]/model[1]/notes[1]/body[1]" newChildNo="6" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[5]" newTag="p" />
+    <text id="291" triggeredBy="290" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[5]" newChildNo="1" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[5]/text()[1]" newText="This model is same as" />
+    <node id="292" triggeredBy="290" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[5]" newChildNo="2" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[5]/a[1]" newTag="a" />
+    <attribute name="href" id="293" triggeredBy="292" newValue="http://www.ebi.ac.uk/biomodels/BIOMD0000000055" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[5]/a[1]" />
+    <text id="294" triggeredBy="292" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[5]/a[1]" newChildNo="1" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[5]/a[1]/text()[1]" newText="BIOMD0000000055" />
+    <text id="295" triggeredBy="290" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[5]" newChildNo="3" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[5]/text()[2]" newText=", but with revised light function." />
+    <node id="296" triggeredBy="263" newParent="/sbml[1]/model[1]/notes[1]/body[1]" newChildNo="7" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[6]" newTag="p" />
+    <text id="297" triggeredBy="296" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[6]" newChildNo="1" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[6]/text()[1]" newText="This model originates from BioModels Database: A Database of Annotated Published Models (http://www.ebi.ac.uk/biomodels/). It is copyright (c) 2005-2011 The BioModels.net Team." />
+    <node id="298" triggeredBy="296" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[6]" newChildNo="2" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[6]/br[1]" newTag="br" />
+    <text id="299" triggeredBy="296" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[6]" newChildNo="3" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[6]/text()[2]" newText="To the extent possible under law, all copyright and related or neighbouring rights to this encoded model have been dedicated to the public domain worldwide. Please refer to" />
+    <node id="300" triggeredBy="296" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[6]" newChildNo="4" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[6]/a[1]" newTag="a" />
+    <attribute name="href" id="301" triggeredBy="300" newValue="http://creativecommons.org/publicdomain/zero/1.0/" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[6]/a[1]" />
+    <attribute name="title" id="302" triggeredBy="300" newValue="Creative Commons CC0" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[6]/a[1]" />
+    <text id="303" triggeredBy="300" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[6]/a[1]" newChildNo="1" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[6]/a[1]/text()[1]" newText="CC0 Public Domain Dedication" />
+    <text id="304" triggeredBy="296" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[6]" newChildNo="5" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[6]/text()[3]" newText="for more information." />
+    <node id="305" triggeredBy="263" newParent="/sbml[1]/model[1]/notes[1]/body[1]" newChildNo="8" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[7]" newTag="p" />
+    <text id="306" triggeredBy="305" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[7]" newChildNo="1" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[7]/text()[1]" newText="In summary, you are entitled to use this encoded model in absolutely any manner you deem suitable, verbatim, or with modification, alone or embedded it in a larger context, redistribute it, commercially or not, in a restricted way or not.." />
+    <node id="307" triggeredBy="305" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[7]" newChildNo="2" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[7]/br[1]" newTag="br" />
+    <node id="308" triggeredBy="305" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[7]" newChildNo="3" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[7]/br[2]" newTag="br" />
+    <text id="309" triggeredBy="305" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[7]" newChildNo="4" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[7]/text()[2]" newText="To cite BioModels Database, please use:" />
+    <node id="310" triggeredBy="305" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[7]" newChildNo="5" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[7]/a[1]" newTag="a" />
+    <attribute name="href" id="311" triggeredBy="310" newValue="http://www.ncbi.nlm.nih.gov/pubmed/20587024" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[7]/a[1]" />
+    <attribute name="target" id="312" triggeredBy="310" newValue="_blank" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[7]/a[1]" />
+    <text id="313" triggeredBy="310" newParent="/sbml[1]/model[1]/notes[1]/body[1]/p[7]/a[1]" newChildNo="1" newPath="/sbml[1]/model[1]/notes[1]/body[1]/p[7]/a[1]/text()[1]" newText="Li C, Donizelli M, Rodriguez N, Dharuri H, Endler L, Chelliah V, Li L, He E, Henry A, Stefan MI, Snoep JL, Hucka M, Le Novère N, Laibe C (2010) BioModels Database: An enhanced, curated and annotated resource for published quantitative kinetic models. BMC Syst Biol., 4:92." />
+    <node id="314" newParent="/sbml[1]/model[1]" newChildNo="2" newPath="/sbml[1]/model[1]/annotation[1]" newTag="annotation" />
+    <node id="315" triggeredBy="314" newParent="/sbml[1]/model[1]/annotation[1]" newChildNo="1" newPath="/sbml[1]/model[1]/annotation[1]/RDF[1]" newTag="RDF" />
+    <node id="316" triggeredBy="315" newParent="/sbml[1]/model[1]/annotation[1]/RDF[1]" newChildNo="1" newPath="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]" newTag="Description" />
+    <attribute name="about" id="317" triggeredBy="316" newValue="#_145444" newPath="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]" />
+    <node id="318" triggeredBy="316" newParent="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]" newChildNo="1" newPath="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/is[1]" newTag="is" />
+    <node id="319" triggeredBy="318" newParent="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/is[1]" newChildNo="1" newPath="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/is[1]/Bag[1]" newTag="Bag" />
+    <node id="320" triggeredBy="319" newParent="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/is[1]/Bag[1]" newChildNo="1" newPath="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/is[1]/Bag[1]/li[1]" newTag="li" />
+    <attribute name="resource" id="321" triggeredBy="320" newValue="http://identifiers.org/biomodels.db/MODEL1005050000" newPath="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/is[1]/Bag[1]/li[1]" />
+    <node id="322" triggeredBy="316" newParent="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]" newChildNo="2" newPath="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]" newTag="isDescribedBy" />
+    <node id="323" triggeredBy="322" newParent="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]" newChildNo="1" newPath="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]" newTag="Bag" />
+    <node id="324" triggeredBy="323" newParent="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]" newChildNo="1" newPath="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]/li[1]" newTag="li" />
+    <attribute name="resource" id="325" triggeredBy="324" newValue="http://identifiers.org/pubmed/20005809" newPath="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/isDescribedBy[1]/Bag[1]/li[1]" />
+    <node id="326" triggeredBy="316" newParent="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]" newChildNo="3" newPath="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/hasTaxon[1]" newTag="hasTaxon" />
+    <node id="327" triggeredBy="326" newParent="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/hasTaxon[1]" newChildNo="1" newPath="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/hasTaxon[1]/Bag[1]" newTag="Bag" />
+    <node id="328" triggeredBy="327" newParent="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/hasTaxon[1]/Bag[1]" newChildNo="1" newPath="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/hasTaxon[1]/Bag[1]/li[1]" newTag="li" />
+    <attribute name="resource" id="329" triggeredBy="328" newValue="http://identifiers.org/taxonomy/3702" newPath="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/hasTaxon[1]/Bag[1]/li[1]" />
+    <node id="330" triggeredBy="316" newParent="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]" newChildNo="4" newPath="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/isVersionOf[1]" newTag="isVersionOf" />
+    <node id="331" triggeredBy="330" newParent="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/isVersionOf[1]" newChildNo="1" newPath="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/isVersionOf[1]/Bag[1]" newTag="Bag" />
+    <node id="332" triggeredBy="331" newParent="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/isVersionOf[1]/Bag[1]" newChildNo="1" newPath="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/isVersionOf[1]/Bag[1]/li[1]" newTag="li" />
+    <attribute name="resource" id="333" triggeredBy="332" newValue="urn:miriam:obo.goGO:0032922" newPath="/sbml[1]/model[1]/annotation[1]/RDF[1]/Description[1]/isVersionOf[1]/Bag[1]/li[1]" />
+    <text id="334" newParent="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[1]/text()[1]" newText="t" />
+    <text id="335" newParent="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/ci[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/ci[1]/text()[1]" newText="t" />
+    <text id="336" newParent="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[1]/text()[1]" newText="t" />
+    <text id="337" newParent="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/ci[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/ci[1]/text()[1]" newText="t" />
+    <text id="338" newParent="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/ci[1]/text()[1]" newText="t" />
+    <text id="339" newParent="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/ci[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfFunctionDefinitions[1]/functionDefinition[1]/math[1]/lambda[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/ci[1]/text()[1]" newText="t" />
+    <node id="340" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]/kineticLaw[1]/math[1]/apply[1]/apply[1]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]/kineticLaw[1]/math[1]/apply[1]/apply[1]/csymbol[1]" newTag="csymbol" />
+    <attribute name="definitionURL" id="341" triggeredBy="340" newValue="http://www.sbml.org/sbml/symbols/time" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]/kineticLaw[1]/math[1]/apply[1]/apply[1]/csymbol[1]" />
+    <attribute name="encoding" id="342" triggeredBy="340" newValue="text" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]/kineticLaw[1]/math[1]/apply[1]/apply[1]/csymbol[1]" />
+    <text id="343" triggeredBy="340" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]/kineticLaw[1]/math[1]/apply[1]/apply[1]/csymbol[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[1]/kineticLaw[1]/math[1]/apply[1]/apply[1]/csymbol[1]/text()[1]" newText="t" />
+    <node id="344" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[13]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[13]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" newTag="csymbol" />
+    <attribute name="definitionURL" id="345" triggeredBy="344" newValue="http://www.sbml.org/sbml/symbols/time" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[13]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" />
+    <attribute name="encoding" id="346" triggeredBy="344" newValue="text" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[13]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" />
+    <text id="347" triggeredBy="344" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[13]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[13]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/csymbol[1]/text()[1]" newText="t" />
+    <node id="348" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[15]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[15]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" newTag="csymbol" />
+    <attribute name="definitionURL" id="349" triggeredBy="348" newValue="http://www.sbml.org/sbml/symbols/time" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[15]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" />
+    <attribute name="encoding" id="350" triggeredBy="348" newValue="text" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[15]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" />
+    <text id="351" triggeredBy="348" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[15]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[15]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/apply[1]/csymbol[1]/text()[1]" newText="t" />
+    <node id="352" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" newTag="csymbol" />
+    <attribute name="definitionURL" id="353" triggeredBy="352" newValue="http://www.sbml.org/sbml/symbols/time" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" />
+    <attribute name="encoding" id="354" triggeredBy="352" newValue="text" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" />
+    <text id="355" triggeredBy="352" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/apply[1]/csymbol[1]/text()[1]" newText="t" />
+    <node id="356" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" newTag="csymbol" />
+    <attribute name="definitionURL" id="357" triggeredBy="356" newValue="http://www.sbml.org/sbml/symbols/time" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" />
+    <attribute name="encoding" id="358" triggeredBy="356" newValue="text" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" />
+    <text id="359" triggeredBy="356" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[23]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[2]/apply[1]/apply[1]/apply[1]/apply[1]/csymbol[1]/text()[1]" newText="t" />
+    <node id="360" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[30]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[30]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" newTag="csymbol" />
+    <attribute name="definitionURL" id="361" triggeredBy="360" newValue="http://www.sbml.org/sbml/symbols/time" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[30]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" />
+    <attribute name="encoding" id="362" triggeredBy="360" newValue="text" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[30]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" />
+    <text id="363" triggeredBy="360" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[30]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[30]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/csymbol[1]/text()[1]" newText="t" />
+    <node id="364" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[32]/kineticLaw[1]/math[1]/apply[1]/apply[1]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[32]/kineticLaw[1]/math[1]/apply[1]/apply[1]/csymbol[1]" newTag="csymbol" />
+    <attribute name="definitionURL" id="365" triggeredBy="364" newValue="http://www.sbml.org/sbml/symbols/time" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[32]/kineticLaw[1]/math[1]/apply[1]/apply[1]/csymbol[1]" />
+    <attribute name="encoding" id="366" triggeredBy="364" newValue="text" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[32]/kineticLaw[1]/math[1]/apply[1]/apply[1]/csymbol[1]" />
+    <text id="367" triggeredBy="364" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[32]/kineticLaw[1]/math[1]/apply[1]/apply[1]/csymbol[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[32]/kineticLaw[1]/math[1]/apply[1]/apply[1]/csymbol[1]/text()[1]" newText="t" />
+    <node id="368" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[34]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]" newChildNo="2" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[34]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" newTag="csymbol" />
+    <attribute name="definitionURL" id="369" triggeredBy="368" newValue="http://www.sbml.org/sbml/symbols/time" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[34]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" />
+    <attribute name="encoding" id="370" triggeredBy="368" newValue="text" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[34]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" />
+    <text id="371" triggeredBy="368" newParent="/sbml[1]/model[1]/listOfReactions[1]/reaction[34]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/csymbol[1]" newChildNo="1" newPath="/sbml[1]/model[1]/listOfReactions[1]/reaction[34]/kineticLaw[1]/math[1]/apply[1]/apply[1]/apply[1]/csymbol[1]/text()[1]" newText="t" />
+  </insert>
+  <move>
+    <node id="13" oldParent="/sbml[1]/model[1]" newParent="/sbml[1]/model[1]" oldChildNo="2" newChildNo="3" oldPath="/sbml[1]/model[1]/listOfFunctionDefinitions[1]" newPath="/sbml[1]/model[1]/listOfFunctionDefinitions[1]" />
+    <node id="21" oldParent="/sbml[1]/model[1]" newParent="/sbml[1]/model[1]" oldChildNo="3" newChildNo="4" oldPath="/sbml[1]/model[1]/listOfCompartments[1]" newPath="/sbml[1]/model[1]/listOfCompartments[1]" />
+    <node id="23" oldParent="/sbml[1]/model[1]" newParent="/sbml[1]/model[1]" oldChildNo="4" newChildNo="5" oldPath="/sbml[1]/model[1]/listOfSpecies[1]" newPath="/sbml[1]/model[1]/listOfSpecies[1]" />
+    <node id="39" oldParent="/sbml[1]/model[1]" newParent="/sbml[1]/model[1]" oldChildNo="5" newChildNo="6" oldPath="/sbml[1]/model[1]/listOfParameters[1]" newPath="/sbml[1]/model[1]/listOfParameters[1]" />
+    <node id="116" oldParent="/sbml[1]/model[1]" newParent="/sbml[1]/model[1]" oldChildNo="6" newChildNo="7" oldPath="/sbml[1]/model[1]/listOfReactions[1]" newPath="/sbml[1]/model[1]/listOfReactions[1]" />
+  </move>
+</bives>
