@@ -197,7 +197,7 @@ export default {
             oldDocument: null,
             newDocument: null, //should also be given to subcomponent to avoid parsing it twice!
             xmlDiff: null,
-            dev: 2, //flag for development, 1: local files, 2: form files
+            dev: 1, //flag for development, 1: local files, 2: form files
         };
     },
     methods: {
@@ -570,9 +570,10 @@ export default {
                         if (c.oldPath === "/sbml[1]/model[1]/listOfRules[1]") return;
                         //check whether a parentNode was already added, because math changes are missing the "triggeredBy" sometimes
                         for (let i = 0; i < rulesChanges.length; i++) {
+                            alert("?");
                             if (c.oldParent.startsWith(rulesChanges[i].oldPath)) return;
                         }
-                        console.log(c);
+                        //console.log(c);
 
                         rulesChanges.push(c);
                         break;
@@ -592,6 +593,16 @@ export default {
                         compartmentsChanges.push(c);
                         break;
                     case "listOfFunctionDefinitions":
+/*                     if (c.oldPath === "/sbml[1]/model[1]/listOfFunctionDefinitions[1]") return;
+                    if (c.newPath === "/sbml[1]/model[1]/listOfFunctionDefinitions[1]") return;
+                        //check whether a parentNode was already added, because math changes are missing the "triggeredBy" sometimes
+                        for (let i = 0; i < functionDefinitionsChanges.length; i++) {
+                            let oldParent = c.oldParent;
+                            let oldPath = functionDefinitionsChanges[i].oldPath;
+                            console.debug(c, oldParent, oldPath);
+                            if (oldParent.startsWith(oldPath)) return;
+                        }
+                        console.log(c); */
                         functionDefinitionsChanges.push(c);
                         break;
                     default:
@@ -678,7 +689,14 @@ export default {
                 }
                 if (c.target == "node") {
                     modelData = this.changedNode(c, modelData, "listOfFunctionDefinitions");
-                } else console.error(c);
+                } 
+                if (c.target == "text"){ //most likely text in math
+                    modelData = this.changedMath(c, modelData, "listOfFunctionDefinitions");
+
+                    console.debug(modelData['listOfFunctionDefinitions'][0].math);
+                }
+                    
+                else console.error(c);
                 
             })
 
@@ -725,12 +743,12 @@ export default {
             //if(list != "sbmlAttr" && list != "modelAttr") console.error("anderen Listen behandeln", list);
 
             if (c.type === "u") {
-                if (list === "sbmlAttr" || list === "modelAttr") modelData[list].attr[el.name] = {
+                if (list === "sbmlAttr" || list === "modelAttr") modelData[list][el.name] = {
                     "changeID": el.changeID,
                     "oldValue": el.oldValue,
                     "newValue": el.newValue
-                }; //TODO: anderen Listen behandeln! target= modelData[list].attr[el.name]; geht nicht da call-by-value
-                else if (list === "listOfParameters" || list === "listOfCompartments" || list === "listOfUnitDefinitions") { //parameterupdate
+                }; //TODO: anderen Listen behandeln! target= modelData[list][el.name]; geht nicht da call-by-value
+                else if (list === "listOfParameters" || list === "listOfCompartments" || list === "listOfUnitDefinitions" || list === "listOfFunctionDefinitions") { //parameterupdate
 
                     let target = this.getChangeTarget(c.newPath);
 
@@ -795,7 +813,7 @@ export default {
         },
 
         changedNode: function (c, modelData, list) {
-            //console.info(c.id, c);
+            console.info(c.id, c);
 
             if (c.type == "i") {
 
@@ -805,7 +823,7 @@ export default {
                     modelData[list][childNo] = {};
                     modelData[list][childNo]["change"] = c.type;
                     modelData[list][childNo]["changeID"] = c.id;
-                } else if (list === "listOfParameters" || list === "listOfUnitDefinitions" || list === "listOfCompartments") {
+                } else if (list === "listOfParameters" || list === "listOfUnitDefinitions" || list === "listOfCompartments") { //listOfRules? listOfFunctionDefinitions? listOfUnits?
                     console.debug(modelData[list]);
 
                     //let target = this.getChangeTarget(c.newPath);
@@ -828,7 +846,7 @@ export default {
                 else if (list === "listOfFunctionDefinitions") {
                     n = this.getSingleFunctionDefinition(this.oldDocument, c.oldPath);
                 } else {
-                    console.error("handle node deletetion pls! " + c.oldTag);
+                    console.error("implement node deletetion! " + c.oldTag);
                 }
 
                 //check whether list exists
@@ -844,8 +862,74 @@ export default {
             return modelData;
         },
 
+        changedMath: function(c, modelData, list){
+            let math;
+            console.debug(modelData[list][0]);
+          
+            if(c.type == 'd'){
+                math = this.getMath(c.oldPath, this.oldDocument);
+                
+                let functionPath =  c.oldPath.substr(0, c.oldPath.indexOf("/functionDefinition[1]/math[1]/")) + "/functionDefinition[1]/math[1]";
+                let target = this.getChangeTarget(functionPath);
+
+                let newMath = modelData[list][target.childNo].math;
+                console.log(newMath, modelData[list][target.childNo].math);
+
+                if(typeof modelData[list][target.childNo].math === 'object'){
+                    //modelData[list][target.childNo].math.changeID.push(c.id); //multiple ids makes the list template fail
+                    return modelData;
+                } 
+
+
+                modelData[list][target.childNo].math = {
+                    "type": 'u',
+                    "changeID": [c.id],
+                    "oldValue": math,
+                    "newValue": newMath
+                }
+            }
+            else if(c.type == 'i'){
+                let functionPath =  c.newPath.substr(0, c.newPath.indexOf("/functionDefinition[1]/math[1]/")) + "/functionDefinition[1]/math[1]";
+                let target = this.getChangeTarget(functionPath);
+                let newMath = modelData[list][target.childNo].math.math;
+
+                if(typeof modelData[list][target.childNo].math === 'object'){
+                    //modelData[list][target.childNo].math.changeID.push(c.id); //multiple ids makes the list template fail
+                    return modelData;
+                } 
+
+
+                modelData[list][target.childNo].math = {
+                    "type": 'i',
+                    "changeID": [c.id],
+                    "oldValue": 'muss noch old math rein',
+                    "newValue": newMath
+                }
+            }
+            else console.error(c);
+
+            return modelData;
+
+            //get new math
+        },
+
+        getMath: function (path, doc) { //from xmlParser think about getting it from divil
+            // var path = regEx(line, "newPath");
+            console.log(path, path.indexOf("/functionDefinition[1]/math[1]/"));
+            
+            if (path.indexOf("/functionDefinition[1]/math[1]/") != -1) path = path.substr(0, path.indexOf("/functionDefinition[1]/math[1]/"));
+            path += "/functionDefinition[1]/math[1]";
+
+            path = useGetLocalXPath(path);
+
+            var mathML = doc.evaluate(path, doc, null, XPathResult.ANY_TYPE, null).iterateNext();
+
+            if (mathML == null) return mathML;
+            return mathML.outerHTML;//.iterateNext().innerHTML;
+        },
+
         getUnits: function (doc, path) { //produces Array out of information from Unit list of a doc
-            // name: , attr: [name: , oldV: , newV: ], math: [oldU, newU]
+            // name: , oldV: , newV: ], math: [oldU, newU]
             let n = getNode(doc, path);
             if(n == null) return null;
             let units = n.children;
@@ -964,22 +1048,16 @@ export default {
 
         },
 
-        getFunctions: function(doc, path){
-            console.log(doc);
-            console.log(path);
-            alert("1");
+        getFunctions: function(doc, path, changeType){
 
             let n = getNode(doc, path);
-            console.log(n);
-
-            alert("2");
-
             if (n == null) return null;
             let functions = n.children;
             let functionsList = [];
-            for (let i = 0; i < functions.length; i++) {
 
+            for (let i = 0; i < functions.length; i++) {
                 let func = {};
+                console.log(functions[i]);
                 if (changeType) func["change"] = changeType;
 
                 let type = functions[i].localName;
@@ -990,13 +1068,16 @@ export default {
                 let attr = functions[i].attributes;
 
                 for (let j = 0; j < attr.length; j++) {
-                    func["attr"][attr[j].localName] = attr[j].value;
+                    console.log(attr[j]);
+                    func[attr[j].localName] = attr[j].value;
                 }
+
+                console.log(func);
 
                 let childs = functions[i].children;
                 for (let j = 0; j < childs.length; j++) {
                     if (childs[j].localName == "math") {
-                        func["attr"]["math"] = childs[j].outerHTML;
+                        func["math"] = childs[j].outerHTML;
                     }
                 }
 
@@ -1107,7 +1188,7 @@ export default {
                 func[attr[j].localName] = attr[j].value;
             }
 
-            console.debug(ruleNode.children[0]);
+            console.debug(functionNode.children[0]);
 
             func["math"] = functionNode.children[0].outerHTML;
 
