@@ -404,11 +404,7 @@ export default {
         formData.append("commands", bivesJob);
 
         console.debug(formData);
-        const bivesData = await axios.post("/bives/userMerge.php", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        const bivesData = await axios.post("/bives/userMerge.php", formData);
 
         Promise.allSettled([bivesData, this.file1.text(), this.file2.text()])
           .then((responses) => {

@@ -1,0 +1,53 @@
+# Local BiVeS backend for development.
+#
+# The public instance (https://bives.bio.informatik.uni-rostock.de/) is down and
+# the newest published bives-webapp images (1.10.12 - 1.10.16) are broken: the
+# servlet is compiled against jakarta.servlet but shipped on Tomcat 8.5, so every
+# request 404s with a ClassCastException. 1.10.4 is the last known-good tag.
+#
+#   docker compose up -d
+#   BIVES_PROXY=http://localhost:8088 npm run dev
+#
+# Then the Vue dev server proxies /bives/*.php to the local PHP container, which
+# forwards jobs to the local BiVeS container instead of the Rostock server.
+#
+#   bives      raw BiVeS web service (JSON in/out)          -> http://localhost:1234/
+#   bives-php  the simpleMerge.php / userMerge.php wrappers  -> http://localhost:8088/bives/
+
+services:
+  bives:
+    image: binfalse/bives-webapp:1.10.4
+    ports:
+      - "127.0.0.1:1234:8080"
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - -sf
+        - -o
+        - /dev/null
+        - -X
+        - POST
+        - -H
+        - "Content-Type: application/json"
+        - --data
+        - '{"files":["<a/>","<b/>"],"commands":["compHierarchyJson"]}'
+        - http://localhost:8080/
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 20s
+    restart: unless-stopped
+
+  bives-php:
+    image: php:8.3-apache
+    depends_on:
+      bives:
+        condition: service_healthy
+    environment:
+      BIVES_URL: "http://bives:8080/"
+    volumes:
+      - ./public/bives:/var/www/html/bives:ro
+    ports:
+      - "127.0.0.1:8088:80"
+    restart: unless-stopped

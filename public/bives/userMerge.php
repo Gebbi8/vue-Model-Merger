@@ -12,7 +12,7 @@
         echo "</tr>";
     } */
 
-    $BIVES = "https://bives.bio.informatik.uni-rostock.de/";
+    $BIVES = getenv('BIVES_URL') ?: "https://bives.bio.informatik.uni-rostock.de/";
     //$storage = '/tmp/mergestorage';
     $f1 = $_FILES['file1']['tmp_name'];
     $f1String = file_get_contents($f1);

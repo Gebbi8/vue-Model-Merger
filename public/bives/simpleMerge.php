@@ -6,7 +6,7 @@
 //
 error_reporting(E_ALL ^ E_WARNING);
 
-$BIVES = "https://bives.bio.informatik.uni-rostock.de/";
+$BIVES = getenv('BIVES_URL') ?: "https://bives.bio.informatik.uni-rostock.de/";
 $storage = '/tmp/mergestorage';
 $f1 = $_FILES['file1'];
 $f2 = $_FILES['file2'];

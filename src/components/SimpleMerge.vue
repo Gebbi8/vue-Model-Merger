@@ -172,11 +172,7 @@ export default {
 
       console.log("sending files to bives for merge. returning Job ID");
       axios
-        .post("/bives/simpleMerge.php", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
+        .post("/bives/simpleMerge.php", formData)
         .then((response) => {
           console.log(response);
           console.log("ID = " + response.data);
