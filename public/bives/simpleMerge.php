@@ -1,92 +1,64 @@
 <?php
- // return "check for update: Version Für Martin";
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
-//
 error_reporting(E_ALL ^ E_WARNING);
 
-$BIVES = getenv('BIVES_URL') ?: "https://bives.bio.informatik.uni-rostock.de/";
+$BIVES   = getenv('BIVES_URL') ?: "https://bives.bio.informatik.uni-rostock.de/";
 $storage = '/tmp/mergestorage';
-$f1 = $_FILES['file1'];
-$f2 = $_FILES['file2'];
-$job = $_POST['jobID'];
-$commands = $_POST['commands'];
-$getFile = $_POST['getFile'];
+
+$f1       = $_FILES['file1'] ?? null;
+$f2       = $_FILES['file2'] ?? null;
+$job      = $_REQUEST['jobID'] ?? '';
+$getFile  = $_REQUEST['getFile'] ?? '';
+$commands = $_REQUEST['commands'] ?? 'merge';
 
 $saveMerge = true;
 
+$hasUploads = isset($f1, $f2) && !empty($f1['tmp_name']) && !empty($f2['tmp_name']);
+// $job / $getFile are concatenated into a filesystem path below - keep them strictly alphanumeric.
+$validJob = $job !== '' && preg_match('/^[A-Za-z0-9]+$/', $job);
+$validGet = $getFile !== '' && preg_match('/^[A-Za-z0-9]+$/', $getFile);
 
-
-if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
-	// save both to $storage
-	$rnd = md5(time());
-	while (is_dir($storage . '/' . $rnd)) $rnd = md5(time());
+if ($hasUploads && $job === '') {
+	// step 1: accept two models, run the merge, hand back a job id
+	$rnd = md5(uniqid('', true));
+	while (is_dir($storage . '/' . $rnd)) $rnd = md5(uniqid('', true));
 	$dir = $storage . '/' . $rnd;
-	mkdir($dir, 0755 , true);
-	move_uploaded_file($_FILES['file1']['tmp_name'], $dir . '/f1');
-	move_uploaded_file($_FILES['file2']['tmp_name'], $dir . '/f2');
+	mkdir($dir, 0755, true);
+	move_uploaded_file($f1['tmp_name'], $dir . '/f1');
+	move_uploaded_file($f2['tmp_name'], $dir . '/f2');
 
-	$filename = $dir . '/f1';
-	$openFile = fopen($filename, "r");
-	$readFile1 = fread($openFile, filesize($filename));
-	fclose($openFile);
+	$readFile1 = file_get_contents($dir . '/f1');
+	$readFile2 = file_get_contents($dir . '/f2');
 
-	$filename = $dir . '/f2';
+	$commandList = array_values(array_filter(array_map('trim', explode(',', $commands))));
+	if (!$commandList) $commandList = array('merge');
 
-	$openFile = fopen($filename, "r");
-	$readFile2 = fread($openFile, filesize($filename));
-	fclose($openFile);
-
-	//build bivesJob and call bives.php
-	/*	$bivesJobArr = new \stdClass();
-	$bivesJobArr->success = false;
-	$bivesJobArr->files = array($readFile1, $readFile2);
-	$bivesJobArr->commands = array("merge");
-*/
 	$bivesJob = json_encode(array(
-		'files' => array(
-			$readFile1,
-			$readFile2
-		),
-		'commands'=> $commands
-
+		'files'    => array($readFile1, $readFile2),
+		'commands' => $commandList,
 	));
 
-	callBives($bivesJob, $saveMerge, $BIVES, $storage, $rnd);
-
-	//echo "mkdir echo: " . file_exists($dir);
-	echo $rnd;
-} else if (isset($job) && !empty($job) && isset($getFile) && !empty($getFile) && !preg_match('[^A-Za-z0-9]', $job) && file_exists($storage . '/' . $job . '/' . $getFile)) {
-	header($_SERVER["SERVER_PROTOCOL"] . " 200 OK");
-	header("Content-Type: file/xml");
-	header("Content-Transfer-Encoding: Binary");
-	header("Content-Length:" . filesize($storage . '/' . $job . '/' . $getFile));
-	header("Content-Disposition: attachment; filename=mergedModel.xml");
-
-	//echo "\n\nGenau HIER!\n\n\n";
-
-	$filename = $storage . '/' . $job . '/' . $getFile;
-
-	if(!file_exists($filename)) echo "the file does not exist: " . $filename;
-	else {
-		$openFile = fopen($filename, "r");
-		$readFile = fread($openFile, filesize($filename));
-		fclose($openFile);	
-	
-		echo $readFile;
+	if (callBives($bivesJob, $saveMerge, $BIVES, $dir)) {
+		echo $rnd;
+	} else {
+		http_response_code(502);
+		echo "merge failed";
 	}
-
-
+} else if ($validJob && $validGet && is_file($storage . '/' . $job . '/' . $getFile)) {
+	// step 2: stream a stored result file back
+	$filename = $storage . '/' . $job . '/' . $getFile;
+	header("Content-Type: application/xml");
+	header("Content-Transfer-Encoding: Binary");
+	header("Content-Length: " . filesize($filename));
+	header('Content-Disposition: attachment; filename="mergedModel.xml"');
+	echo file_get_contents($filename);
 } else {
-	if(isset($job) && empty($job)) echo "\n Job set but empty \n";
-	if (!file_exists($storage) ) echo "STORAGE does not exist " . $storage;
-	if (!file_exists($storage . '/' . $job) ) echo "\nID does not exist " . $storage . '/' . $job . "\n";
-	if (!file_exists($storage . '/' . $job . '/' . $getFile)) echo "FILE doesnt exist " . $storage . '/' . $job . '/' . $getFile;
-	echo "\n\nFAILED 4---> getFile:" . $getFile . ", job: " . $job;
+	http_response_code(404);
+	if ($job !== '' && !$validJob) echo "invalid job id\n";
+	else if ($validJob && !is_dir($storage . '/' . $job)) echo "unknown job id: " . $job . "\n";
+	else echo "file not found: " . $getFile . " for job " . $job . "\n";
 }
 
-function callBives($bivesJob, $saveMerge, $BIVES, $storage, $job)
+function callBives($bivesJob, $saveMerge, $BIVES, $dir)
 {
 	$curl = curl_init();
 
@@ -96,14 +68,9 @@ function callBives($bivesJob, $saveMerge, $BIVES, $storage, $job)
 	curl_setopt($curl, CURLOPT_AUTOREFERER, true);
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($curl, CURLOPT_USERAGENT, "stats website diff generator");
-	curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
 	curl_setopt($curl, CURLOPT_POST, true);
 	curl_setopt($curl, CURLOPT_POSTFIELDS, $bivesJob);
-
-
-	$headers = array();
-	$headers[] = 'Content-Type: application/json';
-	curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+	curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 
 	$result = curl_exec($curl);
 	if ($result === false) {
@@ -112,13 +79,17 @@ function callBives($bivesJob, $saveMerge, $BIVES, $storage, $job)
 	curl_close($curl);
 
 	if ($saveMerge) {
-		$dir = $storage . '/' . $job;
-		$decodeResult = json_decode($result)->merge;
-		file_put_contents($dir . "/mergedModel", $decodeResult);
+		$decoded = json_decode($result);
+		$merge = (is_object($decoded) && isset($decoded->merge)) ? $decoded->merge : null;
+		if ($merge === null) {
+			// BiVeS returned an error or an unexpected payload - keep it for debugging,
+			// but do not expose it through the alphanumeric-only getFile route.
+			file_put_contents($dir . "/mergedModel.error", $result);
+			return false;
+		}
+		file_put_contents($dir . "/mergedModel", $merge);
 	}
 
-
-
-	return $result;
+	return true;
 }
 ?>

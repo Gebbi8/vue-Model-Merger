@@ -20,7 +20,10 @@
       </p>
 
       <div class="container">
-        <local-files></local-files>
+        <local-files
+          @file1="(f) => (file1 = f)"
+          @file2="(f) => (file2 = f)"
+        ></local-files>
       </div>
 
       <button
@@ -126,61 +129,39 @@ export default {
       //goBackexsists: this.$route.query.goBack,
       //goBack: decodeURIComponent(this.$route.query.goBack),
       merged: false,
-      file1: "",
-      file2: "",
+      file1: null,
+      file2: null,
     };
   },
   computed: {},
   methods: {
     download: function () {
-      //const axios = require("axios");
-      //alert("job is set");
-      const paramsBuild = new URLSearchParams();
-      paramsBuild.append("jobID", this.job);
-      paramsBuild.append("getFile", "mergedModel");
-
       axios
         .get("/bives/simpleMerge.php", {
-          params: paramsBuild,
+          params: { jobID: this.job, getFile: "mergedModel" },
+          responseType: "blob",
         })
-        .then((response) => {
-          console.log("Response of get File: \n" + response.data);
-          this.forceFileDownload(response);
-        });
-      //this.produceSimpleMerge(false);
+        .then((response) => this.forceFileDownload(response))
+        .catch((e) => console.error("download failed", e));
     },
-    downloadMerge: function () {},
     computeMerge: function () {
-      //const axios = require("axios");
-      /*
-          Initialize the form data
-        */
+      if (!this.file1 || !this.file2) {
+        console.warn("select two SBML files before computing a merge");
+        return;
+      }
+
       let formData = new FormData();
+      formData.append("file1", this.file1);
+      formData.append("file2", this.file2);
+      formData.append("commands", "merge");
 
-      /*
-          Iteate over any file sent over appending the files
-          to the form data.
-        */
-      let file = this.file1;
-      formData.append("file1", file);
-      file = this.file2;
-      formData.append("file2", file);
-
-      /*
-        Make the request to the POST /multiple-files URL
-      */
-
-      console.log("sending files to bives for merge. returning Job ID");
       axios
         .post("/bives/simpleMerge.php", formData)
         .then((response) => {
-          console.log(response);
-          console.log("ID = " + response.data);
           this.job = response.data;
-
         })
-        .catch(function (e) {
-          console.log("FAILURE!!" + e);
+        .catch((e) => {
+          console.error("merge request failed", e);
         });
     },
     copyURL: function () {
@@ -243,9 +224,11 @@ export default {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "mergedModel.xml"); //or any other extension
+      link.setAttribute("download", "mergedModel.xml");
       document.body.appendChild(link);
       link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
     }
   },
 };
