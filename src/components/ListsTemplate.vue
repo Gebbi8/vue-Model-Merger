@@ -1,16 +1,18 @@
 <template>
   <div v-if="el.change === 'i'">
     <ul class="list-group list-group-horizontal">
-      <li
-        v-for="(attr, name) in el"
-        :key="name"
-        class="list-group-item insert-color"
-      >
-        <span v-if="name === 'math'" v-html="attr"> </span>
-        <span v-else>
-          <b>{{ name }}: </b> {{ attr }}
-        </span>
-      </li>
+      <template v-for="(attr, name) in el">
+        <li
+          v-if="name != 'change' && name != 'changeID'"
+          :key="name"
+          class="list-group-item insert-color"
+        >
+          <span v-if="name === 'math'" v-html="attr"> </span>
+          <span v-else>
+            <b>{{ name }}: </b> {{ attr }}
+          </span>
+        </li>
+      </template>
       <div v-if="el.changeID" class="container">
         <decision-btn
           :changeID="el.changeID"
@@ -22,16 +24,18 @@
   </div>
   <div v-else-if="el.change === 'd'">
     <ul class="list-group list-group-horizontal">
-      <li
-        v-for="(attr, name) in el"
-        :key="name"
-        class="list-group-item delete-color"
-      >
-        <span v-if="name === 'math'" v-html="attr"> </span>
-        <span v-else>
-          <b>{{ name }}: </b> {{ attr }}
-        </span>
-      </li>
+      <template v-for="(attr, name) in el">
+        <li
+          v-if="name != 'change' && name != 'changeID'"
+          :key="name"
+          class="list-group-item delete-color"
+        >
+          <span v-if="name === 'math'" v-html="attr"> </span>
+          <span v-else>
+            <b>{{ name }}: </b> {{ attr }}
+          </span>
+        </li>
+      </template>
       <div v-if="el.changeID" class="container">
         <decision-btn
           :changeID="el.changeID"
@@ -41,6 +45,7 @@
       </div>
     </ul>
   </div>
+  <!-- <div v-if="el.change === 'u'"> -->
   <div v-else>
     <ul class="list-group list-group-horizontal">
       <li v-for="(attr, name) in el" :key="name" class="list-group-item">

@@ -1,5 +1,5 @@
 <template>
-  <div id="user-merge">
+  <div id="user-merge" ref="root">
     <div id="generalInfo">
       <h3>Semi-automatic Merging</h3>
       <h4>Still under development</h4>
@@ -183,10 +183,10 @@
             :id="`${element.id}`"
           >
             <ul class="list-group">
-              <template v-for="(el, key) in element" :key="key">
+              <template v-for="(el, key) in element.attr" :key="key">
                 <li class="list-group-item d-flex justify-content-evenly row">
                   <div class="col-3">
-                    <b>{{ key }}</b
+                    <b :class="changeColor(el)">{{ key }}</b
                     >:
                   </div>
                   <div v-if="el.oldValue" class="col-3 delete-color">
@@ -215,7 +215,7 @@
     <div v-else-if="view == 'parameters'">
       <ul>
         <li
-          v-for="(el, index) in modelArr['listOfParameters']"
+          v-for="(el, index) in withChanges(modelArr['listOfParameters'])"
           :key="index"
           class="list-group-item"
         >
@@ -233,7 +233,7 @@
     <div v-else-if="view == 'units'">
       <ul>
         <li
-          v-for="(el, index) in modelArr['listOfUnitDefinitions']"
+          v-for="(el, index) in withChanges(modelArr['listOfUnitDefinitions'])"
           :key="index"
           class="list-group-item"
         >
@@ -251,7 +251,7 @@
     <div v-else-if="view == 'rules'">
       <ul>
         <li
-          v-for="(el, index) in modelArr['listOfRules']"
+          v-for="(el, index) in withChanges(modelArr['listOfRules'])"
           :key="index"
           class="list-group-item"
         >
@@ -268,7 +268,7 @@
     <div v-else-if="view == 'functions'">
       <ul>
         <li
-          v-for="(el, index) in modelArr['listOfFunctionDefinitions']"
+          v-for="(el, index) in withChanges(modelArr['listOfFunctionDefinitions'])"
           :key="index"
           class="list-group-item"
         >
@@ -898,6 +898,7 @@ export default {
         ) {
           //TODO: target node
           modelData = this.changedNode(c, modelData, "listOfRules");
+
         } else console.error(c);
       });
 
@@ -979,6 +980,38 @@ export default {
       }
     },
 
+    // A list entry (unit / parameter / rule / …) is worth showing when the
+    // whole node was inserted, deleted or moved (el.change is set) or when at
+    // least one of its attributes was replaced by a change marker object
+    // ({ type, changeID, oldValue, newValue }, or the math-change object).
+    // Plain string values mean that attribute is unchanged, so an entry with
+    // only strings and no el.change is an untouched node and gets hidden.
+    hasChange: function (el) {
+      if (!el || typeof el !== "object") return false;
+      if (el.change) return true;
+      return Object.values(el).some((v) => v !== null && typeof v === "object");
+    },
+
+    withChanges: function (list) {
+      if (!Array.isArray(list)) return [];
+      return list.filter((el) => this.hasChange(el));
+    },
+
+    // Maps a change marker ({ type: "u" | "i" | "d" | "m", ... }) to its
+    // colour class so the attribute name can be tinted like its value.
+    // Returns "" for a plain (unchanged) value.
+    changeColor: function (el) {
+      if (!el || typeof el !== "object") return "";
+      return (
+        {
+          u: "update-color",
+          i: "insert-color",
+          d: "delete-color",
+          m: "move-color",
+        }[el.type] ?? ""
+      );
+    },
+
     addAttributeChanges: function (c, modelData, list) {
       let el = this.getAttributeChange(c); //?? eigentlich unnötig ??
 
@@ -986,7 +1019,8 @@ export default {
 
       if (c.type === "u") {
         if (list === "sbmlAttr" || list === "modelAttr")
-          modelData[list][el.name] = {
+          modelData[list].attr[el.name] = {
+            type: "u",
             changeID: el.changeID,
             oldValue: el.oldValue,
             newValue: el.newValue,
@@ -1088,17 +1122,16 @@ export default {
         } else if (
           list === "listOfParameters" ||
           list === "listOfUnitDefinitions" ||
-          list === "listOfCompartments"
+          list === "listOfCompartments" ||
+          list === "listOfRules" ||
+          list === "listOfFunctionDefinitions"
         ) {
-          //listOfRules? listOfFunctionDefinitions? listOfUnits?
           console.debug(modelData[list]);
 
-          //let target = this.getChangeTarget(c.newPath);
           let h = modelData[list][childNo];
-          modelData[list][childNo] = {};
+          modelData[list][childNo] = {...h};
           modelData[list][childNo]["change"] = c.type;
           modelData[list][childNo]["changeID"] = c.id;
-          modelData[list][childNo]["attr"] = h;
           console.debug(modelData[list][childNo]);
         }
       } else if (c.type == "d") {
@@ -1123,7 +1156,7 @@ export default {
         modelData[list].push({
           change: c.type,
           changeID: c.id,
-          attr: n,
+          ...n,
         });
       }
       return modelData;
@@ -1646,7 +1679,9 @@ export default {
       this.view === "rules" ||
       this.view === "functions"
     ) {
-      this.$nextTick(() => typesetMath(this.$el));
+      // `this.$el` is a text anchor here (the template has several root
+      // nodes), so hand MathJax the real container instead.
+      this.$nextTick(() => typesetMath(this.$refs.root));
     }
   },
 };

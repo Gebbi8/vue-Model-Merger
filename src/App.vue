@@ -56,8 +56,8 @@
           <div class="col-10 d-flex align-items-end flex-column" id="contact">
             <h5>Contact</h5>
             <p>Tom Gebhardt</p>
-            <p>tom.gebhardt@uni-rostock.de</p>
-            <p>https://www.sbi.uni-rostock.de/</p>
+            <p>tom.gebhardt@uni-greifswald.de</p>
+            <!-- <p>https://www.sbi.uni-rostock.de/</p> -->
           </div>
         </div>
         <div class="row">

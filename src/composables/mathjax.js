@@ -9,8 +9,11 @@ function engineReady() {
 
 // Typeset the MathML inside `el` (an Element). Safe to call before the engine
 // has finished loading and safe to call repeatedly on the same element.
+// Non-element nodes are ignored: a component with several root nodes exposes
+// its `$el` as a text anchor, and MathJax's DOM adaptor blows up
+// ("getElementsByTagName is not a function") on anything that isn't an Element.
 export async function typesetMath(el) {
-  if (!el || !window.MathJax) return;
+  if (!el || el.nodeType !== 1 || !window.MathJax) return;
   await engineReady();
   if (!window.MathJax.typesetPromise) return;
   try {
