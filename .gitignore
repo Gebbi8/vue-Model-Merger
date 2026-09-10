@@ -14,6 +14,9 @@ dist-ssr
 coverage
 *.local
 
+# build artifact: `npm run build` copies public/bives here
+/bives/
+
 /cypress/videos/
 /cypress/screenshots/
 
