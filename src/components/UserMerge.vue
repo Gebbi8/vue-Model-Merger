@@ -427,7 +427,7 @@ export default {
               "check",
               responses,
               this.newDocument,
-              this.oldDocument
+              this.oldDocument,
             );
             //alert("test");
             this.createInterface();
@@ -519,7 +519,7 @@ export default {
                     if (!speciesNodes.some((sN) => sN.id === addNodeId2)) {
                       //alert("check nodes");
                       addNode2 = this.json.nodes.find(
-                        (n) => n.id === addNodeId2
+                        (n) => n.id === addNodeId2,
                       );
                       speciesNodes.push(addNode2);
                     }
@@ -555,7 +555,7 @@ export default {
       promiseV1,
       promiseV2,
       promiseDiff,
-      promiseJson
+      promiseJson,
     ) {
       Promise.allSettled([promiseV1, promiseV2, promiseDiff, promiseJson])
         .then((responses) => {
@@ -575,7 +575,7 @@ export default {
             this.v1,
             this.v2,
             this.oldDocument,
-            this.newDocument
+            this.newDocument,
           );
 
           this.json = responses[3].value.data;
@@ -666,7 +666,7 @@ export default {
 
     getModelAttr: function () {
       // gets Attributes on SBML tag
-      let attr = [];
+      let attr;
       let modelAttr = {};
       console.info("this");
       attr = this.getAllNodeAttr(this.newDocument.firstChild);
@@ -677,7 +677,7 @@ export default {
       //get all Attributes of model
       console.info("or this");
       attr = this.getAllNodeAttr(
-        this.newDocument.firstChild.children.item("model")
+        this.newDocument.firstChild.children.item("model"),
       );
       modelAttr["modelAttr"] = {
         attr: attr,
@@ -704,14 +704,14 @@ export default {
 
       //get units
       let unitsListPath = useGetLocalXPath(
-        "/sbml[1]/model[1]/listOfUnitDefinitions[1]"
+        "/sbml[1]/model[1]/listOfUnitDefinitions[1]",
       );
       let units = this.getUnits(this.newDocument, unitsListPath);
       if (units) modelData["listOfUnitDefinitions"] = units;
 
       //get parameters
       let parameterListPath = useGetLocalXPath(
-        "/sbml[1]/model[1]/listOfParameters[1]"
+        "/sbml[1]/model[1]/listOfParameters[1]",
       );
       let parameters = this.getParameters(this.newDocument, parameterListPath);
       if (parameters) modelData["listOfParameters"] = parameters;
@@ -723,21 +723,21 @@ export default {
 
       //get functions
       let functionDefsListPath = useGetLocalXPath(
-        "/sbml[1]/model[1]/listOfFunctionDefinitions[1]"
+        "/sbml[1]/model[1]/listOfFunctionDefinitions[1]",
       );
       let functionDefs = this.getFunctions(
         this.newDocument,
-        functionDefsListPath
+        functionDefsListPath,
       );
       if (functionDefs) modelData["listOfFunctionDefinitions"] = functionDefs;
 
       //get compartments
       let compartmentsListPath = useGetLocalXPath(
-        "/sbml[1]/model[1]/listOfCompartments[1]"
+        "/sbml[1]/model[1]/listOfCompartments[1]",
       );
       let compartments = this.getCompartments(
         this.newDocument,
-        compartmentsListPath
+        compartmentsListPath,
       );
       if (compartments) modelData["listOfCompartments"] = compartments;
 
@@ -863,7 +863,7 @@ export default {
           modelData = this.addAttributeChanges(
             c,
             modelData,
-            "listOfParameters"
+            "listOfParameters",
           );
         } else if (c.target == "node") {
           //TODO: target node
@@ -878,7 +878,7 @@ export default {
           modelData = this.addAttributeChanges(
             c,
             modelData,
-            "listOfUnitDefinitions"
+            "listOfUnitDefinitions",
           );
         } else if (c.target == "node") {
           //TODO: target node
@@ -905,7 +905,7 @@ export default {
           modelData = this.addAttributeChanges(
             c,
             modelData,
-            "listOfCompartments"
+            "listOfCompartments",
           );
         }
         if (c.target == "node") {
@@ -919,14 +919,14 @@ export default {
           modelData = this.addAttributeChanges(
             c,
             modelData,
-            "listOfFunctionDefinitions"
+            "listOfFunctionDefinitions",
           );
         }
         if (c.target == "node") {
           modelData = this.changedNode(
             c,
             modelData,
-            "listOfFunctionDefinitions"
+            "listOfFunctionDefinitions",
           );
         }
         if (c.target == "text") {
@@ -934,7 +934,7 @@ export default {
           modelData = this.changedMath(
             c,
             modelData,
-            "listOfFunctionDefinitions"
+            "listOfFunctionDefinitions",
           );
 
           console.debug(modelData["listOfFunctionDefinitions"][0].math);
@@ -971,7 +971,7 @@ export default {
           this.progressCount++;
           this.progress =
             Math.round(
-              (100 / this.decisionArrCount) * this.progressCount * 100
+              (100 / this.decisionArrCount) * this.progressCount * 100,
             ) / 100;
         }
         this.decisionArr[changeID]["decision"] = d;
@@ -1138,7 +1138,7 @@ export default {
         let functionPath =
           c.oldPath.substr(
             0,
-            c.oldPath.indexOf("/functionDefinition[1]/math[1]/")
+            c.oldPath.indexOf("/functionDefinition[1]/math[1]/"),
           ) + "/functionDefinition[1]/math[1]";
         let target = this.getChangeTarget(functionPath);
 
@@ -1160,7 +1160,7 @@ export default {
         let functionPath =
           c.newPath.substr(
             0,
-            c.newPath.indexOf("/functionDefinition[1]/math[1]/")
+            c.newPath.indexOf("/functionDefinition[1]/math[1]/"),
           ) + "/functionDefinition[1]/math[1]";
         let target = this.getChangeTarget(functionPath);
         let newMath = modelData[list][target.childNo].math.math;
@@ -1623,7 +1623,7 @@ export default {
       const promiseV1 = await axios.get("/dev/fake-dupreez/dupreez6.xml");
       const promiseV2 = await axios.get("/dev/fake-dupreez/dupreez7-f.xml");
       const promiseJson = await axios.get(
-        "/dev/fake-dupreez/6-7f-sbgnJson.json"
+        "/dev/fake-dupreez/6-7f-sbgnJson.json",
       );
 
       /*             const promiseDiff = await axios.get('/dev/Salazar2009/xmlDiff.xml');
@@ -1635,7 +1635,7 @@ export default {
         promiseV1,
         promiseV2,
         promiseDiff,
-        promiseJson
+        promiseJson,
       );
     }
   },

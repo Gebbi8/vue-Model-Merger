@@ -2,13 +2,17 @@
   <div id="topLayer" class="d-flex flex-column h-100">
     <div class="custom-color-1" id="head">
       <div class="container">
-        <div class="row ">
-          <div id="logoContainer" class="col-8  d-flex">
+        <div class="row">
+          <div id="logoContainer" class="col-8 d-flex">
             <img id="fullLogo" src="/src/assets/full-logo.svg" />
           </div>
 
           <div class="col-4 d-flex align-items-center justify-content-end">
-            <button type="button" class="btn btn-light btn-sm" v-on:click="btnSwitchView">
+            <button
+              type="button"
+              class="btn btn-light btn-sm"
+              v-on:click="btnSwitchView"
+            >
               Switch Mode
             </button>
           </div>
@@ -42,7 +46,10 @@
         <!--Image-->
         <div class="row">
           <div class="col-2 d-flex align-items-center">
-            <a href="https://integrative-pathway-models.de/" title="INCOME-Website">
+            <a
+              href="https://integrative-pathway-models.de/"
+              title="INCOME-Website"
+            >
               <img src="./assets/csm_logo_INCOME11.png" class="img-fluid" alt />
             </a>
           </div>
@@ -100,11 +107,10 @@ export default {
 //   }
 // }
 //import 'bootstrap/dist/css/bootstrap.min.css'
-
 </script>
 
 <style>
-#head>button {
+#head > button {
   margin-bottom: 0;
 }
 </style>
@@ -143,7 +149,7 @@ export default {
   padding-bottom: 1em;
 }
 
-#contact>p {
+#contact > p {
   margin-bottom: auto;
 }
 

@@ -116,12 +116,12 @@
 
 <script>
 import LocalFiles from "./LocalFiles.vue";
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   components: {
-        LocalFiles
-    },
+    LocalFiles,
+  },
   data() {
     return {
       job: this.$route.query.jobID,
@@ -229,7 +229,7 @@ export default {
       link.click();
       link.remove();
       window.URL.revokeObjectURL(url);
-    }
+    },
   },
 };
 </script>
