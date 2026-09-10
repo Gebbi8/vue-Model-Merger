@@ -1,20 +1,40 @@
-# Local BiVeS backend for development.
+# Local development stack: Vue dev server + BiVeS backend.
 #
-# The public instance (https://bives.bio.informatik.uni-rostock.de/) is down and
-# the newest published bives-webapp images (1.10.12 - 1.10.16) are broken: the
+#   docker compose up          # frontend on http://localhost:5173, full pipeline
+#   docker compose up -d bives bives-php   # backend only, run `npm run dev` on the host
+#
+# The public BiVeS instance (https://bives.bio.informatik.uni-rostock.de/) is down
+# and the newest published bives-webapp images (1.10.12 - 1.10.16) are broken: the
 # servlet is compiled against jakarta.servlet but shipped on Tomcat 8.5, so every
 # request 404s with a ClassCastException. 1.10.4 is the last known-good tag.
 #
-#   docker compose up -d
-#   BIVES_PROXY=http://localhost:8088 npm run dev
-#
-# Then the Vue dev server proxies /bives/*.php to the local PHP container, which
-# forwards jobs to the local BiVeS container instead of the Rostock server.
-#
+#   web        Vite dev server                              -> http://localhost:5173/
 #   bives      raw BiVeS web service (JSON in/out)          -> http://localhost:1234/
 #   bives-php  the simpleMerge.php / userMerge.php wrappers  -> http://localhost:8088/bives/
+#
+# The proxy target for /bives/*.php comes from BIVES_PROXY (see .env). The web
+# container overrides it to reach bives-php over the compose network.
 
 services:
+  web:
+    image: node:24-bookworm-slim
+    # run as the host user (DOCKER_UID/GID in .env) so files the container writes
+    # into the bind mount - node_modules, public/mathjax - are not root-owned
+    user: "${DOCKER_UID:-1000}:${DOCKER_GID:-1000}"
+    working_dir: /app
+    environment:
+      BIVES_PROXY: "http://bives-php"
+      HOME: /tmp
+    command: sh -c "[ -x node_modules/.bin/vite ] || npm ci; npm run dev"
+    depends_on:
+      bives-php:
+        condition: service_started
+    volumes:
+      - ./:/app
+    ports:
+      - "127.0.0.1:5173:5173"
+    restart: unless-stopped
+
   bives:
     image: binfalse/bives-webapp:1.10.4
     ports:
