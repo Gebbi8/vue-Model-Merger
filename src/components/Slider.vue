@@ -23,6 +23,7 @@
 <script>
 import * as divilApi from "../../DiVil/javascriptAndCss/init";
 import DecisionBtn from "./DecisionBtn.vue";
+import { typesetMath } from "../composables/mathjax";
 
 export default {
   components: {
@@ -64,7 +65,9 @@ export default {
         changeList,
         this.structuredData,
       );
-      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+      // DiVil fills #changeList-N with the central node's change list, which can
+      // contain <math>; typeset it once the DOM has it.
+      this.$nextTick(() => typesetMath(document.getElementById(changeList)));
     },
 
     emitDecision: function (changeID, dec) {

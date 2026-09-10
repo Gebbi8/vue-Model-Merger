@@ -350,6 +350,7 @@ import Merger from "./Merger.vue";
 import LocalFiles from "./LocalFiles.vue";
 import axios from "axios";
 import * as divilApi from "../../DiVil/javascriptAndCss/init";
+import { typesetMath } from "../composables/mathjax";
 
 import { useGetLocalXPath, getNode } from "../composables/xmlInteraction";
 
@@ -1645,8 +1646,7 @@ export default {
       this.view === "rules" ||
       this.view === "functions"
     ) {
-      console.error("Mathjax call, but not defined");
-      //MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+      this.$nextTick(() => typesetMath(this.$el));
     }
   },
 };

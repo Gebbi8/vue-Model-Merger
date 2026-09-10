@@ -5,14 +5,7 @@ import globals from "globals";
 
 export default [
   {
-    ignores: [
-      "dist/**",
-      "public/**",
-      "bives/**",
-      "3rdPartyJS/**",
-      "DiVil/**",
-      "dev/**",
-    ],
+    ignores: ["dist/**", "public/**", "bives/**", "DiVil/**", "dev/**"],
   },
 
   js.configs.recommended,
@@ -36,7 +29,7 @@ export default [
   },
 
   {
-    files: ["*.config.js"],
+    files: ["*.config.js", "scripts/**"],
     languageOptions: {
       globals: { ...globals.node },
     },

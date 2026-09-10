@@ -17,6 +17,9 @@ coverage
 # build artifact: `npm run build` copies public/bives here
 /bives/
 
+# vendored by scripts/copy-mathjax.mjs (predev / prebuild)
+/public/mathjax/
+
 /cypress/videos/
 /cypress/screenshots/
 
