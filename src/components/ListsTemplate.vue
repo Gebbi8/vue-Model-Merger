@@ -1,11 +1,11 @@
 <template>
-  <div v-if="el.change === 'i'">
-    <ul class="list-group list-group-horizontal">
+  <div v-if="el.change === 'i'" class="attr-row-passthrough">
+    <ul class="list-group list-group-horizontal attr-row-passthrough">
       <template v-for="(attr, name) in el">
         <li
           v-if="name != 'change' && name != 'changeID'"
           :key="name"
-          class="list-group-item insert-color"
+          class="list-group-item insert-color attr-cell"
         >
           <span v-if="name === 'math'" v-html="attr"> </span>
           <span v-else>
@@ -13,22 +13,23 @@
           </span>
         </li>
       </template>
-      <div v-if="el.changeID" class="container">
+      <div v-if="el.changeID" class="attr-cell decision-cell">
         <decision-btn
           :changeID="el.changeID"
           :d="decisionArr[el.changeID]['decision']"
           @decision="this.updateDecision"
         />
       </div>
+      <div v-else class="attr-cell decision-cell"></div>
     </ul>
   </div>
-  <div v-else-if="el.change === 'd'">
-    <ul class="list-group list-group-horizontal">
+  <div v-else-if="el.change === 'd'" class="attr-row-passthrough">
+    <ul class="list-group list-group-horizontal attr-row-passthrough">
       <template v-for="(attr, name) in el">
         <li
           v-if="name != 'change' && name != 'changeID'"
           :key="name"
-          class="list-group-item delete-color"
+          class="list-group-item delete-color attr-cell"
         >
           <span v-if="name === 'math'" v-html="attr"> </span>
           <span v-else>
@@ -36,19 +37,20 @@
           </span>
         </li>
       </template>
-      <div v-if="el.changeID" class="container">
+      <div v-if="el.changeID" class="attr-cell decision-cell">
         <decision-btn
           :changeID="el.changeID"
           :d="decisionArr[el.changeID]['decision']"
           @decision="this.updateDecision"
         />
       </div>
+      <div v-else class="attr-cell decision-cell"></div>
     </ul>
   </div>
   <!-- <div v-if="el.change === 'u'"> -->
-  <div v-else>
-    <ul class="list-group list-group-horizontal">
-      <li v-for="(attr, name) in el" :key="name" class="list-group-item">
+  <div v-else class="attr-row-passthrough">
+    <ul class="list-group list-group-horizontal attr-row-passthrough">
+      <li v-for="(attr, name) in el" :key="name" class="list-group-item attr-cell">
         <div v-if="typeof attr === 'object'">
           <div v-if="attr.type === 'u'">
             <span class="update-color">{{ name }} </span>:

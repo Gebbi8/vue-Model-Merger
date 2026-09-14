@@ -182,23 +182,20 @@
             class="list-group-item"
             :id="`${element.id}`"
           >
-            <ul class="list-group">
+            <ul class="list-group attr-table">
               <template v-for="(el, key) in element.attr" :key="key">
-                <li class="list-group-item d-flex justify-content-evenly row">
-                  <div class="col-3">
+                <li class="list-group-item attr-table-row">
+                  <div class="attr-cell">
                     <b :class="changeColor(el)">{{ key }}</b
                     >:
                   </div>
-                  <div v-if="el.oldValue" class="col-3 delete-color">
-                    {{ el.oldValue }}
-                  </div>
-                  <div v-if="el.newValue" class="col-3 insert-color">
-                    {{ el.newValue }}
-                  </div>
-                  <div v-if="!el.changeID" class="col-9">{{ el }}</div>
+                  <div class="attr-cell delete-color">{{ el && el.oldValue }}</div>
+                  <div class="attr-cell insert-color">{{ el && el.newValue }}</div>
+                  <div class="attr-cell">{{ !el || !el.changeID ? el : "" }}</div>
 
-                  <div v-if="el.changeID" class="container col-1">
+                  <div class="attr-cell decision-cell">
                     <decision-btn
+                      v-if="el && el.changeID"
                       :changeID="el.changeID"
                       :d="this.decisionArr[el.changeID]['decision']"
                       @decision="this.updateDecision"
@@ -213,13 +210,13 @@
     </div>
 
     <div v-else-if="view == 'parameters'">
-      <ul>
+      <ul class="attr-table">
         <li
           v-for="(el, index) in withChanges(modelArr['listOfParameters'])"
           :key="index"
-          class="list-group-item"
+          class="list-group-item attr-table-row"
         >
-          <div class="container">
+          <div class="attr-row-passthrough">
             <lists-template
               :el="el"
               :decisionArr="this.decisionArr"
@@ -231,13 +228,13 @@
     </div>
 
     <div v-else-if="view == 'units'">
-      <ul>
+      <ul class="attr-table">
         <li
           v-for="(el, index) in withChanges(modelArr['listOfUnitDefinitions'])"
           :key="index"
-          class="list-group-item"
+          class="list-group-item attr-table-row"
         >
-          <div class="container">
+          <div class="attr-row-passthrough">
             <lists-template
               :el="el"
               :decisionArr="this.decisionArr"
@@ -249,13 +246,13 @@
     </div>
 
     <div v-else-if="view == 'rules'">
-      <ul>
+      <ul class="attr-table">
         <li
           v-for="(el, index) in withChanges(modelArr['listOfRules'])"
           :key="index"
-          class="list-group-item"
+          class="list-group-item attr-table-row"
         >
-          <div class="container">
+          <div class="attr-row-passthrough">
             <lists-template
               :el="el"
               :decisionArr="this.decisionArr"
@@ -266,13 +263,13 @@
       </ul>
     </div>
     <div v-else-if="view == 'functions'">
-      <ul>
+      <ul class="attr-table">
         <li
           v-for="(el, index) in withChanges(modelArr['listOfFunctionDefinitions'])"
           :key="index"
-          class="list-group-item"
+          class="list-group-item attr-table-row"
         >
-          <div class="container">
+          <div class="attr-row-passthrough">
             <lists-template
               :el="el"
               :decisionArr="this.decisionArr"
@@ -284,13 +281,13 @@
     </div>
 
     <div v-else-if="view == 'compartments'">
-      <ul>
+      <ul class="attr-table">
         <li
           v-for="(el, index) in modelArr['listOfCompartments']"
           :key="index"
-          class="list-group-item"
+          class="list-group-item attr-table-row"
         >
-          <div class="container">
+          <div class="attr-row-passthrough">
             <lists-template
               :el="el"
               :decisionArr="this.decisionArr"
@@ -351,6 +348,7 @@ import LocalFiles from "./LocalFiles.vue";
 import axios from "axios";
 import * as divilApi from "../../DiVil/javascriptAndCss/init";
 import { typesetMath } from "../composables/mathjax";
+import { contentMathToPresentation } from "../composables/contentMathml";
 
 import { useGetLocalXPath, getNode } from "../composables/xmlInteraction";
 
@@ -1098,7 +1096,7 @@ export default {
           modelData[list][target.childNo][targetAttr] = {
             type: "d",
             changeID: c.id,
-            newValue: c.oldValue,
+            oldValue: c.oldValue,
           };
         } else {
           console.debug(c, c.type === "d");
@@ -1233,7 +1231,7 @@ export default {
         .iterateNext();
 
       if (mathML == null) return mathML;
-      return mathML.outerHTML; //.iterateNext().innerHTML;
+      return contentMathToPresentation(mathML);
     },
 
     getUnits: function (doc, path) {
@@ -1267,9 +1265,9 @@ export default {
     },
 
     getUnitMathML: function (definitions) {
-      let times = " &InvisibleTimes; ";
-      let numerator = null;
-      let denominator = null;
+      const times = "<mo>&InvisibleTimes;</mo>";
+      let numeratorTerms = [];
+      let denominatorTerms = [];
 
       for (let j = 0; j < definitions.length; j++) {
         //unit["childNumber"] = j;  due to the transformation to mathML, i can't fix the elemnts to the path
@@ -1279,25 +1277,27 @@ export default {
         let m = definitions[j].attributes.multiplier.value;
         let u = this.getUnit(definitions[j].attributes.kind);
 
-        let e = "";
-        if (m && m != 1) e = m;
+        // <msup>/<mi> need element children, not raw text, so build the base
+        // symbol and (if present) its exponent as their own elements.
+        let base = "<mi mathvariant='italic'>" + s + u + "</mi>";
         if (Math.abs(exp) != 1)
-          e += "<msup>" + s + u + " " + Math.abs(exp) + "</msup>";
-        else e += s + u;
+          base = "<msup>" + base + "<mn>" + Math.abs(exp) + "</mn></msup>";
 
-        if (exp > 0) {
-          if (numerator == null && e != null)
-            numerator = "<mrow>" + "<mi mathvariant='italic'>" + e + "</mi>";
-          else numerator += times + "<mi mathvariant='italic'>" + e + "</mi>";
-        } else if (exp < 0) {
-          if (denominator == null && e != null)
-            denominator = "<mrow>" + "<mi mathvariant='italic'>" + e + "</mi>";
-          else denominator += times + "<mi mathvariant='italic'>" + e + "</mi>";
-        } else console.error("exponent zero");
+        let term =
+          m && m != 1 ? "<mn>" + m + "</mn>" + times + base : base;
+
+        if (exp > 0) numeratorTerms.push(term);
+        else if (exp < 0) denominatorTerms.push(term);
+        else console.error("exponent zero");
       }
 
-      numerator += "</mrow>";
-      if (denominator != null) denominator += "</mrow>";
+      // A unit with no positive-exponent factors (e.g. "per second") is a
+      // pure reciprocal, so the numerator defaults to 1 instead of nothing.
+      const join = (terms) =>
+        "<mrow>" + (terms.length ? terms.join(" " + times + " ") : "<mn>1</mn>") + "</mrow>";
+
+      let numerator = join(numeratorTerms);
+      let denominator = denominatorTerms.length ? join(denominatorTerms) : null;
 
       if (denominator != null)
         return (
@@ -1342,7 +1342,7 @@ export default {
         let childs = rules[i].children;
         for (let j = 0; j < childs.length; j++) {
           if (childs[j].localName == "math") {
-            rule["math"] = childs[j].outerHTML;
+            rule["math"] = contentMathToPresentation(childs[j]);
           }
         }
 
@@ -1390,7 +1390,7 @@ export default {
         let childs = functions[i].children;
         for (let j = 0; j < childs.length; j++) {
           if (childs[j].localName == "math") {
-            func["math"] = childs[j].outerHTML;
+            func["math"] = contentMathToPresentation(childs[j]);
           }
         }
 
@@ -1503,7 +1503,7 @@ export default {
 
       console.debug(functionNode.children[0]);
 
-      func["math"] = functionNode.children[0].outerHTML;
+      func["math"] = contentMathToPresentation(functionNode.children[0]);
 
       return func;
     },
@@ -1522,7 +1522,7 @@ export default {
 
       console.debug(ruleNode.children[0]);
 
-      rule["math"] = ruleNode.children[0].outerHTML;
+      rule["math"] = contentMathToPresentation(ruleNode.children[0]);
       //console.debug(path, rule, ruleNode);
 
       return rule;
@@ -1693,6 +1693,14 @@ export default {
   background-color: lightgray;
 }
 
+/* Reactions/Species changelist panel next to the graph (Slider.vue,
+   populated by DiVil's showSbgn.js). Same issue as the diff tables: MathJax's
+   SVG output doesn't reflow, so a wide kinetic-law formula could otherwise
+   grow this column past its card and the page. */
+.changeList {
+  overflow-x: auto;
+}
+
 /*bives-colors*/
 .delete-color {
   color: #d66a56;
@@ -1708,5 +1716,47 @@ export default {
 
 .update-color {
   color: #d6d287;
+}
+
+/*
+  Diff tables (parameters/units/rules/functions/compartments/model attrs):
+  each "row" is built from independent elements (one <ul> per changed node),
+  so flexbox can't share column widths across rows - every row would size its
+  own cells from its own content. display:table/table-row/table-cell does
+  this natively across sibling rows, so switch to that instead. The
+  passthrough wrappers exist only so intermediate divs/uls don't break the
+  table box hierarchy between a row and its cells.
+*/
+.attr-table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  /* Fallback for many modest-width columns adding up past the page width -
+     scroll the whole table rather than letting it force the page wider. */
+  overflow-x: auto;
+}
+
+.attr-table-row {
+  display: table-row;
+}
+
+.attr-row-passthrough {
+  display: contents;
+}
+
+.attr-cell {
+  display: table-cell;
+  vertical-align: top;
+  /* MathJax's SVG output doesn't reflow - a long formula just keeps growing
+     horizontally. Cap a single cell's width and let it scroll internally so
+     one big formula can't blow out the whole row/table by itself. */
+  max-width: min(32rem, 70vw);
+  overflow-x: auto;
+}
+
+.decision-cell {
+  white-space: nowrap;
+  width: 1%;
 }
 </style>
