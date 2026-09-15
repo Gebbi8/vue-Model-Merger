@@ -2,7 +2,6 @@
   <div id="user-merge" ref="root">
     <div id="generalInfo">
       <h3>Semi-automatic Merging</h3>
-      <h4>Still under development</h4>
       <p>
         You are in the semi-automatic merging mode. This means you can
         cherry-pick the changes you want to apply. We provide different views on

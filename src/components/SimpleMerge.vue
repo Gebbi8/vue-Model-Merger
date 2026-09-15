@@ -86,7 +86,7 @@
           "files":
           [
               "_path to file 1_",
-              "_path to file 2_" 
+              "_path to file 2_"
           ],
           "commands": [ "merge" ] }'
           https://bives.bio.informatik.uni-rostock.de/
